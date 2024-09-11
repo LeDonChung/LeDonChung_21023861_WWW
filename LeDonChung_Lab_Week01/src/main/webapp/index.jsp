@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html lang="en">
 <head>
     <title>JSP - Hello World</title>
@@ -8,7 +9,19 @@
 <body>
 
 <div class="container">
-    <form action="control" method="post">
+    <%
+
+        if(request.getAttribute("error") != null){
+            String error = (String) request.getAttribute("error");
+            out.print("<div class='alert alert-danger' role='alert'>" + error + "</div>");
+        }
+        if(request.getAttribute("message") != null){
+            String message = (String) request.getAttribute("message");
+            out.print("<div class='alert' role='alert'>" + message + "</div>");
+        }
+    %>
+
+    <form action="control" method="post" style="width: 50%; margin: auto;">
         <input type="hidden" value="login" name="action">
         <div class="mb-3">
             <label for="accountId" class="form-label">Username</label>

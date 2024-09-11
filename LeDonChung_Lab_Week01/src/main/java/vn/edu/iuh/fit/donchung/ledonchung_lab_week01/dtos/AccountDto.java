@@ -16,11 +16,20 @@ import java.util.Set;
 @AllArgsConstructor
 @ToString
 public class AccountDto implements Serializable {
-    private String accountId;
-    private String fullName;
-    private String password;
-    private String email;
-    private String phone;
-    private Byte status;
-    private Set<GrantAccessDto> grantAccesses = new LinkedHashSet<>();
+    public String accountId;
+    public String fullName;
+    public String password;
+    public String email;
+    public String phone;
+    public Byte status;
+    public Set<GrantAccessDto> grantAccesses = new LinkedHashSet<>();
+    public boolean isRole(String roleId) {
+        for (GrantAccessDto ga : grantAccesses) {
+            if (ga.getRole().getRoleId().equals(roleId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

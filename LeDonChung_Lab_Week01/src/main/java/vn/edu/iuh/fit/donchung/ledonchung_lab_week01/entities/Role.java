@@ -11,6 +11,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "role")
+@NamedQueries({
+        @NamedQuery(name = "Role.findAll", query = "select r from Role r")
+})
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -29,6 +32,6 @@ public class Role {
     @Column(name = "status", nullable = false)
     private Byte status;
 
-    @OneToMany(mappedBy = "role")
+    @OneToMany(mappedBy = "role", fetch = FetchType.EAGER)
     private Set<GrantAccess> grantAccesses = new LinkedHashSet<>();
 }

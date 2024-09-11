@@ -9,7 +9,9 @@ import java.util.Set;
 @Entity
 @Table(name = "account")
 @NamedQueries({
-        @NamedQuery(name = "Account.findByAccountIdAndPassword", query = "select a from Account a where a.accountId = :accountId and a.password = :password")
+        @NamedQuery(name = "Account.findByAccountIdAndPassword", query = "select a from Account a where a.accountId = :accountId and a.password = :password"),
+        @NamedQuery(name = "Account.findAllAccountNotIsAdmin", query = "select a from Account a JOIN a.grantAccesses ga WHERE ga.role.id != 'admin'"),
+        @NamedQuery(name = "Account.findByAccountId", query = "select a from Account a where a.accountId = :accountId")
 })
 @NoArgsConstructor
 @AllArgsConstructor
@@ -35,7 +37,7 @@ public class Account {
     @Column(name = "status", nullable = false)
     private Byte status;
 
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
     private Set<GrantAccess> grantAccesses = new LinkedHashSet<>();
 
 }
