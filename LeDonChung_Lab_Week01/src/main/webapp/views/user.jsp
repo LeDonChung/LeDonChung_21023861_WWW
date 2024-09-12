@@ -6,7 +6,9 @@
   Time: 8:17 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" isELIgnored="false" pageEncoding="ISO-8859-1" %>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>User</title>
@@ -16,39 +18,65 @@
 <body>
 <div class="container">
     <nav class="navbar navbar-light bg-light">
-            <p style="text-align: center">
-                <% AccountDto dto = (AccountDto) session.getAttribute("account");
-                    String welcome = "";
-                    if (dto != null) {
-                        welcome = "<p>" + "Welcome, " + dto.getFullName() + "</p>";
-                    } else {
-                        welcome = "<p>" + "Welcome, Guest</p>";
-                    }
-                    out.print(welcome);
-                %>
-            </p>
-            <form action="control" method="post">
-                <input type="hidden" name="action" value="logout"/>
-                <button class="btn btn-warning">Logout</button>
-            </form>
-    </nav>
 
-    <%
-        if (dto != null) {
-            String html = "<div style='margin: 100px 0'>";
-            html += "<p style=''>Full name: " + dto.getFullName() + "</p>";
-            html += "<p style=''>Email: " + dto.getEmail() + "</p>";
-            html += "<p style=''>Phone: " + dto.getPhone() + "</p>";
-            html += "<p> Role: " +
-                    dto.getGrantAccesses().stream()
-                    .map(grantAccessDto -> "<span>" + grantAccessDto.getRole().getRoleName() + "</span>")
-                    .reduce((s, s2) -> s + " " + s2).orElse("")
-                    .trim()
-                    + "</p>";
-            html += "</div>";
-            out.print(html);
-        }
-    %>
+        <%--                <% AccountDto dto = (AccountDto) session.getAttribute("account");--%>
+        <%--                    String welcome = "";--%>
+        <%--                    welcome += "<p style='text-align: center'>";--%>
+        <%--                    if (dto != null) {--%>
+        <%--                        welcome += "<p>" + "Welcome, " + dto.getFullName() + "</p>";--%>
+        <%--                    } else {--%>
+        <%--                        welcome += "<p>" + "Welcome, Guest</p>";--%>
+        <%--                    }--%>
+        <%--                    welcome+= "</p>";--%>
+        <%--                    out.print(welcome);--%>
+        <%--                %>--%>
+        <c:if test="${not empty sessionScope.get('account')}">
+            <p style='text-align: center'>
+                <c:out value="Welcome, ${sessionScope.get('account').fullName}"/>
+            </p>
+        </c:if>
+        <c:if test="${empty sessionScope.get('account')}">
+            <p style='text-align: center'>
+                <c:out value="Welcome, Guest"/>
+            </p>
+        </c:if>
+
+        <form action="control" method="post">
+            <input type="hidden" name="action" value="logout"/>
+            <button class="btn btn-warning">Logout</button>
+        </form>
+    </nav>
+<%--    <%--%>
+<%--        out.print("<h1 style='text-align: center'>User Information</h1>");--%>
+<%--    %>--%>
+<%--    <%--%>
+<%--        if (dto != null) {--%>
+<%--            String html = "<div style='margin: 100px 0'>";--%>
+<%--            html += "<p style=''>Full name: " + dto.getFullName() + "</p>";--%>
+<%--            html += "<p style=''>Email: " + dto.getEmail() + "</p>";--%>
+<%--            html += "<p style=''>Phone: " + dto.getPhone() + "</p>";--%>
+<%--            html += "<p> Role: " +--%>
+<%--                    dto.getGrantAccesses().stream()--%>
+<%--                            .map(grantAccessDto -> "<span>" + grantAccessDto.getRole().getRoleName() + "</span>")--%>
+<%--                            .reduce((s, s2) -> s + " " + s2).orElse("")--%>
+<%--                            .trim()--%>
+<%--                    + "</p>";--%>
+<%--            html += "</div>";--%>
+<%--            out.print(html);--%>
+<%--        }--%>
+<%--    %>--%>
+    <c:if test="${not empty sessionScope.get('account')}">
+        <div style='margin: 100px 0'>
+            <p style=''>Full name: ${sessionScope.get('account').fullName}</p>
+            <p style=''>Email: ${sessionScope.get('account').email}</p>
+            <p style=''>Phone: ${sessionScope.get('account').phone}</p>
+            <p> Role:
+                <c:forEach items="${sessionScope.get('account').grantAccesses}" var="item">
+                    <span>${item.role.roleName}</span>
+                </c:forEach>
+            </p>
+        </div>
+    </c:if>
 </div>
 </body>
 </html>

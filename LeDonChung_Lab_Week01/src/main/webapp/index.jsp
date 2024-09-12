@@ -1,5 +1,6 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" isELIgnored="false" pageEncoding="ISO-8859-1" %>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="en">
 <head>
     <title>JSP - Hello World</title>
@@ -9,18 +10,24 @@
 <body>
 
 <div class="container">
-    <%
+<%--    <%--%>
 
-        if(request.getAttribute("error") != null){
-            String error = (String) request.getAttribute("error");
-            out.print("<div class='alert alert-danger' role='alert'>" + error + "</div>");
-        }
-        if(request.getAttribute("message") != null){
-            String message = (String) request.getAttribute("message");
-            out.print("<div class='alert' role='alert'>" + message + "</div>");
-        }
-    %>
+<%--        if(request.getAttribute("error") != null){--%>
+<%--            String error = (String) request.getAttribute("error");--%>
+<%--            out.print("<div class='alert alert-danger' role='alert'>" + error + "</div>");--%>
+<%--        }--%>
+<%--        if(request.getAttribute("message") != null){--%>
+<%--            String message = (String) request.getAttribute("message");--%>
+<%--            out.print("<div class='alert' role='alert'>" + message + "</div>");--%>
+<%--        }--%>
+<%--    %>--%>
+    <c:if test="${error} != null">
+        <div class='alert alert-danger' role='alert'>${error}</div>
+    </c:if>
 
+    <c:if test="${message} != null">
+        <div class='alert alert-success' role='alert'>${message}</div>
+    </c:if>
     <form action="control" method="post" style="width: 50%; margin: auto;">
         <input type="hidden" value="login" name="action">
         <div class="mb-3">
