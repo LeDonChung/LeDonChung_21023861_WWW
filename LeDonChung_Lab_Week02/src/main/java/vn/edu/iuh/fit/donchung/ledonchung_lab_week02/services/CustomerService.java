@@ -1,26 +1,27 @@
-package vn.edu.iuh.fit.donchung.ledonchung_lab_week02.repositories;
+package vn.edu.iuh.fit.donchung.ledonchung_lab_week02.services;
 
 import vn.edu.iuh.fit.donchung.ledonchung_lab_week02.models.Customer;
 
 import java.util.List;
-import java.util.Optional;
+
 
 /**
- * Interface CustomerRepository
+ * Interface CustomerService
  */
-public interface CustomerRepository {
-    /**
-     * Tìm tất cả khách hàng
-     * @return List<Customer>: Danh sách khách hàng
-     */
-    List<Customer> findAll();
+public interface CustomerService {
 
     /**
-     * Tìm khách hàng theo id
+     * Lấy tất cả khách hàng
+     * @return List<Customer>: Danh sách khách hàng
+     */
+    List<Customer> getAll();
+
+    /**
+     * Lấy khách hàng theo id
      * @param id là id của khách hàng
      * @return Customer nếu tìm thấy, ngược lại trả về null
      */
-    Optional<Customer> findById(Long id);
+    Customer getById(Long id);
 
     /**
      * Lưu khách hàng mới hoặc cập nhật thông tin khách hàng
@@ -35,5 +36,6 @@ public interface CustomerRepository {
      * @return boolean: true nếu xóa thành công, ngược lại trả về false
      */
     boolean delete(Long id);
+
 
 }

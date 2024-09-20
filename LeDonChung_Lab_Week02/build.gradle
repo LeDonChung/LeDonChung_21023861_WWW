@@ -22,6 +22,8 @@ tasks.withType(JavaCompile) {
 }
 
 dependencies {
+  //for convert type in rest
+  implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2'
   compileOnly('jakarta.platform:jakarta.jakartaee-api:10.0.0')
   implementation('org.glassfish.jaxb:jaxb-runtime:4.0.3')
   implementation('org.jboss.weld.se:weld-se-core:5.1.2.Final')

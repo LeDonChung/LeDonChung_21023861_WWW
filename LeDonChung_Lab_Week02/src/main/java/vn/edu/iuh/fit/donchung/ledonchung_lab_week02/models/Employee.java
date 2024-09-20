@@ -1,5 +1,6 @@
 package vn.edu.iuh.fit.donchung.ledonchung_lab_week02.models;
 
+import jakarta.json.bind.annotation.JsonbDateFormat;
 import jakarta.persistence.*;
 import lombok.*;
 import vn.edu.iuh.fit.donchung.ledonchung_lab_week02.enums.EmployeeStatus;
@@ -14,6 +15,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@NamedQueries(
+        @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
+)
 public class Employee {
 
     @Id

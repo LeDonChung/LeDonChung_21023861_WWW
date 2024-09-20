@@ -12,6 +12,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@NamedQueries(
+        {
+                @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c")
+        }
+)
 public class Customer {
 
     @Id
