@@ -12,7 +12,13 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@NamedQueries(
+        {
+                @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
+                @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p WHERE p.id = :id")
+        }
+
+)
 public class Product {
 
     @Id
@@ -36,13 +42,10 @@ public class Product {
     @Column(name = "unit", length = 25)
     private String unit;
 
-    @OneToMany(mappedBy = "product")
-    private List<OrderDetail> orderDetails;
-
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ProductImage> productImages;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ProductPrice> productPrices;
 
     // Getters và Setters

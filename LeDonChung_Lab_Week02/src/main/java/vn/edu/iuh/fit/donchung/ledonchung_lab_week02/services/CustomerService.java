@@ -1,5 +1,6 @@
 package vn.edu.iuh.fit.donchung.ledonchung_lab_week02.services;
 
+import vn.edu.iuh.fit.donchung.ledonchung_lab_week02.dtos.CustomerDto;
 import vn.edu.iuh.fit.donchung.ledonchung_lab_week02.models.Customer;
 
 import java.util.List;
@@ -14,21 +15,21 @@ public interface CustomerService {
      * Lấy tất cả khách hàng
      * @return List<Customer>: Danh sách khách hàng
      */
-    List<Customer> getAll();
+    List<CustomerDto> getAll();
 
     /**
      * Lấy khách hàng theo id
      * @param id là id của khách hàng
      * @return Customer nếu tìm thấy, ngược lại trả về null
      */
-    Customer getById(Long id);
+    CustomerDto getById(Long id);
 
     /**
      * Lưu khách hàng mới hoặc cập nhật thông tin khách hàng
      * @param customer là đối tượng Customer cần lưu
      * @return Customer nếu lưu thành công, ngược lại trả về null
      */
-    Customer save(Customer customer);
+    CustomerDto save(CustomerDto customer);
 
     /**
      * Xóa khách hàng theo id

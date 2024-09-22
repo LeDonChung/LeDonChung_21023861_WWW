@@ -4,6 +4,7 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import vn.edu.iuh.fit.donchung.ledonchung_lab_week02.dtos.EmployeeDto;
 import vn.edu.iuh.fit.donchung.ledonchung_lab_week02.enums.EmployeeStatus;
 import vn.edu.iuh.fit.donchung.ledonchung_lab_week02.models.Employee;
 import vn.edu.iuh.fit.donchung.ledonchung_lab_week02.services.EmployeeService;
@@ -18,7 +19,7 @@ public class EmployeeResource {
     @GET
     public Response getAll() {
         try {
-            List<Employee> employees = employeeService.getAll();
+            List<EmployeeDto> employees = employeeService.getAll();
             return Response.ok()
                     .entity(employees)
                     .build();
@@ -33,7 +34,7 @@ public class EmployeeResource {
     @Path("/{id}")
     public Response getById(@PathParam("id") Long id) {
         try {
-            Employee employee = employeeService.getById(id);
+            EmployeeDto employee = employeeService.getById(id);
             if(employee == null) {
                 return Response.status(jakarta.ws.rs.core.Response.Status.NOT_FOUND)
                         .entity("Employee with id " + id + " not found")
@@ -51,7 +52,7 @@ public class EmployeeResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response create(Employee employee) {
+    public Response create(EmployeeDto employee) {
         try {
             employee = employeeService.save(employee);
             return Response.status(Response.Status.CREATED)
@@ -66,7 +67,7 @@ public class EmployeeResource {
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response update(Employee employee) {
+    public Response update(EmployeeDto employee) {
         try {
             employee = employeeService.save(employee);
             return Response.status(Response.Status.OK)
@@ -84,7 +85,7 @@ public class EmployeeResource {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response updateStatus(@PathParam("id") Long id, @QueryParam("status") String status){
         try {
-            Employee employee = employeeService.updateStatus(id, EmployeeStatus.valueOf(status));
+            EmployeeDto employee = employeeService.updateStatus(id, EmployeeStatus.valueOf(status));
             if(employee == null) {
                 return Response.status(Response.Status.NOT_FOUND)
                         .entity("Employee with id " + id + " not found")

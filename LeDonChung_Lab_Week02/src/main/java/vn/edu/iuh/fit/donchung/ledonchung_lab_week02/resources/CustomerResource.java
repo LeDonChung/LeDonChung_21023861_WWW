@@ -6,6 +6,7 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import vn.edu.iuh.fit.donchung.ledonchung_lab_week02.dtos.CustomerDto;
 import vn.edu.iuh.fit.donchung.ledonchung_lab_week02.models.Customer;
 import vn.edu.iuh.fit.donchung.ledonchung_lab_week02.services.CustomerService;
 import vn.edu.iuh.fit.donchung.ledonchung_lab_week02.utils.AppUtils;
@@ -19,11 +20,12 @@ public class CustomerResource {
     @GET
     public Response getAllCustomers() {
         try {
-            List<Customer> customers = customerService.getAll();
+            List<CustomerDto> customers = customerService.getAll();
             return Response.ok()
                     .entity(customers)
                     .build();
         } catch (Exception e) {
+            e.printStackTrace();
             return Response.serverError()
                     .entity(AppUtils.SERVER_ERROR)
                     .build();
@@ -35,7 +37,7 @@ public class CustomerResource {
     @Path("/{id}")
     public Response getCustomerById(@PathParam("id") Long id) {
         try {
-            Customer customer = customerService.getById(id);
+            CustomerDto customer = customerService.getById(id);
             if(customer == null) {
                 return Response.status(Response.Status.NOT_FOUND)
                         .entity("Customer with id " + id + " not found")
@@ -45,6 +47,7 @@ public class CustomerResource {
                     .entity(customer)
                     .build();
         } catch (Exception e) {
+            e.printStackTrace();
             return Response.serverError()
                     .entity(AppUtils.SERVER_ERROR)
                     .build();
@@ -53,13 +56,14 @@ public class CustomerResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response create(Customer customer) {
+    public Response create(CustomerDto customer) {
         try {
             customer = customerService.save(customer);
             return Response.status(Response.Status.CREATED)
                     .entity(customer)
                     .build();
         } catch (Exception e) {
+            e.printStackTrace();
             return Response.serverError()
                     .entity(AppUtils.SERVER_ERROR)
                     .build();
@@ -69,13 +73,14 @@ public class CustomerResource {
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response update(Customer customer) {
+    public Response update(CustomerDto customer) {
         try {
             customer = customerService.save(customer);
             return Response.status(Response.Status.OK)
                     .entity(customer)
                     .build();
         } catch (Exception e) {
+            e.printStackTrace();
             return Response.serverError()
                     .entity(AppUtils.SERVER_ERROR)
                     .build();
@@ -91,6 +96,7 @@ public class CustomerResource {
                     .entity(result)
                     .build();
         } catch (Exception e) {
+            e.printStackTrace();
             return Response.serverError()
                     .entity(AppUtils.SERVER_ERROR)
                     .build();

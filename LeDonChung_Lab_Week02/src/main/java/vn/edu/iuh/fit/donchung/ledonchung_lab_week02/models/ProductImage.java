@@ -5,12 +5,16 @@ import lombok.*;
 
 @Entity
 @Table(name = "product_images")
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
+@NamedQueries(
+        @NamedQuery(name = "ProductImage.findByProductId",
+                query = "SELECT pi FROM ProductImage pi WHERE pi.product.id = :productId")
+)
 public class ProductImage {
 
     @Id
@@ -24,7 +28,7 @@ public class ProductImage {
     @Column(name = "path", length = 250)
     private String path;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
 

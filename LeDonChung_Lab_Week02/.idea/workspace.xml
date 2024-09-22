@@ -5,14 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8f4e71e3-a631-4fc8-b6d6-11fb67b25b13" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../LeDonChung_21023861_Session01/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../LeDonChung_21023861_Session01/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LeDonChung_21023861_Session01/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../LeDonChung_21023861_Session01/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/e6386deb-d43e-41b7-b4c6-7dc05eb44228.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/e6386deb-d43e-41b7-b4c6-7dc05eb44228.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vn/edu/iuh/fit/donchung/ledonchung_lab_week02/enums/EmployeeStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/edu/iuh/fit/donchung/ledonchung_lab_week02/enums/EmployeeStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vn/edu/iuh/fit/donchung/ledonchung_lab_week02/models/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/edu/iuh/fit/donchung/ledonchung_lab_week02/models/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vn/edu/iuh/fit/donchung/ledonchung_lab_week02/models/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/edu/iuh/fit/donchung/ledonchung_lab_week02/models/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vn/edu/iuh/fit/donchung/ledonchung_lab_week02/repositories/CustomerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/edu/iuh/fit/donchung/ledonchung_lab_week02/repositories/CustomerRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vn/edu/iuh/fit/donchung/ledonchung_lab_week02/repositories/impl/CustomerRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/edu/iuh/fit/donchung/ledonchung_lab_week02/repositories/impl/CustomerRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/edu/iuh/fit/donchung/ledonchung_lab_week02/models/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/edu/iuh/fit/donchung/ledonchung_lab_week02/models/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/edu/iuh/fit/donchung/ledonchung_lab_week02/models/ProductImage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/edu/iuh/fit/donchung/ledonchung_lab_week02/models/ProductImage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/edu/iuh/fit/donchung/ledonchung_lab_week02/models/ProductPrice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/edu/iuh/fit/donchung/ledonchung_lab_week02/models/ProductPrice.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/vn/edu/iuh/fit/donchung/ledonchung_lab_week02/resources/CustomerResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/edu/iuh/fit/donchung/ledonchung_lab_week02/resources/CustomerResource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/edu/iuh/fit/donchung/ledonchung_lab_week02/resources/EmployeeResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/edu/iuh/fit/donchung/ledonchung_lab_week02/resources/EmployeeResource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/edu/iuh/fit/donchung/ledonchung_lab_week02/services/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/edu/iuh/fit/donchung/ledonchung_lab_week02/services/CustomerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/edu/iuh/fit/donchung/ledonchung_lab_week02/services/EmployeeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/edu/iuh/fit/donchung/ledonchung_lab_week02/services/EmployeeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/edu/iuh/fit/donchung/ledonchung_lab_week02/services/impl/CustomerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/edu/iuh/fit/donchung/ledonchung_lab_week02/services/impl/CustomerServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/edu/iuh/fit/donchung/ledonchung_lab_week02/services/impl/EmployeeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/edu/iuh/fit/donchung/ledonchung_lab_week02/services/impl/EmployeeServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,8 +51,11 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Interface" />
+        <option value="HTML File" />
         <option value="Class" />
+        <option value="Interface" />
+        <option value="com.haulmont.jpb.NewClass" />
+        <option value="com.haulmont.jpb.NewInterface" />
       </list>
     </option>
   </component>
@@ -90,6 +99,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
     "Gradle.Build LeDonChung_Lab_Week02.executor": "Run",
     "JPA.DatabaseSchemaImportDialog": "e299f273-08f0-4a11-a849-6f19e1b05096",
     "Payara Server.Payara 6.19.0.executor": "Run",
@@ -127,8 +137,8 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration name="PayaraDemo" type="PayaraServerConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="PayaraDemo" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+  <component name="RunManager" selected="Payara Server.PayaraDemo">
+    <configuration name="Payara" type="PayaraServerConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="Payara" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="Gradle : vn.edu.iuh.fit.donchung : LeDonChung_Lab_Week02-1.0-SNAPSHOT.war">
@@ -199,7 +209,7 @@
         </option>
       </method>
     </configuration>
-    <configuration name="Payara" type="PayaraServerConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="Payara" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+    <configuration name="PayaraDemo" type="PayaraServerConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="PayaraDemo" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="Gradle : vn.edu.iuh.fit.donchung : LeDonChung_Lab_Week02-1.0-SNAPSHOT.war">
@@ -286,7 +296,12 @@
       <workItem from="1726676323049" duration="1483000" />
       <workItem from="1726677903602" duration="7229000" />
       <workItem from="1726731661080" duration="229000" />
-      <workItem from="1726842529875" duration="11857000" />
+      <workItem from="1726842529875" duration="11969000" />
+      <workItem from="1726917170785" duration="134000" />
+      <workItem from="1726917321311" duration="2222000" />
+      <workItem from="1726987656950" duration="1824000" />
+      <workItem from="1727008938970" duration="3526000" />
+      <workItem from="1727012482461" duration="8499000" />
     </task>
     <servers />
   </component>
@@ -298,7 +313,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/vn/edu/iuh/fit/donchung/ledonchung_lab_week02/resources/CustomerResource.java</url>
-          <line>37</line>
+          <line>39</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
