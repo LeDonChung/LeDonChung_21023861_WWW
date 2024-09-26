@@ -33,6 +33,7 @@
     <persistence-unit name="LeDonChungWeek02" transaction-type="JTA">
         <jta-data-source>jdbc/week02</jta-data-source>
         <properties>
+<!--            create-or-extend-tables, drop-and-create-tables-->
             <property name="eclipselink.ddl-generation" value="create-or-extend-tables" />
             <property name="eclipselink.ddl-generation.output-mode" value="both"/>
         </properties>
