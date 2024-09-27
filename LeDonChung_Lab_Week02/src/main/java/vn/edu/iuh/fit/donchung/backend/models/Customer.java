@@ -14,7 +14,8 @@ import java.util.List;
 @Builder
 @NamedQueries(
         {
-                @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c")
+                @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c"),
+                @NamedQuery(name = "Customer.findByPhone", query = "SELECT c FROM Customer c WHERE c.phone = :phone")
         }
 )
 public class Customer {

@@ -16,6 +16,7 @@ import java.io.Serializable;
 public class OrderDetailDto implements Serializable {
     Long orderId;
     Long productId;
+    ProductDto product;
     String note;
     Double price;
     Double quantity;

@@ -2,6 +2,7 @@ package vn.edu.iuh.fit.donchung.backend.models;
 
 import jakarta.persistence.*;
 import lombok.*;
+import vn.edu.iuh.fit.donchung.backend.converters.EmployeeStatusConverter;
 import vn.edu.iuh.fit.donchung.backend.enums.EmployeeStatus;
 
 import java.time.LocalDateTime;
@@ -15,7 +16,10 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @NamedQueries(
-        @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
+        {
+                @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e"),
+                @NamedQuery(name = "Employee.findByPhoneAndStatus", query = "SELECT e FROM Employee e WHERE e.phone = :phone AND e.status = :status")
+        }
 )
 public class Employee {
 

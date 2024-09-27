@@ -38,4 +38,10 @@ public interface CustomerService {
     boolean delete(Long id);
 
 
+    /**
+     * Lấy khách hàng theo số điện thoại
+     * @param phone là số điện thoại của khách hàng
+     * @return  Customer nếu tìm thấy, ngược lại trả về null
+     */
+    CustomerDto getByPhone(String phone);
 }

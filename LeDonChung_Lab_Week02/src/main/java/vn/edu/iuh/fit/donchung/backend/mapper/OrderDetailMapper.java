@@ -14,6 +14,7 @@ public interface OrderDetailMapper {
 
     @Mapping(target = "orderId", source = "id.orderId")
     @Mapping(target = "productId", source = "id.productId")
+    @Mapping(target = "product", source = "product")
     OrderDetailDto toDto(OrderDetail orderDetail);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

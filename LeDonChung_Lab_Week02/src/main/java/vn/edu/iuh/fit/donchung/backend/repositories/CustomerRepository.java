@@ -36,4 +36,10 @@ public interface CustomerRepository {
      */
     boolean delete(Long id);
 
+    /**
+     * Tìm khách hàng theo số điện thoại
+     * @param phone là số điện thoại của khách hàng
+     * @return  Customer nếu tìm thấy, ngược lại trả về null
+     */
+    Customer findByPhone(String phone);
 }

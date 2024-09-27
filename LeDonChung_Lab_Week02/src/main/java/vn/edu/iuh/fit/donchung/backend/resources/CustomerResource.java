@@ -51,6 +51,27 @@ public class CustomerResource {
         }
     }
 
+    @GET()
+    @Path("/getByPhone")
+    public Response getCustomerByPhone(@QueryParam("phone") String phone) {
+        try {
+            CustomerDto customer = customerService.getByPhone(phone);
+            if(customer == null) {
+                return Response.status(Response.Status.NOT_FOUND)
+                        .entity("Customer with id " + phone + " not found")
+                        .build();
+            }
+            return Response.ok()
+                    .entity(customer)
+                    .build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.serverError()
+                    .entity(AppUtils.SERVER_ERROR)
+                    .build();
+        }
+    }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(CustomerDto customer) {

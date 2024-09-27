@@ -56,4 +56,13 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
         employee.setStatus(status);
         return em.merge(employee);
     }
+
+    @Override
+    public Optional<Employee> findByPhone(String phone) {
+        List<Employee> employees = em.createNamedQuery("Employee.findByPhoneAndStatus", Employee.class)
+                .setParameter("phone", phone)
+                .setParameter("status", EmployeeStatus.ACTIVE)
+                .getResultList();
+        return !employees.isEmpty() ? Optional.of(employees.get(0)) : Optional.empty();
+    }
 }

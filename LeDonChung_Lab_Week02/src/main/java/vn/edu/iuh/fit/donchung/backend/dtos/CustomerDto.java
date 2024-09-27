@@ -13,6 +13,7 @@ import java.io.Serializable;
 @ToString
 @Getter
 @Setter
+@Builder
 public class CustomerDto implements Serializable {
     private Long id;
     private String address;

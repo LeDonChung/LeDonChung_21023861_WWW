@@ -99,4 +99,24 @@ public class EmployeeResource {
                     .build();
         }
     }
+
+    @GET
+    @Path("/getByPhone")
+    public Response getByPhone(@QueryParam("phone") String phone) {
+        try {
+            EmployeeDto employee = employeeService.getByPhone(phone);
+            if(employee == null) {
+                return Response.status(Response.Status.NOT_FOUND)
+                        .entity("Employee with phone " + phone + " not found")
+                        .build();
+            }
+            return Response.ok()
+                    .entity(employee)
+                    .build();
+        } catch (Exception e) {
+            return Response.serverError()
+                    .entity(AppUtils.SERVER_ERROR)
+                    .build();
+        }
+    }
 }

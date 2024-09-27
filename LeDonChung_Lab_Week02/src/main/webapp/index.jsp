@@ -18,195 +18,94 @@
 
     <link href="<c:url  value="resources/vendor/fontawesome-free/css/all.min.css"/>" rel="stylesheet" type="text/css">
     <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="<c:url  value="resources/css/sb-admin-2.min.css"/>" rel="stylesheet" type="text/css">
 
 </head>
 
-<body id="page-top">
+<body id="bg-gradient-primary">
+<div class="container">
 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
 
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <div class="col-xl-10 col-lg-12 col-md-9">
 
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">Lab Week <sup>2</sup></div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Bán hàng</span></a>
-            </li>
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-        </ul>
-        <!-- End of Sidebar -->
-
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
-            <div id="content">
-
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-
-                    <!-- Topbar Search -->
-                    <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <p class="alert alert-success mb-0">
-                                Người thực hiện: Lê Đôn Chủng - 21023861
-                            </p>
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <!-- Nested Row within Card Body -->
+                    <div class="row">
+                        <div class="col-lg-6 d-none d-lg-block bg-login-image">
+                            <img src="https://picsum.photos/200/300?random=2" alt="" style="width: 100%;height: 100%">
                         </div>
-                    </form>
+                        <div class="col-lg-6">
+                            <div class="p-5">
+                                <div class="text-center">
+                                    <h1 class="h4 text-gray-900 mb-4">Chào mừng bạn!</h1>
+                                </div>
+                                <c:if test="${not empty message}">
+                                    <div class="alert alert-danger" role="alert">
+                                        ${message}
+                                    </div>
+                                </c:if>
+                                <form class="user" action="account">
+                                    <input type="hidden" name="action" value="login">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-user"
+                                               id="phone" aria-describedby="emailHelp" value="0867713557" name="phone"
+                                               placeholder="Số điện thoại">
+                                    </div>
 
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                                        Đăng nhập
+                                    </button>
 
-
-                        <div class="topbar-divider d-none d-sm-block"></div>
-
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Lê Đôn Chủng</span>
-                                <img class="img-profile rounded-circle"
-                                    src="<c:url value="/resources/img/undraw_profile.svg"/>" alt="">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
+                                </form>
+                                <hr>
+                                <div class="text-center">
+                                    <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                </div>
+                                <div class="text-center">
+                                    <a class="small" href="register.html">Create an Account!</a>
+                                </div>
                             </div>
-                        </li>
-
-                    </ul>
-
-                </nav>
-                <!-- End of Topbar -->
-
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Bán hàng</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-                    </div>
-
-
-
-                </div>
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2024</span>
+                        </div>
                     </div>
                 </div>
-            </footer>
-            <!-- End of Footer -->
-
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
             </div>
+
         </div>
+
     </div>
 
+</div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="<c:url  value="resources/vendor/jquery/jquery.min.js"/>"></script>
 
-    <script src="<c:url  value="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"/>"></script>
 
-    <!-- Core plugin JavaScript-->
+<!-- Bootstrap core JavaScript-->
+<script src="<c:url  value="resources/vendor/jquery/jquery.min.js"/>"></script>
 
-    <script src="<c:url  value="resources/vendor/jquery-easing/jquery.easing.min.js"/>"></script>
+<script src="<c:url  value="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"/>"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="<c:url  value="resources/js/sb-admin-2.min.js"/>"></script>
+<!-- Core plugin JavaScript-->
 
-    <!-- Page level plugins -->
+<script src="<c:url  value="resources/vendor/jquery-easing/jquery.easing.min.js"/>"></script>
 
-    <script src="<c:url  value="resources/vendor/chart.js/Chart.min.js"/>"></script>
+<!-- Custom scripts for all pages-->
+<script src="<c:url  value="resources/js/sb-admin-2.min.js"/>"></script>
 
-    <!-- Page level custom scripts -->
+<!-- Page level plugins -->
 
-    <script src="<c:url  value="resources/js/demo/chart-area-demo.js"/>"></script>
+<script src="<c:url  value="resources/vendor/chart.js/Chart.min.js"/>"></script>
 
-    <script src="<c:url  value="resources/js/demo/chart-pie-demo.js"/>"></script>
+<!-- Page level custom scripts -->
+
+<script src="<c:url  value="resources/js/demo/chart-area-demo.js"/>"></script>
+
+<script src="<c:url  value="resources/js/demo/chart-pie-demo.js"/>"></script>
 
 </body>
 

@@ -21,4 +21,16 @@ public class OrderDto implements Serializable {
     private CustomerDto customer;
     private EmployeeDto employee;
     private List<OrderDetailDto> orderDetails;
+
+
+
+    public Double getTotalPrice() {
+        return orderDetails.stream().mapToDouble(
+                detail -> detail.getPrice() * detail.getQuantity()
+        ).sum();
+    }
+
+    public Integer getTotal() {
+        return orderDetails.size();
+    }
 }

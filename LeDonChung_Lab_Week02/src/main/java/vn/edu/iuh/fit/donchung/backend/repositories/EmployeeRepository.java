@@ -40,4 +40,6 @@ public interface EmployeeRepository {
      * @return boolean: true nếu xóa thành công, ngược lại trả về false
      */
     Employee updateStatus(Long id, EmployeeStatus status);
+
+    Optional<Employee> findByPhone(String phone);
 }

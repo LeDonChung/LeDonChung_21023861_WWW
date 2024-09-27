@@ -36,4 +36,11 @@ public interface EmployeeService {
      * @return boolean: true nếu xóa thành công, ngược lại trả về false
      */
     EmployeeDto updateStatus(Long id, EmployeeStatus status);
+
+    /**
+     * Tìm nhân viên theo số điện thoại
+     * @param phone là số điện thoại của nhân viên
+     * @return Employee nếu tìm thấy, ngược lại trả về null
+     */
+    EmployeeDto getByPhone(String phone);
 }

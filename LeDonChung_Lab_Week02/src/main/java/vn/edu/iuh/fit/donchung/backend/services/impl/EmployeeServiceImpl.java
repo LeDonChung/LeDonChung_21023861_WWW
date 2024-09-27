@@ -44,4 +44,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeDto updateStatus(Long id, EmployeeStatus status) {
         return employeeMapper.toDto(employeeRepository.updateStatus(id, status));
     }
+
+    @Override
+    public EmployeeDto getByPhone(String phone) {
+        return employeeRepository.findByPhone(phone).map(employeeMapper::toDto).orElse(null);
+    }
 }
