@@ -1,58 +1,50 @@
 package vn.edu.iuh.fit.donchung.backend.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.Objects;
+import java.util.List;
 
+@Entity
+@Table(name = "products")
 @Getter
 @Setter
-@Entity
-@Table(name = "product")
-@ToString
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @NamedQueries(
         {
                 @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
-                @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p WHERE p.id = :id")
+                @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p WHERE p.id = :id"),
         }
+
 )
-@Builder
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id", nullable = false)
-    private Integer id;
+    @Column(name = "product_id")
+    private Long id;
 
-    @Size(max = 150)
-    @NotNull
-    @Column(name = "name", nullable = false, length = 150)
-    private String name;
-
-    @NotNull
-    @Lob
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", length = 250)
     private String description;
 
-    @Size(max = 250)
+    @Column(name = "manufacturer_name", length = 100)
+    private String manufacturer;
+
+    @Column(name = "name", length = 150)
+    private String name;
+
+    @Column(name = "unit", length = 25)
+    private String unit;
+
     @Column(name = "img_path", length = 250)
     private String imgPath;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<ProductPrice> productPrices;
 
-        Product product = (Product) o;
-
-        return Objects.equals(id, product.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
+    // Getters và Setters
 }

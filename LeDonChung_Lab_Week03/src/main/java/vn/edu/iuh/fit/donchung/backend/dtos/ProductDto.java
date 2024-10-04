@@ -1,27 +1,25 @@
 package vn.edu.iuh.fit.donchung.backend.dtos;
 
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
- * DTO for {@link vn.edu.iuh.fit.donchung.backend.entities.Product}
  */
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Getter
 @Setter
 public class ProductDto implements Serializable {
-    Integer id;
-    @NotNull
-    @Size(max = 150)
-    String name;
-    @NotNull
-    String description;
-    @Size(max = 250)
-    String imgPath;
+    private Long id;
+    private String description;
+    private String manufacturer;
+    private String name;
+    private String unit;
+    private String imgPath;
+    private Double price;
 }

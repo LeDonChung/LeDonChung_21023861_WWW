@@ -1,41 +1,55 @@
 package vn.edu.iuh.fit.donchung.backend.entities;
 
+import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-import java.time.Instant;
+import java.sql.Timestamp;
 
+@Entity
+@Table(name = "product_prices")
 @Getter
 @Setter
-@Entity
-@Table(name = "product_price")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@ToString
+@NamedQueries(
+        {
+                @NamedQuery(name = "ProductPrice.findByProductId",
+                        query = "SELECT pp FROM ProductPrice pp WHERE pp.product.id = :productId"),
+                @NamedQuery(name = "ProductPrice.findLastByProductId",
+                        query = "SELECT pp FROM ProductPrice pp WHERE pp.product.id = :productId ORDER BY pp.id.priceDateTime DESC"),
+                @NamedQuery(name = "ProductPrice.findActiveByProductId",
+                        query = "SELECT pp FROM ProductPrice pp WHERE pp.product.id = :productId AND pp.status = 1")
+        }
+)
 public class ProductPrice {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "price_id", nullable = false)
-    private Integer id;
+    @EmbeddedId
+    private ProductPriceId id;
 
-    @MapsId
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "price_id", nullable = false)
-    private Product product;
-
-    @NotNull
-    @Column(name = "product_id", nullable = false)
-    private Integer productId;
-
-    @NotNull
-    @Column(name = "apply_date", nullable = false)
-    private Instant applyDate;
-
-    @NotNull
-    @Column(name = "value", nullable = false)
-    private Double value;
-
-    @Lob
-    @Column(name = "note")
+    @Column(name = "note", length = 255)
     private String note;
 
+    @Column(name = "price")
+    private Double value;
+
+    /**
+     *
+     * 0: Chưa áp dụng
+     * 1: Đang áp dụng
+     *
+     */
+    private Integer status;
+
+    @Column(name = "apply_date")
+    private Timestamp applyDate;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_id")
+    @MapsId("productId")
+    @ToString.Exclude
+    private Product product;
+
+    // Getters và Setters
 }

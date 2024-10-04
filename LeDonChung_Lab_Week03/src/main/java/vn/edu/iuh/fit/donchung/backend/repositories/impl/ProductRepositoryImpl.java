@@ -1,6 +1,5 @@
 package vn.edu.iuh.fit.donchung.backend.repositories.impl;
 
-import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
@@ -23,14 +22,15 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public Optional<Product> findById(Integer id) {
-        return Optional.of(em.find(Product.class, id));
+    public Optional<Product> findById(Long id) {
+        return Optional.ofNullable(em.find(Product.class, id));
     }
 
     @Override
     public Product save(Product product) {
         if(product.getId() == null) {
             em.persist(product);
+            em.flush();
         } else {
             product = em.merge(product);
         }
