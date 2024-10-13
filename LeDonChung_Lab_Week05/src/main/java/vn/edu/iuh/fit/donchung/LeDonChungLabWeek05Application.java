@@ -11,8 +11,6 @@ import java.sql.Date;
 @SpringBootApplication
 public class LeDonChungLabWeek05Application {
 
-    @Autowired
-    private CandidateRepository candidateRepository;
     public static void main(String[] args) {
         SpringApplication.run(LeDonChungLabWeek05Application.class, args);
     }

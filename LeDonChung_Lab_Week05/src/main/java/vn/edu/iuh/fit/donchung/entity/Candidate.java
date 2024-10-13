@@ -24,14 +24,23 @@ public class Candidate {
     private Set<CandidateSkill> candidateSkills = new HashSet<>();
 
     public String getFirstName() {
-        return fullName.split(" ")[0];
+        int length = fullName.split(" ").length;
+        if(length > 0)
+            return fullName.split(" ")[0];
+        return "";
     }
 
     public String getLastName() {
-        return fullName.split(" ")[2];
+        int length = fullName.split(" ").length;
+        if(length == 3)
+            return fullName.split(" ")[2];
+        return "";
     }
 
     public String getMiddleName() {
-        return fullName.split(" ")[1];
+        int length = fullName.split(" ").length;
+        if(length > 1)
+            return fullName.split(" ")[1];
+        return "";
     }
 }

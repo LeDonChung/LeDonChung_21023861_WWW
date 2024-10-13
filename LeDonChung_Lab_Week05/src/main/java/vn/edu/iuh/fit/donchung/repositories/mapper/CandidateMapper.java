@@ -19,9 +19,9 @@ public class CandidateMapper implements RowMapper<Candidate> {
                 .address(rs.getString("address"))
                 .dob(rs.getDate("dob"))
                 .fullName(
-                        rs.getString("last_name") + " " +
+                        rs.getString("first_name") + " " +
                                 rs.getString("middle_name") + " " +
-                                rs.getString("first_name"))
+                                rs.getString("last_name"))
                 .build();
     }
 }

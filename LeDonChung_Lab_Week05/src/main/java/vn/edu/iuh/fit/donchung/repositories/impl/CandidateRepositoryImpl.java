@@ -2,13 +2,19 @@ package vn.edu.iuh.fit.donchung.repositories.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import vn.edu.iuh.fit.donchung.entity.Candidate;
 import vn.edu.iuh.fit.donchung.repositories.CandidateRepository;
+import vn.edu.iuh.fit.donchung.repositories.mapper.CandidateMapper;
 
 import javax.sql.DataSource;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class CandidateRepositoryImpl implements CandidateRepository {
@@ -22,50 +28,54 @@ public class CandidateRepositoryImpl implements CandidateRepository {
 
     @Override
     public Candidate save(Candidate candidate) {
-        // neu them moi thi tra ve id
         String sql;
         if (candidate.getId() == null) {
-            // CREATE IF candidate.id IS NULL
             sql = "INSERT INTO candidates(last_name, first_name, middle_name, email, phone, address, dob) VALUES(?, ?, ?, ?, ?, ?, ?)";
-        } else {
-            // UPDATE IF candidate.id IS NOT NULL
-            sql = "UPDATE candidates SET last_name = ?, first_name = ?, middle_name = ?, email = ?, phone = ?, address = ?, dob = ? WHERE id = ?";
-        }
+            KeyHolder keyHolder = new GeneratedKeyHolder();
+            int result = jdbcTemplate.update(connection -> {
+                PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                ps.setString(1, candidate.getLastName());
+                ps.setString(2, candidate.getFirstName());
+                ps.setString(3, candidate.getMiddleName());
+                ps.setString(4, candidate.getEmail());
+                ps.setString(5, candidate.getPhone());
+                ps.setString(6, candidate.getAddress());
+                ps.setDate(7, candidate.getDob());
+                return ps;
+            }, keyHolder);
 
-        List<Object> params = new ArrayList<>(
-                List.of(candidate.getLastName(), candidate.getFirstName(),
-                        candidate.getMiddleName(), candidate.getEmail(),
-                        candidate.getPhone(), candidate.getAddress(),
-                        candidate.getDob())
-        );
-        if (candidate.getId() != null) {
-            params.add(candidate.getId());
-        }
-        int result = jdbcTemplate
-                .update(sql, params.toArray());
-
-        if (result > 0) {
-            if (candidate.getId() == null) {
-                candidate.setId(result);
+            if (result > 0) {
+                candidate.setId(Objects.requireNonNull(keyHolder.getKey()).intValue()); // Lấy ID của bản ghi vừa thêm
+                return candidate;
             }
-            return candidate;
+        } else {
+            sql = "UPDATE candidates SET last_name = ?, first_name = ?, middle_name = ?, email = ?, phone = ?, address = ?, dob = ? WHERE id = ?";
+            int result = jdbcTemplate.update(sql, candidate.getLastName(), candidate.getFirstName(),
+                    candidate.getMiddleName(), candidate.getEmail(),
+                    candidate.getPhone(), candidate.getAddress(),
+                    candidate.getDob(), candidate.getId());
+            if (result > 0) {
+                return candidate;
+            }
         }
-
         return null;
     }
 
     @Override
     public Candidate findById(int id) {
-        return null;
+        String sql = "SELECT * FROM candidates WHERE id = ?";
+        return jdbcTemplate.queryForObject(sql, new CandidateMapper(), id);
     }
 
     @Override
     public boolean delete(int id) {
-        return false;
+        String sql = "DELETE FROM candidates WHERE id = ?";
+        return jdbcTemplate.update(sql, id) > 0;
     }
 
     @Override
     public List<Candidate> findAll() {
-        return null;
+        String sql = "SELECT * FROM candidates";
+        return jdbcTemplate.query(sql, new CandidateMapper());
     }
 }
