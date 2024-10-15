@@ -13,6 +13,7 @@ import java.util.Set;
 @ToString
 @Getter
 @Setter
+@Builder
 public class Job {
     private Integer id;
     private String description;
