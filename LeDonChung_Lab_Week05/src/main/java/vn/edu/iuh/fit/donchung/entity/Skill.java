@@ -7,6 +7,7 @@ import lombok.*;
 @ToString
 @Getter
 @Setter
+@Builder
 public class Skill {
     private Integer id;
     private String skillName;
