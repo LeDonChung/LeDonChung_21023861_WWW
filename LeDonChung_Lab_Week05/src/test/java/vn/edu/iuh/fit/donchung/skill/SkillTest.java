@@ -17,7 +17,7 @@ public class SkillTest {
     @Test
     void testInsert() {
         Skill skill = Skill.builder()
-                .skillName("Java")
+                .skillName("MariaDB")
                 .field("IT")
                 .description("Java Developer")
                 .build();

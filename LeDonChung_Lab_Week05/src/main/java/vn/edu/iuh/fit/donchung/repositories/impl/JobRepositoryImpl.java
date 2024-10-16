@@ -4,8 +4,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import vn.edu.iuh.fit.donchung.entity.Candidate;
 import vn.edu.iuh.fit.donchung.entity.Job;
+import vn.edu.iuh.fit.donchung.entity.JobSkill;
 import vn.edu.iuh.fit.donchung.repositories.JobRepository;
+import vn.edu.iuh.fit.donchung.repositories.mapper.CandidateMapper;
 import vn.edu.iuh.fit.donchung.repositories.mapper.JobMapper;
 
 import javax.sql.DataSource;
@@ -63,5 +66,22 @@ public class JobRepositoryImpl implements JobRepository {
     public List<Job> findAll() {
         String sql = "SELECT * FROM jobs";
         return jdbcTemplate.query(sql, new JobMapper());
+    }
+
+    @Override
+    public boolean addSkill(Job job, List<JobSkill> jobSkills) {
+        String sql = "INSERT INTO jobs_skills(job_id, skill_id, specific_level) VALUES(?, ?, ?)";
+        List<Object[]> batch = jobSkills.stream().map(jobSkill -> new Object[]{job.getId(), jobSkill.getSkill().getId(), jobSkill.getSpecific_level()}).toList();
+
+        int[] result = jdbcTemplate.batchUpdate(sql, batch);
+        return result.length == batch.size();
+    }
+
+    @Override
+    public List<Candidate> findCandidates(int jobId) {
+
+        String sql = "SELECT c.* FROM candidates c JOIN candidates_skills cs ON c.id = cs.candidate_id JOIN jobs_skills js ON cs.skill_id = js.skill_id WHERE js.job_id = ? AND cs.level >= js.specific_level";
+
+        return jdbcTemplate.query(sql, new CandidateMapper(), jobId);
     }
 }

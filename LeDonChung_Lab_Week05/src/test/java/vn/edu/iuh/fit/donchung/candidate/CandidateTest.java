@@ -4,15 +4,22 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import vn.edu.iuh.fit.donchung.entity.Candidate;
+import vn.edu.iuh.fit.donchung.entity.CandidateSkill;
+import vn.edu.iuh.fit.donchung.entity.Skill;
 import vn.edu.iuh.fit.donchung.repositories.CandidateRepository;
+import vn.edu.iuh.fit.donchung.repositories.SkillRepository;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.logging.Logger;
 
 @SpringBootTest
 public class CandidateTest {
     @Autowired
     private CandidateRepository candidateRepository;
+
+    @Autowired
+    private SkillRepository skillRepository;
 
     private final Logger logger = Logger.getLogger(CandidateTest.class.getName());
 
@@ -74,5 +81,30 @@ public class CandidateTest {
     @Test
     void testFindAll() {
         candidateRepository.findAll().forEach(candidate -> logger.info("Candidate: " + candidate));
+    }
+
+    @Test
+    void testAddSkill() {
+        Candidate candidate = candidateRepository.findById(6);
+        List<CandidateSkill> candidateSkills = List.of(
+                CandidateSkill.builder()
+                        .candidate(candidate)
+                        .skill(skillRepository.findById(2))
+                        .level(3)
+                        .build(),
+                CandidateSkill.builder()
+                        .candidate(candidate)
+                        .skill(skillRepository.findById(4))
+                        .level(4)
+                        .build(),
+                CandidateSkill.builder()
+                        .candidate(candidate)
+                        .skill(skillRepository.findById(1))
+                        .level(4)
+                        .build()
+        );
+        boolean result = candidateRepository.addSkill(candidate, candidateSkills);
+        logger.info("Add Skill: " + result);
+        assert result;
     }
 }

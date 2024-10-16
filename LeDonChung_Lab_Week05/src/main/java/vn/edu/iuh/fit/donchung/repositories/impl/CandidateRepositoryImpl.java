@@ -6,6 +6,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import vn.edu.iuh.fit.donchung.entity.Candidate;
+import vn.edu.iuh.fit.donchung.entity.CandidateSkill;
 import vn.edu.iuh.fit.donchung.repositories.CandidateRepository;
 import vn.edu.iuh.fit.donchung.repositories.mapper.CandidateMapper;
 
@@ -71,6 +72,23 @@ public class CandidateRepositoryImpl implements CandidateRepository {
     public boolean delete(int id) {
         String sql = "DELETE FROM candidates WHERE id = ?";
         return jdbcTemplate.update(sql, id) > 0;
+    }
+
+    @Override
+    public boolean addSkill(Candidate candidate, List<CandidateSkill> candidateSkill) {
+        String sql = "INSERT INTO candidates_skills(candidate_id, skill_id, level) VALUES(?, ?, ?)";
+        List<Object[]> batchArgs = new ArrayList<>();
+        for (CandidateSkill cs : candidateSkill) {
+            batchArgs.add(new Object[]{candidate.getId(), cs.getSkill().getId(), cs.getLevel()});
+        }
+        int[] result = jdbcTemplate.batchUpdate(sql, batchArgs);
+        return result.length == candidateSkill.size();
+    }
+
+    @Override
+    public boolean removeSkill(CandidateSkill candidateSkill) {
+        String sql = "DELETE FROM candidates_skills WHERE candidate_id = ? AND skill_id = ?";
+        return jdbcTemplate.update(sql, candidateSkill.getCandidate().getId(), candidateSkill.getSkill().getId()) > 0;
     }
 
     @Override

@@ -4,6 +4,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import vn.edu.iuh.fit.donchung.entity.Job;
 import vn.edu.iuh.fit.donchung.entity.Skill;
 import vn.edu.iuh.fit.donchung.repositories.SkillRepository;
 import vn.edu.iuh.fit.donchung.repositories.mapper.SkillMapper;
@@ -62,5 +63,10 @@ public class SkillRepositoryImpl implements SkillRepository {
     @Override
     public List<Skill> findAll() {
         return jdbcTemplate.query("SELECT * FROM skills", new SkillMapper());
+    }
+
+    @Override
+    public List<Skill> findByJobId(Job job) {
+        return jdbcTemplate.query("SELECT s.* FROM skills s JOIN jobs_skills js ON s.id = js.skill_id WHERE js.job_id = ?", new SkillMapper(), job.getId());
     }
 }

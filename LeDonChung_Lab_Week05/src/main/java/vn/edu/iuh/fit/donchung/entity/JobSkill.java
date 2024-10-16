@@ -6,6 +6,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @Getter
+@Builder
 @Setter
 public class JobSkill {
     private Job job;

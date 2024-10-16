@@ -4,7 +4,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import vn.edu.iuh.fit.donchung.entity.Job;
+import vn.edu.iuh.fit.donchung.entity.JobSkill;
+import vn.edu.iuh.fit.donchung.entity.Skill;
 import vn.edu.iuh.fit.donchung.repositories.JobRepository;
+import vn.edu.iuh.fit.donchung.repositories.SkillRepository;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -15,10 +18,13 @@ public class JobTest {
     private JobRepository jobRepository;
 
     private final Logger logger = Logger.getLogger(JobTest.class.getName());
+
+    @Autowired
+    private SkillRepository skillRepository;
     @Test
     void testInsert() {
         Job job = Job.builder()
-                        .description("Java Developer")
+                        .description("C# Developer")
                         .build();
 
         job = jobRepository.save(job);
@@ -65,5 +71,25 @@ public class JobTest {
     }
 
 
+    @Test
+    void testAddSkill() {
+        Job job = jobRepository.findById(2);
+        logger.info("Job: " + job);
+
+        List<JobSkill> jobSkills = List.of(
+                JobSkill.builder().job(job).skill(skillRepository.findById(2)).specific_level(4).build(),
+                JobSkill.builder().job(job).skill(skillRepository.findById(4)).specific_level(3).build()
+        );
+
+        boolean result = jobRepository.addSkill(job, jobSkills);
+        logger.info("Add Skill: " + result);
+        assert result;
+    }
+
+    @Test
+    void testFindCandidates() {
+        Job job = jobRepository.findById(2);
+        jobRepository.findCandidates(job.getId()).forEach(System.out::println);
+    }
 
 }
