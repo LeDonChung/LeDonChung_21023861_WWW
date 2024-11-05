@@ -5,22 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8f4e71e3-a631-4fc8-b6d6-11fb67b25b13" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../LeDonChung_Lab_Week03/src/main/webapp/views/products.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/e299f273-08f0-4a11-a849-6f19e1b05096.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/e299f273-08f0-4a11-a849-6f19e1b05096.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/e6386deb-d43e-41b7-b4c6-7dc05eb44228.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/e6386deb-d43e-41b7-b4c6-7dc05eb44228.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LeDonChung_Lab_Week03/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../LeDonChung_Lab_Week03/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LeDonChung_Lab_Week03/src/main/java/vn/edu/iuh/fit/donchung/backend/dtos/ProductDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LeDonChung_Lab_Week03/src/main/java/vn/edu/iuh/fit/donchung/backend/dtos/ProductDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LeDonChung_Lab_Week03/src/main/java/vn/edu/iuh/fit/donchung/backend/entities/Product.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LeDonChung_Lab_Week03/src/main/java/vn/edu/iuh/fit/donchung/backend/entities/ProductPrice.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LeDonChung_Lab_Week03/src/main/java/vn/edu/iuh/fit/donchung/backend/mapper/ProductMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LeDonChung_Lab_Week03/src/main/java/vn/edu/iuh/fit/donchung/backend/repositories/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LeDonChung_Lab_Week03/src/main/java/vn/edu/iuh/fit/donchung/backend/repositories/ProductRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LeDonChung_Lab_Week03/src/main/java/vn/edu/iuh/fit/donchung/backend/repositories/impl/ProductRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LeDonChung_Lab_Week03/src/main/java/vn/edu/iuh/fit/donchung/backend/repositories/impl/ProductRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LeDonChung_Lab_Week03/src/main/java/vn/edu/iuh/fit/donchung/backend/resources/ProductResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LeDonChung_Lab_Week03/src/main/java/vn/edu/iuh/fit/donchung/backend/resources/ProductResource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LeDonChung_Lab_Week03/src/main/java/vn/edu/iuh/fit/donchung/backend/services/ProductBeanRemote.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LeDonChung_Lab_Week03/src/main/java/vn/edu/iuh/fit/donchung/backend/services/ProductBeanRemote.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LeDonChung_Lab_Week03/src/main/java/vn/edu/iuh/fit/donchung/backend/services/impl/ProductBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LeDonChung_Lab_Week03/src/main/java/vn/edu/iuh/fit/donchung/backend/services/impl/ProductBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LeDonChung_Lab_Week03/src/main/java/vn/edu/iuh/fit/donchung/frontend/controllers/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LeDonChung_Lab_Week03/src/main/java/vn/edu/iuh/fit/donchung/frontend/controllers/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LeDonChung_Lab_Week03/src/main/java/vn/edu/iuh/fit/donchung/frontend/models/ProductModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LeDonChung_Lab_Week03/src/main/java/vn/edu/iuh/fit/donchung/frontend/models/ProductModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LeDonChung_Lab_Week03/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../LeDonChung_Lab_Week03/src/main/resources/META-INF/persistence.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LeDonChung_Lab_Week03/src/main/webapp/index.jsp" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +100,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/HK10/WWW/LeDonChung_21023861_WWW/LeDonChung_Lab_Week03&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/HK10/WWW/LeDonChung_21023861_WWW/LeDonChung_Lab_Week01&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -333,6 +320,8 @@
       <workItem from="1728030475423" duration="671000" />
       <workItem from="1728032151270" duration="453000" />
       <workItem from="1728034245115" duration="1211000" />
+      <workItem from="1729699555595" duration="270000" />
+      <workItem from="1729760437116" duration="1241000" />
     </task>
     <servers />
   </component>
