@@ -3,11 +3,11 @@ package vn.edu.fit.student.donchung.backend.enums;
 import lombok.ToString;
 
 public enum SkillLevel {
-    MASTER("MASTER"),
-    BEGINER("BEGINER"),
+    BEGINNER("BEGINNER"),
+    INTERMEDIATE("INTERMEDIATE"),
     ADVANCED("ADVANCED"),
     PROFESSIONAL("PROFESSIONAL"),
-    IMTERMEDIATE("IMTERMEDIATE");
+    MASTER("MASTER");
 
     private String name;
 

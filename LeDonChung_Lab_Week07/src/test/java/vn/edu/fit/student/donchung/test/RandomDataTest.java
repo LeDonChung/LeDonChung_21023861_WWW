@@ -11,10 +11,13 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.client.RestTemplate;
+import vn.edu.fit.student.donchung.backend.dtos.JobDto;
+import vn.edu.fit.student.donchung.backend.dtos.PageDto;
 import vn.edu.fit.student.donchung.backend.entities.*;
 import vn.edu.fit.student.donchung.backend.enums.SkillLevel;
 import vn.edu.fit.student.donchung.backend.enums.SkillType;
 import vn.edu.fit.student.donchung.backend.repositories.*;
+import vn.edu.fit.student.donchung.backend.services.JobService;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -63,19 +66,42 @@ public class RandomDataTest {
     }
 
     @Test
-    public void randomSkill() {
+    public void randomITSkills() {
         Faker faker = new Faker(new Locale("en"));
 
-        for (int i = 1; i <= 50; i++) {
+        // List of IT-related skills
+        String[] itSkills = {
+                "Java", "Python", "JavaScript", "SQL", "C#", "C++", "Go", "Ruby", "PHP",
+                "Swift", "Kotlin", "HTML", "CSS", "React", "Angular", "Vue.js", "Node.js",
+                "Spring Framework", "Django", "Flask", "Laravel", "Docker", "Kubernetes",
+                "AWS", "Azure", "Google Cloud", "Machine Learning", "Data Science",
+                "Cybersecurity", "Penetration Testing", "DevOps", "CI/CD", "Microservices",
+                "REST APIs", "GraphQL", "Blockchain", "Artificial Intelligence", "Big Data",
+                "NoSQL", "MongoDB", "PostgreSQL", "MySQL", "Redis", "Git", "Linux", "Networking"
+        };
+
+        // Set to ensure no duplicate skill names
+        Set<String> uniqueSkills = new HashSet<>();
+        Random rand = new Random();
+
+        for (int i = 0; i < 50; i++) {
+            // Randomly select IT skills from the array
+            String skillName = itSkills[rand.nextInt(itSkills.length)];
+
+            // Ensure the skill is unique
+            while (!uniqueSkills.add(skillName)) {
+                skillName = itSkills[rand.nextInt(itSkills.length)];
+            }
+
+            // Create and save the skill entity
             Skill skill = Skill.builder()
-                    .skillDescription(faker.job().keySkills())
-                    .skillName(faker.job().keySkills())
-                    // random skill type
-                    .type(SkillType.values()[new Random().nextInt(SkillType.values().length)])
+                    .skillDescription(faker.lorem().sentence())
+                    .skillName(skillName)
+                    .type(SkillType.values()[rand.nextInt(SkillType.values().length)]) // Random skill type
                     .build();
+
             skillRepository.save(skill);
         }
-
     }
 
     @Test
@@ -124,8 +150,10 @@ public class RandomDataTest {
         Faker faker = new Faker(new Locale("en"));
         List<Company> companies = companyRepository.findAll();
         List<Skill> skills = skillRepository.findAll();
+
         for (Company company : companies) {
             for (int i = 1; i <= 10; i++) {
+                // Create a job
                 Job job = Job.builder()
                         .jobName(faker.job().title())
                         .jobDesc(faker.coffee().descriptor())
@@ -133,23 +161,30 @@ public class RandomDataTest {
                         .build();
                 job = jobRepository.saveAndFlush(job);
 
-                // Create JobSkill instances with generated Job ID
+                // Randomly choose number of skills (between 3 and 7)
+                int skillCount = new Random().nextInt(5) + 3; // Random number between 3 and 7
+
                 List<JobSkill> jobSkills = new ArrayList<>();
-                for (int j = 0; j < 5; j++) {
+                Set<Long> selectedSkillIds = new HashSet<>(); // Set to store unique skill IDs
+
+                while (selectedSkillIds.size() < skillCount) {
                     Skill skill = skills.get(new Random().nextInt(skills.size()));
+                    if (!selectedSkillIds.contains(skill.getId())) { // Ensure skill is unique
+                        selectedSkillIds.add(skill.getId());
 
-                    JobSkill jobSkill = JobSkill.builder()
-                            .id(JobSkillId.builder()
-                                    .jobId(job.getId())  // Now jobId is available
-                                    .skillId(skill.getId())
-                                    .build())
-                            .job(job)
-                            .skill(skill)
-                            .skillLevel(SkillLevel.values()[new Random().nextInt(SkillLevel.values().length)])
-                            .moreInfos(faker.job().position())
-                            .build();
+                        JobSkill jobSkill = JobSkill.builder()
+                                .id(JobSkillId.builder()
+                                        .jobId(job.getId())  // Now jobId is available
+                                        .skillId(skill.getId())
+                                        .build())
+                                .job(job)
+                                .skill(skill)
+                                .skillLevel(SkillLevel.values()[new Random().nextInt(SkillLevel.values().length)])
+                                .moreInfos(faker.job().position())
+                                .build();
 
-                    jobSkills.add(jobSkill);
+                        jobSkills.add(jobSkill);
+                    }
                 }
 
                 jobSkillRepository.saveAllAndFlush(jobSkills);
@@ -174,13 +209,14 @@ public class RandomDataTest {
     public void randomCandidate() {
         Faker faker = new Faker(new Locale("en"));
         Optional<Role> role = roleRepository.findByCode("CANDIDATE");
-        if(role.isEmpty()) {
+        if (role.isEmpty()) {
             return;
         }
 
         List<Skill> skills = skillRepository.findAll();
         List<Role> roles = new ArrayList<>();
         roles.add(role.get());
+
         for (int i = 1; i <= 50; i++) {
 
             Candidate candidate = Candidate.builder()
@@ -215,14 +251,20 @@ public class RandomDataTest {
             }
 
             candidate.setExperiences(experiences);
-
             candidate = candidateRepository.saveAndFlush(candidate);
 
+            // Randomly choose number of skills (from 3 to 7)
+            int numberOfSkills = 3 + new Random().nextInt(5); // Random number between 3 and 7
+
+            // Create a set to avoid duplicate skills
+            Set<Skill> chosenSkills = new HashSet<>();
+            while (chosenSkills.size() < numberOfSkills) {
+                Skill skill = skills.get(new Random().nextInt(skills.size()));
+                chosenSkills.add(skill); // Adds only unique skills
+            }
 
             List<CandidateSkill> candidateSkills = new ArrayList<>();
-            for (int j = 0; j < 5; j++) {
-                Skill skill = skills.get(new Random().nextInt(skills.size()));
-
+            for (Skill skill : chosenSkills) {
                 CandidateSkill candidateSkill = CandidateSkill.builder()
                         .id(CandidateSkillId.builder()
                                 .canId(candidate.getId())
@@ -234,8 +276,8 @@ public class RandomDataTest {
                         .moreInfos(faker.job().position())
                         .build();
                 candidateSkills.add(candidateSkill);
-
             }
+
             candidateSkillRepository.saveAllAndFlush(candidateSkills);
         }
     }
@@ -256,5 +298,19 @@ public class RandomDataTest {
         assert companies != null;
         companies.forEach(System.out::println);
 
+    }
+
+    @Test
+    public void testFindJobsForCandidateWithLevel() {
+        PageDto<JobDto> jobs = jobService.getJobsForCandidate(0, 1, 51L);
+
+        System.out.println(jobs);
+    }
+
+    @Autowired
+    private JobService jobService;
+    @Test
+    public void testFindJobsForCandidateWithLevel2() {
+        PageDto<JobDto> jobs = jobService.getJobsForCandidate(1, 1, 51L);
     }
 }
