@@ -23,4 +23,10 @@ public class JobModelImpl implements JobModel {
         return restTemplate.getForObject(AppUtils.API_URL + "/jobs/recommend?page=" + page + "&size=" + size + "&candidateId=" + candidateId,
                 PageDto.class);
     }
+
+    @Override
+    public JobDto getJob(Long jobId) {
+        return restTemplate.getForObject(AppUtils.API_URL + "/jobs/" + jobId,
+                JobDto.class);
+    }
 }

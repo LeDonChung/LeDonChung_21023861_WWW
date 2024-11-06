@@ -35,4 +35,17 @@ public class JobRestController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+    @GetMapping("/{jobId}")
+    public ResponseEntity<JobDto> getJob(@PathVariable Long jobId) {
+        try {
+            JobDto job = jobService.getJob(jobId);
+            return ResponseEntity.ok(job);
+        } catch (Exception e) {
+            log.error("Error: " + e.getMessage());
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+
 }

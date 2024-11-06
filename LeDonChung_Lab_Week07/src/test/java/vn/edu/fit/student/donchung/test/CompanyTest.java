@@ -23,7 +23,8 @@ public class CompanyTest {
                 "http://localhost:8080/api/companies",
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<Company>>() {});
+                new ParameterizedTypeReference<>() {
+                });
 
         List<Company> companies = response.getBody();
 

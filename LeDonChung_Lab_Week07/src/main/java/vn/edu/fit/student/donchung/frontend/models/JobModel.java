@@ -6,4 +6,5 @@ import vn.edu.fit.student.donchung.backend.dtos.PageDto;
 public interface JobModel {
     PageDto<JobDto> getJobs(int page, int size);
     PageDto<JobDto> getJobsForCandidate(int page, int size, Long candidateId);
+    JobDto getJob(Long jobId);
 }

@@ -1,6 +1,7 @@
 package vn.edu.fit.student.donchung.backend.dtos;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import vn.edu.fit.student.donchung.backend.entities.Candidate;
 
 import java.io.Serializable;
@@ -14,9 +15,9 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 @ToString
-public class CandidateDto implements Serializable {
+public class CandidateDto extends UserDto implements Serializable {
     Long id;
     LocalDate dob;
     String email;

@@ -64,4 +64,13 @@ public class JobServiceImpl implements JobService {
                 .values(pageJob.stream().map(jobMapper::toDto).toList())
                 .build();
     }
+
+    @Override
+    public JobDto getJob(Long jobId) {
+        Job job = jobRepository.findById(jobId).orElse(null);
+        if (job == null) {
+            return null;
+        }
+        return jobMapper.toDto(job);
+    }
 }

@@ -31,6 +31,7 @@
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
+                <p sec:authorize="isAuthenticated()" style="margin: auto 20px" th:text="${'Hello, ' + #authentication.name}"></p>
                 <a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="btn btn-primary me-2">Đăng nhập</a>
                 <a sec:authorize="!isAuthenticated()" href="register.html" class="btn btn-outline-success">Đăng ký</a>
                 <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="btn btn-primary me-2">Đăng xuất</a>
@@ -84,7 +85,7 @@
         </nav>
     </div>
 
-    <div sec:authorize="hasAnyAuthority('CANDIDATE')">
+    <div>
         <h1 class="mt-5 mb-4">Việc đang tuyển</h1>
         <div class="all-job-list">
             <div class="row g-4">

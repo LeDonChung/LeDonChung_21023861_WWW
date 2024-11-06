@@ -14,4 +14,6 @@ public interface JobService {
 
     // Lấy ra job phù hợp với candidate
     public PageDto<JobDto> getJobsForCandidate(int page, int size, Long candidateId);
+
+    JobDto getJob(Long jobId);
 }

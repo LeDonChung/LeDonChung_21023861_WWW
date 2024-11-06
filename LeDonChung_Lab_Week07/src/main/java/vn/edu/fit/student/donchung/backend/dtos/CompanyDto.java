@@ -1,6 +1,7 @@
 package vn.edu.fit.student.donchung.backend.dtos;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import vn.edu.fit.student.donchung.backend.entities.Company;
 
 import java.io.Serializable;
@@ -12,9 +13,9 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 @ToString
-public class CompanyDto implements Serializable {
+public class CompanyDto extends UserDto implements Serializable {
     Long id;
     String about;
     String email;
@@ -22,4 +23,33 @@ public class CompanyDto implements Serializable {
     String phone;
     String webUrl;
     AddressDto address;
+
+    /**
+     * Returns the full address in a formatted string.
+     */
+    public String getFullAddress() {
+        StringBuilder fullAddress = new StringBuilder();
+
+        if (address.number != null && !address.number.isEmpty()) {
+            fullAddress.append(address.number).append(", ");
+        }
+        if (address.street != null && !address.street.isEmpty()) {
+            fullAddress.append(address.street).append(", ");
+        }
+        if (address.city != null && !address.city.isEmpty()) {
+            fullAddress.append(address.city).append(", ");
+        }
+        if (address.country != null) {
+            fullAddress.append(address.country.getName()).append(", ");
+        }
+        if (address.zipcode != null && !address.zipcode.isEmpty()) {
+            fullAddress.append(address.zipcode);
+        }
+
+        if (!fullAddress.isEmpty() && fullAddress.charAt(fullAddress.length() - 1) == ' ') {
+            fullAddress.setLength(fullAddress.length() - 2);
+        }
+
+        return fullAddress.toString();
+    }
 }
