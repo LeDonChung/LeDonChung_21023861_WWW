@@ -45,7 +45,7 @@ public class HomeController {
 
                 } else if(authentication.isAuthenticated()) {
                     if(authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals(RoleUtils.ROLE_COMPANY))) {
-                        // Role COMPANY -> show ứng viên phù hợp với các job đang tuyển
+                        return "redirect:/recruitments";
                     }
                 }
             }

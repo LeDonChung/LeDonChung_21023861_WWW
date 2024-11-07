@@ -1,0 +1,86 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.logo {
+    font-weight: bold;
+    padding: 15px;
+}
+
+/* Sidebar container */
+.sidebar {
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    background-color: #f8f9fa;
+    padding-top: 20px;
+}
+
+/* Logo styling */
+.sidebar .logo {
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #343a40;
+}
+
+/* Sidebar item styling */
+.sidebar .nav-item {
+    margin: 0;
+}
+
+.sidebar .nav-link {
+    color: #495057;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Icon styling */
+.sidebar .nav-link i {
+    margin-right: 10px;
+}
+
+/* Active link styling */
+.sidebar .nav-link.active {
+    background-color: #0d6efd;
+    color: white;
+    border-radius: 8px;
+}
+
+/* Hover effect for nav links */
+.sidebar .nav-link:hover {
+    background-color: #e9ecef;
+    color: #0d6efd;
+    border-radius: 8px;
+}
+
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px); /* Di chuyển nhẹ lên trên khi hover */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ */
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-title i {
+    font-size: 40px; /* Tăng kích thước icon */
+    color: #007bff; /* Màu của icon */
+}
+
+.btn-primary {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-top: 10px; /* Khoảng cách giữa card nội dung và nút */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Đổi màu khi hover */
+    transform: scale(1.1); /* Phóng to nút khi hover */
+}

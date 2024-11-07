@@ -41,7 +41,8 @@ public class JobController {
                 List<CandidateSkillDto> skillHave = skills.stream().map((value) -> {
                     for (JobSkillDto skillOfJob : skillsOfJob) {
                         if (skillOfJob.getSkill().getId().equals(value.getSkill().getId())) {
-                            return value;
+                            if(value.getSkillLevel().compareTo(skillOfJob.getSkillLevel()) >= 0)
+                                return value;
                         }
                     }
                     return null;
@@ -52,6 +53,7 @@ public class JobController {
                 List<JobSkillDto> skillNotHave = skillsOfJob.stream().map((value) -> {
                     for (CandidateSkillDto skill : skills) {
                         if (skill.getSkill().getId().equals(value.getSkill().getId())) {
+
                             return null;
                         }
                     }

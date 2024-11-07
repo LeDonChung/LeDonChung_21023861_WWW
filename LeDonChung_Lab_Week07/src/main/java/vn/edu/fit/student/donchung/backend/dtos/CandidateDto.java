@@ -26,4 +26,5 @@ public class CandidateDto extends UserDto implements Serializable {
     AddressDto address;
     List<CandidateSkillDto> candidateSkills;
     List<ExperienceDto> experiences;
+    int match;
 }
