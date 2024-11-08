@@ -35,12 +35,9 @@ Bài tập yêu cầu xây dựng một hệ thống quản lý tuyển dụng v
     ```
 
 # III. Lưu ý khi trước khi chạy ứng dụng
-1. Import CSDL
+1. Import CSDL `resources/data.sql`
    
-    ```
-    resources/data.sql
-   ```
-2. Thiết lập resources/application.properties
+3. Thiết lập `resources/application.properties`
    
    ```
     spring.application.name=LeDonCHung_Lab_Week07
@@ -57,19 +54,145 @@ Bài tập yêu cầu xây dựng một hệ thống quản lý tuyển dụng v
 ## 1. Hệ thống đăng nhập phân quyền với Spring Security
    - COMPANY: Vai trò này dành cho các công ty, cho phép họ đăng tuyển và quản lý các vị trí công việc, được gợi ý ứng viên dựa trên yêu cầu kĩ năng công việc.
    - CANDIDATE: Vai trò này dành cho ứng viên, cho phép họ xem các công việc gợi ý dựa trên kĩ năng của ứng viên.
-     
+
+### `AppConfigugation.java`
+```java
+@Configuration
+@EnableWebSecurity 
+@EnableMethodSecurity // Annotation giúp các @Controller khác có thể kiểm tra Role, Authorize
+public class AppConfiguration {
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new UserDetailService();
+    }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public DaoAuthenticationProvider daoAuthenticationConfigurer() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService());
+        provider.setPasswordEncoder(passwordEncoder());
+        return provider;
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf()
+                .disable()
+                .authorizeRequests()
+                .requestMatchers("/login/**")
+                .permitAll()
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/do-login")
+                .defaultSuccessUrl("/index")
+                // .failureForwardUrl("/login?error") (Have custom by http)
+                .permitAll()
+                .and()
+                .logout()
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/login?logout")
+                .permitAll()
+                .and().httpBasic().disable();
+        return http.build();
+    }
+}
+```
+### Demo
+
 ![Demo](https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week07/src/main/resources/evidences/login.gif)
 
 ## 2. Gợi ý công việc dựa trên kĩ năng của ứng viên.
 
+### `JobService`
+```java
+   @Override
+    public PageDto<JobDto> getJobsForCandidate(int page, int size, Long candidateId) {
+        // Create page request
+        PageRequest pageRequest = PageRequest.of(page, size);
+
+
+        Page<Job> pageJob = jobRepository.findJobsForCandidateWithLevel(candidateId, 60, pageRequest);
+        return PageDto.<JobDto>builder()
+                .page(page)
+                .size(size)
+                .total(pageJob.getNumberOfElements())
+                .totalPages(pageJob.getTotalPages())
+                .values(pageJob.stream().map(jobMapper::toDto).toList())
+                .build();
+    }
+```
+
+### `JobRepository`
+```java
+   @Query("SELECT j FROM Job j " +
+            "JOIN j.jobSkills js " +  // Liên kết với các kỹ năng yêu cầu của công việc
+            "JOIN CandidateSkill cs ON cs.skill.id = js.skill.id " +  // Liên kết với các kỹ năng của ứng viên
+            "WHERE cs.candidate.id = :candidateId " +  // Lọc theo ứng viên
+            "AND cs.skillLevel >= js.skillLevel " +  // Kiểm tra mức độ kỹ năng ứng viên
+            "GROUP BY j.id " +  // Nhóm theo công việc
+            "HAVING COUNT(DISTINCT cs.skill.id) * 100 / (SELECT COUNT(DISTINCT jss.skill.id) FROM JobSkill jss WHERE jss.job.id = j.id) >= :per " +  // So sánh tỷ lệ kỹ năng
+            "ORDER BY COUNT(DISTINCT cs.skill.id) * 100 / (SELECT COUNT(DISTINCT jss.skill.id) FROM JobSkill jss WHERE jss.job.id = j.id) DESC")  // Sắp xếp theo tỷ lệ
+    Page<Job> findJobsForCandidateWithLevel(@Param("candidateId") Long candidateId, @Param("per") int per,
+                                            Pageable pageable);
+```
+
+### Demo
+
 ![Demo](https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week07/src/main/resources/evidences/recommend-job.gif)
 
 ## 3. Gợi ý các kĩ năng mà ứng viên còn thiếu để phù hợp với vị trí công việc
-   
+
 ![image](https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week07/src/main/resources/evidences/goiy.jpg)
 
 ## 4. Công ty có thể tìm kiếm ứng viên phù hợp với vị trí công việc theo tỉ lệ match
-   
+
+### `JobService`
+```java
+   @Override
+    public PageDto<CandidateDto> findCandidatesForJobWithLevel(Long jobId, int per, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Candidate> pageCandidates = jobRepository.findCandidatesForJobWithLevel(jobId, per, pageRequest);
+
+        return PageDto.<CandidateDto>builder()
+                .page(page)
+                .size(size)
+                .total(pageCandidates.getNumberOfElements())
+                .totalPages(pageCandidates.getTotalPages())
+                .values(pageCandidates.stream().map(candidateMapper::toDto).toList())
+                .build();
+    }
+```
+
+### `JobRepository`
+```java
+   @Query("SELECT c FROM Candidate c " +
+            "JOIN c.candidateSkills cs  " +  // Liên kết kỹ năng của ứng viên với kỹ năng công việc
+            "JOIN JobSkill js ON cs.skill.id = js.skill.id " +
+            "WHERE js.job.id = :jobId " +  // Liên kết với công việc cụ thể
+            "AND cs.skillLevel >= js.skillLevel " +  // Kiểm tra mức độ kỹ năng ứng viên đáp ứng yêu cầu
+            "GROUP BY c.id " +  // Nhóm theo ứng viên
+            "HAVING COUNT(DISTINCT cs.skill.id) * 100 / (SELECT COUNT(DISTINCT js2.skill.id) FROM JobSkill js2 WHERE js2.job.id = :jobId) >= :per " +  // So sánh tỷ lệ kỹ năng
+            "ORDER BY COUNT(DISTINCT cs.skill.id) * 100 / (SELECT COUNT(DISTINCT js2.skill.id) FROM JobSkill js2 WHERE js2.job.id = :jobId) DESC")  // Sắp xếp theo tỷ lệ
+    Page<Candidate> findCandidatesForJobWithLevel(@Param("jobId") Long jobId, @Param("per") int per,
+                                                  Pageable pageable);
+```
+
+### Demo
+
 ![Demo](https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week07/src/main/resources/evidences/active.gif)
    
 
