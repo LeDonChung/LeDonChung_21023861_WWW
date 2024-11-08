@@ -8,12 +8,11 @@ import vn.edu.fit.student.donchung.backend.dtos.CandidateDto;
 import vn.edu.fit.student.donchung.backend.dtos.JobDto;
 import vn.edu.fit.student.donchung.backend.dtos.PageDto;
 import vn.edu.fit.student.donchung.backend.services.JobService;
-import vn.edu.fit.student.donchung.frontend.utils.AppUtils;
 
 @RestController
 @RequestMapping("/api/jobs")
 @Slf4j
-public class JobRestController {
+public class JobResource {
 
     @Autowired
     private JobService jobService;
@@ -74,6 +73,7 @@ public class JobRestController {
     @PostMapping
     public ResponseEntity<JobDto> createJob(@RequestBody JobDto jobDto) {
         try {
+            System.out.println("AFTER: " + jobDto);
             JobDto job = jobService.saveJob(jobDto);
             return ResponseEntity.ok(job);
         } catch (Exception e) {

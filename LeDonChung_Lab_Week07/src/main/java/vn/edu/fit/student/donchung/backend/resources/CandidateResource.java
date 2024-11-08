@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping("/api/candidates")
-public class CandidateRestController {
+public class CandidateResource {
     @Autowired
     private CandidateService candidateService;
 

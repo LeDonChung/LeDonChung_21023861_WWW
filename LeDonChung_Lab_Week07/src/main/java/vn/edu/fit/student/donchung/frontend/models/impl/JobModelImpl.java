@@ -3,6 +3,7 @@ package vn.edu.fit.student.donchung.frontend.models.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -52,19 +53,36 @@ public class JobModelImpl implements JobModel {
 
     @Override
     public JobDto createJob(JobDto jobDto) {
-        return restTemplate.postForObject(AppUtils.API_URL + "/jobs", jobDto,
+        System.out.println("BEGIN: " + jobDto);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+        HttpEntity<JobDto> request = new HttpEntity<>(jobDto, headers);
+
+        ResponseEntity<JobDto> response = restTemplate.exchange(
+                AppUtils.API_URL + "/jobs",
+                HttpMethod.POST,
+                request,
                 JobDto.class);
+
+        return response.getBody();
     }
 
     @Override
     public JobDto updateJob(JobDto jobDto) {
-        ResponseEntity<JobDto> response = restTemplate.exchange(
-                AppUtils.API_URL + "/jobs",
-                org.springframework.http.HttpMethod.PUT,
-                new HttpEntity<>(jobDto),
+//        try{
+//            ResponseEntity<JobDto> response = restTemplate.exchange(
+//                    AppUtils.API_URL + "/jobs",
+//                    org.springframework.http.HttpMethod.PUT,
+//                    new HttpEntity<>(jobDto),
+//                    JobDto.class);
+//
+//            return response.getBody();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+        return restTemplate.postForObject(AppUtils.API_URL + "/jobs", jobDto,
                 JobDto.class);
-
-        return response.getBody();
     }
 
     @Override

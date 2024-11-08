@@ -48,12 +48,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" th:href="@{/recruitments/active}">
+                        <a class="nav-link" th:href="@{/recruitments/active}">
                             <i class="fas fa-briefcase"></i> Active Jobs
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" th:href="@{/recruitments/jobs}">
+                        <a class="nav-link active" th:href="@{/recruitments/job}">
                             <i class="fas fa-tasks"></i> Job Management
                         </a>
                     </li>
@@ -80,39 +80,48 @@
             </div>
 
             <div>
-                <div>
+                <div style="margin: 20px 0">
                     <h2>Job Management</h2>
-                    <a class="btn btn-primary" href="/recruitments/jobs/add">Add New Job</a>
+                    <a class="btn btn-primary" th:href="@{/recruitments/job/edit}">Add New Job</a>
                 </div>
                 <table class="table">
                     <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Skills</th>
+                        <th scope="col">Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
+                    <tr th:each="job, i: ${jobs.values}">
+                        <th  th:text="${i.count }"></th>
+                        <td  th:text="${job.jobName}"></td>
+                        <td >
+                            <!-- Job Skills -->
+                            <div class="d-flex flex-wrap">
+                                <span class="badge me-2 mb-2 random-badge" th:each="skill: ${job.jobSkills}"
+                                      th:text="${skill.skill.skillName}"></span>
+                            </div>
+                        </td>
+
+                        <td >
+                            <a class="btn btn-primary" th:href="@{/recruitments/job/edit/{id}(id=${job.id})}">Edit</a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
+                <!-- Pagination for Recommended Jobs -->
+                <nav aria-label="Page navigation" class="mt-4 all-job-recommend-pagination" th:if="${jobs.totalPages > 0}">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" th:class="${page == jobs.page} ? 'active'"  th:each="page : ${#numbers.sequence(0, jobs.totalPages - 1)}"
+                        >
+                            <a class="page-link"  th:text="${page + 1}" th:href="@{|/recruitments/job?page=${page}&size=${jobs.size}|}">
+
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </main>
     </div>

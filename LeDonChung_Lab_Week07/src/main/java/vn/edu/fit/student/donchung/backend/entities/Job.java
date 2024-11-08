@@ -29,7 +29,7 @@ public class Job {
     @JoinColumn(name = "com_id")
     private Company company;
 
-    @OneToMany(mappedBy = "job", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "job", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.PERSIST})
     private List<JobSkill> jobSkills;
 
 }

@@ -22,7 +22,7 @@ public class CompanyDto extends UserDto implements Serializable {
     String compName;
     String phone;
     String webUrl;
-    AddressDto address;
+    AddressDto address = new AddressDto();
 
     /**
      * Returns the full address in a formatted string.

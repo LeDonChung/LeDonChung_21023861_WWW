@@ -12,15 +12,13 @@ import vn.edu.fit.student.donchung.backend.dtos.CandidateDto;
 import vn.edu.fit.student.donchung.backend.dtos.JobDto;
 import vn.edu.fit.student.donchung.backend.dtos.PageDto;
 import vn.edu.fit.student.donchung.backend.entities.*;
-import vn.edu.fit.student.donchung.backend.repositories.CandidateRepository;
-import vn.edu.fit.student.donchung.backend.repositories.CompanyRepository;
-import vn.edu.fit.student.donchung.backend.repositories.JobRepository;
-import vn.edu.fit.student.donchung.backend.repositories.JobSkillRepository;
+import vn.edu.fit.student.donchung.backend.repositories.*;
 import vn.edu.fit.student.donchung.backend.services.JobService;
 
 import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,6 +35,8 @@ public class JobServiceImpl implements JobService {
     private CandidateRepository candidateRepository;
     @Autowired
     private CandidateMapper candidateMapper;
+    @Autowired
+    private SkillRepository skillRepository;
 
     @Override
     public PageDto<JobDto> getJobs(int page, int size) {
@@ -93,7 +93,7 @@ public class JobServiceImpl implements JobService {
 
 
         // If company is not null, count the number of jobs by company
-        if(company != null) {
+        if (company != null) {
             count = jobRepository.countByCompanyId(company.getId());
         }
 
@@ -124,10 +124,33 @@ public class JobServiceImpl implements JobService {
             return null;
         }
 
+
         Job job = jobMapper.toEntity(jobDto);
         job.setCompany(company);
 
-        job = jobRepository.save(job);
+        Job finalJob = job;
+        List<JobSkill> jobSkills = job.getJobSkills().stream().map((jobSkill) -> {
+            Skill skill = skillRepository.findById(jobSkill.getSkill().getId()).orElse(null);
+
+            if(skill == null) return null;
+
+            return JobSkill.builder()
+                    .skillLevel(jobSkill.getSkillLevel())
+                    .job(finalJob)
+                    .moreInfos(jobSkill.getMoreInfos())
+                    .skill(skill)
+                    .id(
+                            JobSkillId.builder()
+                                    .jobId(finalJob.getId())
+                                    .skillId(skill.getId())
+                                    .build()
+                    ).build();
+        }).filter(Objects::nonNull).collect(Collectors.toList());
+
+        job.setJobSkills(jobSkills);
+        job = jobRepository.saveAndFlush(job);
+        job = jobRepository.findById(job.getId()).orElse(null);
+
         return jobMapper.toDto(job);
     }
 
