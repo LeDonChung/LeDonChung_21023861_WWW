@@ -9,14 +9,17 @@ Xin chào, tôi là Chủng, một lập trình viên đam mê công nghệ và 
 - Công nghệ: Servlet & JSP, Spring MVC, Springboot
 - Người hướng dẫn: Võ Văn Hải
 - Người thực hiện: Lê Đôn Chủng
-- Mã số sinh viên: 210237861
+- Mã số sinh viên: 21023861
 
 Dự án được xây dựng nhằm làm nơi lưu trữ các bài tập hàng tuần. Ngay bây giờ hãy click vào từng tuần một để xem tôi đang làm gì nhé!
-- [Session 01](https://github.com/LeDonChung/ReactNative/tree/main/Tuan01)
-- [Tuần 01](https://github.com/LeDonChung/ReactNative/tree/main/Tuan01)
-- [Tuần 02](https://github.com/LeDonChung/ReactNative/tree/main/Tuan01)
-- [Tuần 03](https://github.com/LeDonChung/ReactNative/tree/main/Tuan01)
-
+- [Session 01](https://github.com/LeDonChung/LeDonChung_21023861_WWW/tree/main/LeDonChung_21023861_Session01)
+- [Tuần 01](https://github.com/LeDonChung/LeDonChung_21023861_WWW/tree/main/LeDonChung_Lab_Week01)
+- [Tuần 02](https://github.com/LeDonChung/LeDonChung_21023861_WWW/tree/main/LeDonChung_Lab_Week02)
+- [Tuần 03](https://github.com/LeDonChung/LeDonChung_21023861_WWW/tree/main/LeDonChung_Lab_Week03)
+- [Tuần 05](https://github.com/LeDonChung/LeDonChung_21023861_WWW/tree/main/LeDonChung_Lab_Week05)
+- [Tuần 06](https://github.com/LeDonChung/LeDonChung_21023861_WWW/tree/main/LeDonChung_Lab_Week06)
+- [Tuần 07](https://github.com/LeDonChung/LeDonChung_21023861_WWW/tree/main/LeDonChung_Lab_Week07)
+  
 ## 🚀 Làm thế nào để tải về dự án này ?
 Hãy làm theo các bước sau:
 1. Clone repository: 
