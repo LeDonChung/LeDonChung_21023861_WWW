@@ -31,10 +31,12 @@
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
-                <p sec:authorize="isAuthenticated()" style="margin: auto 20px" th:text="${'Hello, ' + #authentication.name}"></p>
-                <a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="btn btn-primary me-2">Đăng nhập</a>
-                <a sec:authorize="!isAuthenticated()" href="register.html" class="btn btn-outline-success">Đăng ký</a>
-                <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="btn btn-primary me-2">Đăng xuất</a>
+                <div style="display: flex; align-items: center; justify-content: center;">
+                    <p sec:authorize="isAuthenticated()" style="margin: 0 20px 0;" th:text="${'Hello, ' + #authentication.name}"></p>
+                    <a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="btn btn-primary me-2">Đăng nhập</a>
+                    <a sec:authorize="!isAuthenticated()" href="register.html" class="btn btn-outline-success">Đăng ký</a>
+                    <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="btn btn-primary me-2">Đăng xuất</a>
+                </div>
 
             </div>
         </div>
@@ -43,10 +45,10 @@
 
 <main class="container my-5">
     <div sec:authorize="hasAnyAuthority('CANDIDATE')">
-        <h1 class="mb-4">Công việc phù hợp</h1>
-        <div class="all-job-recommend">
+        <h1 class="mb-4">Recommend Job</h1>
+        <div class="all-job-recommend" >
             <div class="row g-4">
-                <div class="col-md-4" th:each="item: ${pageRecommend.values}">
+                <a class="col-md-4" th:each="item: ${pageRecommend.values}" th:href="@{|/jobs/detail/${item.id}|}" style="text-decoration: none;">
                     <div class="card fixed-card">
                         <div class="card-body">
                             <h5 class="card-title" th:text="${item.jobName}"></h5>
@@ -57,7 +59,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
 
@@ -86,10 +88,10 @@
     </div>
 
     <div>
-        <h1 class="mt-5 mb-4">Việc đang tuyển</h1>
+        <h1 class="mt-5 mb-4">Jobs are hiring</h1>
         <div class="all-job-list">
             <div class="row g-4">
-                <div class="col-md-4" th:each="item: ${pageJobs.values}">
+                <a class="col-md-4" th:each="item: ${pageJobs.values}" th:href="@{|/jobs/detail/${item.id}|}" style="text-decoration: none;">
                     <div class="card fixed-card">
                         <div class="card-body">
                             <h5 class="card-title" th:text="${item.jobName}"></h5>
@@ -100,7 +102,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
 
