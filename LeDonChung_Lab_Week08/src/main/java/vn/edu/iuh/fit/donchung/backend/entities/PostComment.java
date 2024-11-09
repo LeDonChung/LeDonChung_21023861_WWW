@@ -1,52 +1,41 @@
-package vn.edu.iuh.fit.donchung.entities;
+package vn.edu.iuh.fit.donchung.backend.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Getter
 @Setter
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
-@Table(name = "post")
-public class Post {
+@Table(name = "post_comment")
+public class PostComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "authorId", nullable = false)
-    private User author;
+    @JoinColumn(name = "postId", nullable = false)
+    private Post post;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parentId")
-    private Post parent;
+    private PostComment parent;
 
-    @Column(name = "title", nullable = false, length = 75)
+    @Column(name = "title", nullable = false, length = 100)
     private String title;
-
-    @Column(name = "metaTitle", length = 100)
-    private String metaTitle;
-
-    @Lob
-    @Column(name = "summary")
-    private String summary;
 
     @Column(name = "published", nullable = false)
     private Boolean published = false;
 
     @Column(name = "createdAt", nullable = false)
     private Timestamp createdAt;
-
-    @Column(name = "updatedAt")
-    private Timestamp updatedAt;
 
     @Column(name = "publishedAt")
     private Timestamp publishedAt;
@@ -56,9 +45,6 @@ public class Post {
     private String content;
 
     @OneToMany(mappedBy = "parent")
-    private Set<Post> posts = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "post")
     private Set<PostComment> postComments = new LinkedHashSet<>();
 
 }

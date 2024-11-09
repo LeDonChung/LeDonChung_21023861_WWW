@@ -1,11 +1,9 @@
-package vn.edu.iuh.fit.donchung.entities;
+package vn.edu.iuh.fit.donchung.backend.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Timestamp;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -37,24 +35,22 @@ public class User {
     @Column(name = "email", length = 50)
     private String email;
 
-    @Column(name = "passwordHash", nullable = false, length = 32)
+    @Column(name = "password_hash", nullable = true, length = 32)
     private String passwordHash;
 
-    @Column(name = "registeredAt", nullable = false)
+    @Column(name = "registered_at", nullable = false)
     private Timestamp registeredAt;
 
-    @Column(name = "lastLogin")
+    @Column(name = "last_login")
     private Timestamp lastLogin;
 
-    @Lob
     @Column(name = "intro")
     private String intro;
 
-    @Lob
     @Column(name = "profile")
     private String profile;
 
     @OneToMany(mappedBy = "author")
-    private Set<Post> posts = new LinkedHashSet<>();
+    private Set<Post> posts;
 
 }
