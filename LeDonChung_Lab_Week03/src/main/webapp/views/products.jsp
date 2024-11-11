@@ -181,30 +181,57 @@
                                         </td>
                                         <td>${product.name}</td>
                                         <td>${product.manufacturer}</td>
-
-                                        <c:if test="${product.price != 0}">
-                                            <td>
+                                        <td>
+                                            <c:if test="${product.price != 0}">
                                                 <fmt:setLocale value="vi-VN"/>
                                                 <fmt:formatNumber value="${product.price}" type="currency"/>
-                                            </td>
-                                        </c:if>
-
-                                        <c:if test="${product.price == 0}">
-                                            <td>
+                                            </c:if>
+                                            <c:if test="${product.price == 0}">
                                                 <form method="post" action="products">
                                                     <input type="hidden" value="${product.id}" name="id" />
                                                     <input type="hidden" value="addPrice" name="action" />
                                                     <input type="number" name="price" placeholder="Chỉnh giá" value="0" />
                                                 </form>
-                                            </td>
-                                        </c:if>
-
+                                            </c:if>
+                                        </td>
                                         <td>${product.unit}</td>
                                         <td>
                                             <a href="products?action=edit&id=${product.id}" class="btn btn-primary">Edit</a>
+                                            <!-- Trigger Modal Button -->
+                                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                    data-target="#productModal${loop.index}" style="margin-left: 0px; margin-bottom: 20px;">
+                                                Price
+                                            </button>
+                                            <div class="modal fade" id="productModal${loop.index}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                 aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">
+                                                                Add Price For ${product.name}
+                                                            </h5>
+                                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">×</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form method="post" action="products">
+                                                                <input type="hidden" value="${product.id}" name="id" />
+                                                                <input type="hidden" value="addPrice" name="action" />
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control" id="price" name="price" value="${product.getStringPrice()}">
+                                                                    <button type="submit">Submit</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </td>
                                     </tr>
                                 </c:forEach>
+
                                 </tbody>
                             </table>
                         </div>
@@ -236,7 +263,6 @@
 <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
 </a>
-
 <!-- Bootstrap core JavaScript-->
 <script src="<c:url  value="/resources/vendor/jquery/jquery.min.js"/>"></script>
 
@@ -252,8 +278,6 @@
 <!-- Page level plugins -->
 
 <script src="<c:url  value="/resources/vendor/chart.js/Chart.min.js"/>"></script>
-
-<!-- Page level custom scripts -->
 
 <!-- Page level plugins -->
 

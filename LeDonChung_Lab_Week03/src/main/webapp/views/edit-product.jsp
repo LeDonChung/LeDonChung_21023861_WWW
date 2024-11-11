@@ -181,7 +181,7 @@
 
                             <div class="form-group">
                                 <label for="price">Giá</label>
-                                <input type="text" class="form-control" id="price" name="price" value="${product.price}">
+                                <input type="text" class="form-control" id="price" name="price" value="${product.getStringPrice()}">
                             </div>
                             <button class="btn btn-primary" type="submit">Submit</button>
                         </form>

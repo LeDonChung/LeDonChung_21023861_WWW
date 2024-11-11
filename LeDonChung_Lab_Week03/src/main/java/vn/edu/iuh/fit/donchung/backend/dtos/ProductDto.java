@@ -22,4 +22,8 @@ public class ProductDto implements Serializable {
     private String unit;
     private String imgPath;
     private Double price;
+
+    public String getStringPrice() {
+        return String.format("%.2f", price);
+    }
 }
