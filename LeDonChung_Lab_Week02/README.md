@@ -1,5 +1,5 @@
 ## 📝Nội Dung Dựa Án Của Tôi
-- Tên dự án: LeDonChung_Lab_Week01
+- Tên dự án: LeDonChung_Lab_Week02
 - Công nghệ: Servlet & JSP, JarkataEE
 - Người hướng dẫn: Võ Văn Hải
 - Người thực hiện: Lê Đôn Chủng
