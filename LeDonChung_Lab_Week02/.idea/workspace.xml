@@ -5,6 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8f4e71e3-a631-4fc8-b6d6-11fb67b25b13" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/554afe7d-94f5-41a2-86b0-cc7dd561f8c6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/554afe7d-94f5-41a2-86b0-cc7dd561f8c6/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/554afe7d-94f5-41a2-86b0-cc7dd561f8c6/storage_v2/_src_/schema/mysql.osA4Bg.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/554afe7d-94f5-41a2-86b0-cc7dd561f8c6/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/554afe7d-94f5-41a2-86b0-cc7dd561f8c6/storage_v2/_src_/schema/week02.9njP0A.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/evidences/login.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/evidences/order-customer-new.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/evidences/order-customer-old.gif" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -115,7 +123,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/HK10/WWW/LeDonChung_21023861_WWW/LeDonChung_Lab_Week02",
+    "last_opened_file_path": "D:/HK10/WWW/LeDonChung_21023861_WWW/LeDonChung_Lab_Week02/src/main/resources/evidences",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -262,7 +270,7 @@
       <workItem from="1728034245115" duration="1211000" />
       <workItem from="1729699555595" duration="270000" />
       <workItem from="1729760437116" duration="1241000" />
-      <workItem from="1731337061243" duration="5948000" />
+      <workItem from="1731337061243" duration="6267000" />
     </task>
     <servers />
   </component>

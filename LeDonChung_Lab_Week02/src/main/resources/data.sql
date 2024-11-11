@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `customers` (
   PRIMARY KEY (`cust_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Dumping data for table week02.customers: ~10 rows (approximately)
+-- Dumping data for table week02.customers: ~11 rows (approximately)
 INSERT INTO `customers` (`cust_id`, `address`, `email`, `cust_name`, `phone`) VALUES
 	(1, 'Apt. 865 8566 Rutherford Hill, South Geoffreyberg, IA 81912', 'louanne.oreilly@hotmail.com', 'Mr. Emerson Rice', '(730) 678-8809'),
 	(2, '00637 Emmerich Burg, Lake Criseldafurt, OH 75322', 'loren.balistreri@yahoo.com', 'Lettie Orn', '(983) 213-5273'),
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   CONSTRAINT `FKhd5us119wo7s8vudtdcknsx04` FOREIGN KEY (`cust_id`) REFERENCES `customers` (`cust_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Dumping data for table week02.orders: ~101 rows (approximately)
+-- Dumping data for table week02.orders: ~107 rows (approximately)
 INSERT INTO `orders` (`order_id`, `order_date`, `cust_id`, `employee_id`) VALUES
 	(2, '2024-10-23 23:04:33.244657', 1, 1),
 	(3, '2024-09-27 23:04:33.446046', 4, 1),
@@ -208,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `order_details` (
   CONSTRAINT `FKjyu2qbqt8gnvno9oe9j2s2ldk` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Dumping data for table week02.order_details: ~261 rows (approximately)
+-- Dumping data for table week02.order_details: ~272 rows (approximately)
 INSERT INTO `order_details` (`note`, `price`, `quantity`, `order_id`, `product_id`) VALUES
 	('Accusantium quaerat blanditiis accusantium fugit reprehenderit necessitatibus consequuntur.', 175.32, 2.8, 2, 27),
 	('Magni corporis laborum ullam laborum facere cupiditate libero.', 96.72, 3.1, 3, 28),
