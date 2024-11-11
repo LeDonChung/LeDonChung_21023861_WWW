@@ -1,3 +1,10 @@
+## 📝Nội Dung Dựa Án Của Tôi
+- Tên dự án: LeDonChung_Lab_Week01
+- Công nghệ: Spring MVC, Springboot
+- Người hướng dẫn: Võ Văn Hải
+- Người thực hiện: Lê Đôn Chủng
+- Mã số sinh viên: 21023861
+
 # I. Giới thiệu
 
 Bài tập yêu cầu xây dựng một hệ thống quản lý tuyển dụng với các tính năng sau:
