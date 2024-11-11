@@ -20,15 +20,6 @@ import java.util.List;
 public class ControlServlet extends HttpServlet {
     @Inject
     private AccountService accountService;
-    @Inject
-    private RoleService roleService;
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter("action");
-
-        super.doGet(req, resp);
-    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -40,25 +31,24 @@ public class ControlServlet extends HttpServlet {
             accountDto.setAccountId(accountId);
             accountDto.setPassword(password);
 
+
             AccountDto account = accountService.login(accountDto);
+
             if (account != null) {
+
                 HttpSession session = req.getSession();
                 session.setAttribute("account", account);
-                if (account.getGrantAccesses().stream().anyMatch(grantAccessDto -> grantAccessDto.getRole().getRoleId().equalsIgnoreCase("admin"))) {
-                    // list users
-                    List<AccountDto> accounts = accountService.getAllAccount();
-                    // list role
-                    List<RoleDto> roles = roleService.getAll();
 
-                    req.setAttribute("accounts", accounts);
-                    req.setAttribute("roles", roles);
-                     req.getRequestDispatcher("views/dashboard.jsp").forward(req, resp);
+                if (account.getGrantAccesses().stream().anyMatch(grantAccessDto -> grantAccessDto.getRole().getRoleId().equalsIgnoreCase("admin"))) {
+                    resp.sendRedirect(req.getContextPath() + "/dashboard");
                 } else {
-                    req.getRequestDispatcher("views/user.jsp").forward(req, resp);
+                    resp.sendRedirect(req.getContextPath() + "/profile");
                 }
             } else {
                 req.setAttribute("error", "Login failed");
                 req.getRequestDispatcher("index.jsp").forward(req, resp);
+
+
             }
 
         } else if(action.equalsIgnoreCase("logout")) {
@@ -74,6 +64,5 @@ public class ControlServlet extends HttpServlet {
                 req.getRequestDispatcher("index.jsp").forward(req, resp);
             }
         }
-
     }
 }

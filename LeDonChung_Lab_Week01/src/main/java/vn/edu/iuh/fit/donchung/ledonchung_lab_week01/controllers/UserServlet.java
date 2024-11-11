@@ -38,7 +38,6 @@ public class UserServlet extends HttpServlet {
         req.setAttribute("roles", roles);
         req.getRequestDispatcher("views/edit-user.jsp").forward(req, resp);
 
-        super.doGet(req, resp);
     }
 
     @Override
@@ -50,6 +49,7 @@ public class UserServlet extends HttpServlet {
         // Lấy danh sách các role IDs được chọn
         String[] roles = req.getParameterValues("roles");
         Set<String> roleSet = new HashSet<>(Arrays.asList(roles));
+
         Set<GrantAccessDto> grantAccess = roleSet.stream().map(roleId -> {
             GrantAccessDto grantAccessDto = new GrantAccessDto();
             RoleDto roleDto = new RoleDto();
@@ -72,7 +72,7 @@ public class UserServlet extends HttpServlet {
         AccountDto accountDto = new AccountDto(accountId, fullName, password, email, phone, (byte) 1, grantAccess);
         accountService.save(accountDto);
 
-        req.getRequestDispatcher("views/dashboard.jsp").forward(req, resp);
-        super.doPost(req, resp);
+        resp.sendRedirect(req.getContextPath() + "/dashboard");
+
     }
 }
