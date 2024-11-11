@@ -41,7 +41,7 @@
             <p style=''>Phone: ${sessionScope.get('account').phone}</p>
             <p> Role:
                 <c:forEach items="${sessionScope.get('account').grantAccesses}" var="item">
-                    <span>${item.role.roleName}</span>
+                    <span class="badge bg-secondary">${item.role.roleName}</span>
                 </c:forEach>
             </p>
         </div>
