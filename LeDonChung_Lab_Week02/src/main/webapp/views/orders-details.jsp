@@ -163,8 +163,7 @@
                                     </h5>
                                     <p class="card-text">
                                             <span class="text-danger">
-                                                <fmt:setLocale value="vi-VN"/>
-                                                <fmt:formatNumber value="${detail.price}" type="currency"/>
+                                                <fmt:formatNumber value="${detail.price}" type="currency"  currencySymbol="$"/>
                                             </span>
                                     </p>
                                     <div class="input-group mb-3" style="width: 250px;">

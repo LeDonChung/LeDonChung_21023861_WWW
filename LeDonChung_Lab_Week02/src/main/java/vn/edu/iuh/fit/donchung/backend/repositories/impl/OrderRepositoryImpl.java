@@ -40,4 +40,10 @@ public class OrderRepositoryImpl implements OrderRepository {
         }
         return order;
     }
+
+    @Override
+    public List<Order> findByEmployeeId(Long employeeId) {
+        return em.createQuery("SELECT o FROM Order o WHERE o.employee.id = :employeeId ORDER BY o.orderDate DESC", Order.class)
+                .setParameter("employeeId", employeeId).getResultList();
+    }
 }

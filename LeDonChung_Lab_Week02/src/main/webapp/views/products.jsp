@@ -59,8 +59,7 @@
                         <div class="card-body">
                             <p class="card-text" style="font-weight: bold; font-size: 20px;  "> ${product.name} </p>
                             <p class="card-text" style="font-weight: bold; font-size: 18px; color: red ">
-                                <fmt:setLocale value="vi_VN"/>
-                                <fmt:formatNumber value="${product.getPrice()}" type="currency"/>
+                                <fmt:formatNumber value="${product.getPrice()}" type="currency"  currencySymbol="$"/>
                             </p>
                             <p class="card-text" style="font-weight: bold; font-size: 18px"> ${product.manufacturer} </p>
                             <a href="products?id=${product.id}" class="btn btn-primary">Xem chi tiết</a>

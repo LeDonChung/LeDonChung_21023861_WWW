@@ -18,6 +18,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public List<Product> findAll() {
         return em.createNamedQuery("Product.findAll", Product.class)
+                .setMaxResults(9)
                 .getResultList();
     }
 
@@ -52,6 +53,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     public List<Product> findByStatus(ProductStatus status) {
         return em.createNamedQuery("Product.findByStatus", Product.class)
                 .setParameter("status", status)
+                .setMaxResults(8)
                 .getResultList();
     }
 }

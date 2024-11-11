@@ -103,4 +103,13 @@ public class OrderServiceImpl implements OrderService {
 
         return orderMapper.toDto(entity);
     }
+
+    @Override
+    public List<OrderDto> findByEmployeeId(Long employeeId) {
+        return orderRepository
+                .findByEmployeeId(employeeId)
+                .stream()
+                .map(orderMapper::toDto)
+                .collect(Collectors.toList());
+    }
 }

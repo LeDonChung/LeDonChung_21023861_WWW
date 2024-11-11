@@ -24,4 +24,6 @@ public interface OrderService {
      * @return đơn hàng đã được lưu
      */
     OrderDto save(OrderDto order);
+
+    List<OrderDto> findByEmployeeId(Long employeeId);
 }

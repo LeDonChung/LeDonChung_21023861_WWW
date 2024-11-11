@@ -181,8 +181,7 @@
                                         <td>${order.employee.fullName}</td>
                                         <td>${order.orderDate}</td>
                                         <td>
-                                            <fmt:setLocale value="vi-VN"/>
-                                            <fmt:formatNumber value="${order.getTotalPrice()}" type="currency"/>
+                                            <fmt:formatNumber value="${order.getTotalPrice()}" type="currency" currencySymbol="$"/>
                                         </td>
                                         <td>
                                             <a href="orders?action=detail&id=${order.id}" class="btn btn-primary">Chi tiết</a>

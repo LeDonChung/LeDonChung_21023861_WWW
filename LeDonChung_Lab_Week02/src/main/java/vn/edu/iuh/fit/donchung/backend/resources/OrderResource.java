@@ -14,6 +14,26 @@ public class OrderResource {
     private OrderService orderService;
 
     /**
+     * API: GET /orders/{employeeId}
+     * Lấy tất cả các đơn hàng
+     * @return danh sách đơn hàng
+     * @return
+     */
+    @GET
+    @Path("/employee/{employeeId}")
+    public Response getEmployeeId(@PathParam("employeeId") Long employeeId) {
+        try {
+            return Response.ok(orderService.findByEmployeeId(employeeId)).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.serverError()
+                    .entity(AppUtils.SERVER_ERROR)
+                    .build();
+        }
+
+    }
+
+    /**
      * API: GET /orders
      * Lấy tất cả các đơn hàng
      * @return danh sách đơn hàng

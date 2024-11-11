@@ -72,8 +72,12 @@ public class OrderController extends HttpServlet {
                 OrderDto order = cartModel.toDto(req);
                 orderModel.save(order);
                 cartModel.clearCart(req);
+
+                resp.sendRedirect(req.getContextPath() + "/orders?action=show");
+                return;
             } else if(action.equalsIgnoreCase("show")) {
-                List<OrderDto> orders = orderModel.getAll();
+                Account account = (Account) session.getAttribute("account");
+                List<OrderDto> orders = orderModel.getByEmployeeId(account.getId());
                 req.setAttribute("orders", orders);
                 req.getRequestDispatcher("/views/orders-all.jsp").forward(req, resp);
             } else if(action.equalsIgnoreCase("detail")) {
@@ -104,6 +108,7 @@ public class OrderController extends HttpServlet {
 
         req.setAttribute("products", products);
         session.setAttribute("cart", cart);
+
         req.getRequestDispatcher("/views/orders.jsp").forward(req, resp);
     }
 }

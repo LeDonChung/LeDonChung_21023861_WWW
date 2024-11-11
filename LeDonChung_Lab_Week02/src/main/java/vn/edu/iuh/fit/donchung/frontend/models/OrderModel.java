@@ -20,6 +20,12 @@ public interface OrderModel {
     List<OrderDto> getAll();
 
     /**
+     * Lấy tất cả order của employee
+     * @return List<OrderDto> tất cả order
+     */
+    List<OrderDto> getByEmployeeId(Long employeeId);
+
+    /**
      * Lấy order theo id
      * @param id id của order
      * @return OrderDto order

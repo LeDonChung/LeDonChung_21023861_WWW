@@ -11,5 +11,6 @@ public interface OrderRepository {
     List<Order> findAll();
     Order findById(Long id);
     Order save(Order order);
+    List<Order> findByEmployeeId(Long employeeId);
 
 }

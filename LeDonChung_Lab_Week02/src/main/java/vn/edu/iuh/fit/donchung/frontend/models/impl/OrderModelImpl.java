@@ -49,6 +49,23 @@ public class OrderModelImpl implements OrderModel {
     }
 
     @Override
+    public List<OrderDto> getByEmployeeId(Long employeeId) {
+        try(Client client = ClientBuilder.newClient()) {
+            String PATH = "/api/orders/employee/" + employeeId.toString();
+            Response response = client.target(SystemConstant.API_URL)
+                    .path(PATH)
+                    .request(MediaType.APPLICATION_JSON)
+                    .get();
+            if(response.getStatus() == Response.Status.OK.getStatusCode()){
+                return response.readEntity(new GenericType<>() {
+                });
+            } else {
+                return null;
+            }
+        }
+    }
+
+    @Override
     public OrderDto getById(Long id) {
         try(Client client = ClientBuilder.newClient()) {
             String PATH = "/api/orders/" + id.toString();
