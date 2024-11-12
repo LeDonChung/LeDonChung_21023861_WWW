@@ -34,8 +34,7 @@ public class Post {
     @Column(name = "metaTitle", length = 100)
     private String metaTitle;
 
-    @Lob
-    @Column(name = "summary")
+    @Column(name = "content", columnDefinition = "TEXT")
     private String summary;
 
     @Column(name = "published", nullable = false)
@@ -51,13 +50,12 @@ public class Post {
     private Timestamp publishedAt;
 
     @Lob
-    @Column(name = "content")
+    @Column(name = "content", insertable = false, updatable = false)
     private String content;
 
-    @OneToMany(mappedBy = "parent")
-    private Set<Post> posts = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Post> posts;
 
-    @OneToMany(mappedBy = "post")
-    private Set<PostComment> postComments = new LinkedHashSet<>();
-
+    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<PostComment> postComments;
 }

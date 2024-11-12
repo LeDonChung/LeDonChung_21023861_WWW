@@ -1,20 +1,20 @@
-package vn.edu.iuh.fit.donchung.backend.dtos;
+package vn.edu.iuh.fit.donchung.backend.utils.response;
 
 import lombok.*;
+import vn.edu.iuh.fit.donchung.backend.dtos.PostCommentDto;
+import vn.edu.iuh.fit.donchung.backend.dtos.UserDto;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Set;
 
-/**
- * DTO for {@link vn.edu.iuh.fit.donchung.backend.entities.Post}
- */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Builder
-public class PostDto implements Serializable {
+public class PostResponse {
     Long id;
     String title;
     String metaTitle;
@@ -24,7 +24,7 @@ public class PostDto implements Serializable {
     Timestamp updatedAt;
     Timestamp publishedAt;
     String content;
-    UserDto author;
-    PostDto parent;
-    Set<PostCommentDto> postComments;
+    UserResponse author;
+    Long parent;
+    Set<PostCommentResponse> postComments = new HashSet<>();
 }

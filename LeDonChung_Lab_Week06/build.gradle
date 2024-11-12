@@ -24,12 +24,6 @@ repositories {
 }
 
 dependencies {
-<<<<<<< HEAD
-=======
-    // https://mvnrepository.com/artifact/org.mapstruct/mapstruct
-    implementation 'org.mapstruct:mapstruct:1.6.2'
-    annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.2'
->>>>>>> 0b8ce6453648d4826ac29800509f2a975d2e1fc6
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -39,7 +33,6 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-<<<<<<< HEAD
 
     // https://mvnrepository.com/artifact/org.mapstruct/mapstruct
     implementation 'org.mapstruct:mapstruct:1.6.2'
@@ -47,9 +40,12 @@ dependencies {
 
     implementation 'net.datafaker:datafaker:2.4.1'
 
-=======
-    implementation 'net.datafaker:datafaker:2.4.1'
->>>>>>> 0b8ce6453648d4826ac29800509f2a975d2e1fc6
+    implementation 'org.mindrot:jbcrypt:0.4'
+
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.0.3'
+
+
+
 }
 
 tasks.named('test') {
