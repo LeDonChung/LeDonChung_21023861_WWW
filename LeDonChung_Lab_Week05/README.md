@@ -1,5 +1,5 @@
 ## 📝Nội Dung Dựa Án Của Tôi
-- Tên dự án: LeDonChung_Lab_Week01
+- Tên dự án: LeDonChung_Lab_Week05
 - Công nghệ: Spring MVC, Springboot
 - Người hướng dẫn: Võ Văn Hải
 - Người thực hiện: Lê Đôn Chủng
@@ -26,10 +26,10 @@ Bài tập yêu cầu xây dựng một hệ thống quản lý tuyển dụng v
    ```bash
    https://github.com/LeDonChung/LeDonChung_21023861_WWW.git
    ```
-2. Di chuyển tới thư mục LeDonChung_Lab_Week07:
+2. Di chuyển tới thư mục LeDonChung_Lab_Week05:
 
    ```bash
-   cd LeDonChung_Lab_Week07
+   cd LeDonChung_Lab_Week05
    mvn install
    ```
 3. Chạy ứng dụng:
@@ -44,10 +44,10 @@ Bài tập yêu cầu xây dựng một hệ thống quản lý tuyển dụng v
 # III. Lưu ý khi trước khi chạy ứng dụng
 1. Import CSDL `resources/data.sql`
    
-3. Thiết lập `resources/application.properties`
+2. Thiết lập `resources/application.properties`
    
    ```
-    spring.application.name=LeDonCHung_Lab_Week07
+    spring.application.name=LeDonCHung_Lab_Week05
     spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
     spring.datasource.url=jdbc:mariadb://localhost:3306/works
     spring.datasource.username=<your_user>
@@ -58,6 +58,20 @@ Bài tập yêu cầu xây dựng một hệ thống quản lý tuyển dụng v
    ```
    
 # IV. Chức năng đặc biệt
+
+## Account
+### Candidate: 
+- Username: palmer.bosco
+- Password: 123456
+### Company: 
+- Username: jarrett.schulist
+- Password: 123456
+  
+## ERD
+
+![image](https://github.com/user-attachments/assets/8fe7601b-fcdc-4b39-b676-dc4a44d3e95b)
+
+
 ## 1. Hệ thống đăng nhập phân quyền với Spring Security
    - COMPANY: Vai trò này dành cho các công ty, cho phép họ đăng tuyển và quản lý các vị trí công việc, được gợi ý ứng viên dựa trên yêu cầu kĩ năng công việc.
    - CANDIDATE: Vai trò này dành cho ứng viên, cho phép họ xem các công việc gợi ý dựa trên kĩ năng của ứng viên.
@@ -120,7 +134,7 @@ public class AppConfiguration {
 ```
 ### Demo
 
-![Demo](https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week07/src/main/resources/evidences/login.gif)
+![Demo](https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week05/src/main/resources/evidences/login.gif)
 
 ## 2. Gợi ý công việc dựa trên kĩ năng của ứng viên.
 
@@ -159,11 +173,11 @@ public class AppConfiguration {
 
 ### Demo
 
-![Demo](https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week07/src/main/resources/evidences/recommend-job.gif)
+![Demo](https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week05/src/main/resources/evidences/recommend-job.gif)
 
 ## 3. Gợi ý các kĩ năng mà ứng viên còn thiếu để phù hợp với vị trí công việc
 
-![image](https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week07/src/main/resources/evidences/goiy.jpg)
+![image](https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week05/src/main/resources/evidences/goiy.jpg)
 
 ## 4. Công ty có thể tìm kiếm ứng viên phù hợp với vị trí công việc theo tỉ lệ match
 
@@ -200,16 +214,16 @@ public class AppConfiguration {
 
 ### Demo
 
-![Demo](https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week07/src/main/resources/evidences/active.gif)
+![Demo](https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week05/src/main/resources/evidences/active.gif)
    
 
 ## 5. Công ty có thể đăng công việc cần tuyển.
    
-![Demo](https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week07/src/main/resources/evidences/new-job.gif)
+![Demo](https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week05/src/main/resources/evidences/new-job.gif)
 
 ## 6. Công ty có thể quản lý các công việc cần tuyển.
 
-![Demo](https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week07/src/main/resources/evidences/update-job.gif)
+![Demo](https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week05/src/main/resources/evidences/update-job.gif)
 
 ## 📞 Liên Hệ với tôi nếu bạn có câu hỏi nào!
 <div align="left">
