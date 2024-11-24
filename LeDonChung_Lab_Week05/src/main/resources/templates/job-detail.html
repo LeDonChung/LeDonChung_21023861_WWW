@@ -103,15 +103,7 @@
                     <h5 class="mb-0"><i class="fas fa-info-circle"></i> Job Information</h5>
                 </div>
                 <div class="card-body">
-                    <p><strong>Job Description:</strong> [[${job.jobDesc}]] </p>
-                    <p><strong>Requirements:</strong></p>
-                    <ul>
-                        <li><i class="fas fa-check-circle"></i> Strong knowledge of HTML, CSS, JavaScript</li>
-                        <li><i class="fas fa-check-circle"></i> Proficiency in React.js or Vue.js</li>
-                        <li><i class="fas fa-check-circle"></i> Experience with version control systems (Git)</li>
-                        <li><i class="fas fa-check-circle"></i> Experience with REST APIs</li>
-                    </ul>
-
+                    <p><strong>Job Description:</strong> <div th:utext="${job.jobDesc}"></div>  </p>
                     <h6>Required Skills</h6>
                     <ul>
                         <li th:each="jobSkill: ${job.jobSkills}">

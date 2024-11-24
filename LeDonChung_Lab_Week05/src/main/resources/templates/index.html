@@ -1,211 +1,221 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
-
 <head>
     <title>[[${title}]]</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"/>
+    <style>
+        .fixed-card {
+            height: 100%; /* Thẻ card có chiều cao đồng đều */
+        }
+    </style>
 </head>
-
 <body>
 <header class="container">
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">CLME</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item" sec:authorize="hasAnyAuthority('CANDIDATE')">
-                        <a class="nav-link active" aria-current="page" th:href="@{/}">Việc làm</a></li>
+                        <a class="nav-link active" th:href="@{/}">Việc làm</a>
+                    </li>
                     <li class="nav-item"><a class="nav-link" href="#">Cá nhân</a></li>
-                    <li class="nav-item" sec:authorize="hasAnyAuthority('COMPANY')"><a class="nav-link" href="#">Đăng tuyển</a>
+                    <li class="nav-item" sec:authorize="hasAnyAuthority('COMPANY')">
+                        <a class="nav-link" href="#">Đăng tuyển</a>
                     </li>
                 </ul>
                 <form class="d-flex" style="margin-right: 100px;">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
-                <div style="display: flex; align-items: center; justify-content: center;">
-                    <p sec:authorize="isAuthenticated()" style="margin: 0 20px 0;" th:text="${'Hello, ' + #authentication.name}"></p>
+                <div class="d-flex align-items-center">
+                    <p sec:authorize="isAuthenticated()" class="mb-0 me-3" th:text="${'Hello, ' + #authentication.name}"></p>
                     <a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="btn btn-primary me-2">Đăng nhập</a>
                     <a sec:authorize="!isAuthenticated()" href="register.html" class="btn btn-outline-success">Đăng ký</a>
                     <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="btn btn-primary me-2">Đăng xuất</a>
                 </div>
-
             </div>
         </div>
     </nav>
 </header>
 
 <main class="container my-5">
+    <!-- Recommend Jobs Section -->
     <div sec:authorize="hasAnyAuthority('CANDIDATE')">
         <h1 class="mb-4">Recommend Job</h1>
-        <div class="all-job-recommend" >
-            <div class="row g-4">
-                <a class="col-md-4" th:each="item: ${pageRecommend.values}" th:href="@{|/jobs/detail/${item.id}|}" style="text-decoration: none;">
-                    <div class="card fixed-card">
-                        <div class="card-body">
-                            <h5 class="card-title" th:text="${item.jobName}"></h5>
-                            <h6 class="card-subtitle mb-3 text-muted" th:text="${item.company.compName}"></h6>
-                            <div class="d-flex flex-wrap">
-                            <span class="badge me-2 mb-2 random-badge" th:each="skill: ${item.jobSkills}"
-                                  th:text="${skill.skill.skillName}"></span>
+        <div class="all-job-recommend">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col" th:each="item: ${pageRecommend.values}">
+                    <a th:href="@{|/jobs/detail/${item.id}|}" style="text-decoration: none;">
+                        <div class="card fixed-card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${item.jobName}"></h5>
+                                <h6 class="card-subtitle mb-3 text-muted" th:text="${item.company.compName}"></h6>
+                                <div class="d-flex flex-wrap">
+                                    <span class="badge me-2 mb-2 random-badge" th:each="skill: ${item.jobSkills}"
+                                          th:text="${skill.skill.skillName}"></span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
             </div>
         </div>
-
         <!-- Pagination for Recommended Jobs -->
-        <nav aria-label="Page navigation" class="mt-4 all-job-recommend-pagination">
+        <nav aria-label="Page navigation" class="mt-4 all-job-recommend-pagination" th:if="${pageRecommend.totalPages > 0}">
             <ul class="pagination justify-content-center">
                 <li class="page-item" th:classappend="${pageRecommend.page == 0} ? 'disabled'">
-                    <button class="page-link"
-                            th:onclick="|handlerRenderAllJobRecommend(${pageRecommend.page - 1}, 12, ${pageRecommend.totalPages}, ${candidateId})|">
-                        <
-                    </button>
+                    <button class="page-link" th:onclick="|handlerRenderAllJobRecommend(${pageRecommend.page - 1}, 12, ${pageRecommend.totalPages}, ${candidateId})|">&laquo;</button>
                 </li>
-                <li class="page-item" th:each="page : ${#numbers.sequence(pageRecommend.page, pageRecommend.page + 10)}"
+                <li class="page-item" th:each="page : ${#numbers.sequence(0, pageRecommend.totalPages - 1)}"
                     th:classappend="${page == pageRecommend.page} ? 'active'">
                     <button class="page-link" th:text="${page + 1}"
                             th:onclick="|handlerRenderAllJobRecommend(${page}, 12, ${pageRecommend.totalPages}, ${candidateId})|"></button>
                 </li>
                 <li class="page-item" th:classappend="${pageRecommend.page == pageRecommend.totalPages - 1} ? 'disabled'">
-                    <button class="page-link"
-                            th:onclick="|handlerRenderAllJobRecommend(${pageRecommend.page + 1}, 12, ${pageRecommend.totalPages}, ${candidateId})|">
-                        >
-                    </button>
+                    <button class="page-link" th:onclick="|handlerRenderAllJobRecommend(${pageRecommend.page + 1}, 12, ${pageRecommend.totalPages}, ${candidateId})|">&raquo;</button>
                 </li>
             </ul>
         </nav>
     </div>
 
-    <div>
-        <h1 class="mt-5 mb-4">Jobs are hiring</h1>
-        <div class="all-job-list">
-            <div class="row g-4">
-                <a class="col-md-4" th:each="item: ${pageJobs.values}" th:href="@{|/jobs/detail/${item.id}|}" style="text-decoration: none;">
-                    <div class="card fixed-card">
+    <!-- Jobs are hiring Section -->
+    <h1 class="mt-5 mb-4">Jobs are hiring</h1>
+    <div class="all-job-list">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col" th:each="item: ${pageJobs.values}">
+                <a th:href="@{|/jobs/detail/${item.id}|}" style="text-decoration: none;">
+                    <div class="card fixed-card h-100">
                         <div class="card-body">
                             <h5 class="card-title" th:text="${item.jobName}"></h5>
                             <h6 class="card-subtitle mb-3 text-muted" th:text="${item.company.compName}"></h6>
                             <div class="d-flex flex-wrap">
-                            <span class="badge me-2 mb-2 random-badge" th:each="skill: ${item.jobSkills}"
-                                  th:text="${skill.skill.skillName}"></span>
+                                <span class="badge me-2 mb-2 random-badge" th:each="skill: ${item.jobSkills}"
+                                      th:text="${skill.skill.skillName}"></span>
                             </div>
                         </div>
                     </div>
                 </a>
             </div>
         </div>
-
-        <!-- Pagination for Jobs List -->
-        <nav aria-label="Page navigation" class="mt-4 all-job-pagination">
-            <ul class="pagination justify-content-center">
-                <li class="page-item" th:classappend="${pageJobs.page == 0} ? 'disabled'">
-                    <button class="page-link"
-                            th:onclick="|handlerRenderAllJob(${pageJobs.page - 1}, 12, ${pageJobs.totalPages})|"> <
-                    </button>
-                </li>
-                <li class="page-item" th:each="page : ${#numbers.sequence(pageJobs.page, pageJobs.page + 10)}"
-                    th:classappend="${page == pageJobs.page} ? 'active'">
-                    <button class="page-link" th:text="${page + 1}"
-                            th:onclick="|handlerRenderAllJob(${page}, 12, ${pageJobs.totalPages})|"></button>
-                </li>
-                <li class="page-item" th:classappend="${pageJobs.page == pageJobs.totalPages - 1} ? 'disabled'">
-                    <button class="page-link"
-                            th:onclick="|handlerRenderAllJob(${pageJobs.page + 1}, 12, ${pageJobs.totalPages})|"> >
-                    </button>
-                </li>
-            </ul>
-        </nav>
     </div>
+    <!-- Pagination for Jobs List -->
+    <nav aria-label="Page navigation" class="mt-4 all-job-pagination" th:if="${pageJobs.totalPages > 0}">
+        <ul class="pagination justify-content-center" style="flex-wrap: wrap">
+            <li class="page-item" th:classappend="${pageJobs.page == 0} ? 'disabled'" style="margin-top: 20px">
+                <button class="page-link" th:onclick="|handlerRenderAllJob(${pageJobs.page - 1}, 12, ${pageJobs.totalPages})|">&laquo;</button>
+            </li>
+            <li class="page-item" th:each="page : ${#numbers.sequence(0, pageJobs.totalPages - 1)}" style="margin-top: 20px"
+                th:classappend="${page == pageJobs.page} ? 'active'">
+                <button class="page-link" th:text="${page + 1}"
+                        th:onclick="|handlerRenderAllJob(${page}, 12, ${pageJobs.totalPages})|"></button>
+            </li>
+            <li class="page-item" th:classappend="${pageJobs.page == pageJobs.totalPages - 1} ? 'disabled'" style="margin-top: 20px">
+                <button class="page-link" th:onclick="|handlerRenderAllJob(${pageJobs.page + 1}, 12, ${pageJobs.totalPages})|">&raquo;</button>
+            </li>
+        </ul>
+    </nav>
 </main>
 
 <footer></footer>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-        crossorigin="anonymous"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', randomColor);
+    document.addEventListener('DOMContentLoaded', () => {
+        randomColor(); // Áp dụng màu ngẫu nhiên cho badge
+    });
 
     function randomColor() {
         const colors = ['primary', 'secondary', 'success', 'warning', 'info'];
         document.querySelectorAll('.random-badge').forEach(badge => {
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-            badge.classList.add('bg-' + randomColor);
+            badge.classList.add('bg-' + colors[Math.floor(Math.random() * colors.length)]);
         });
     }
 
+    async function fetchData(url) {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`Error: ${response.status}`);
+            return await response.json();
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    }
+
     async function handlerRenderAllJob(page, size, totalPages) {
-        if (page < 0 || page >= totalPages) return;
-        const response = await fetch(`http://localhost:8082/api/jobs?page=${page}&size=${size}`);
-        const data = await response.json();
-        renderJobs(data.values, '.all-job-list');
-        updatePagination('.all-job-pagination', data.page, data.totalPages);
-        randomColor();
+        if (page < 0 || page >= totalPages) return; // Kiểm tra giới hạn trang
+        const data = await fetchData(`http://localhost:8082/api/jobs?page=${page}&size=${size}`);
+        if (data) {
+            renderJobs(data.values, '.all-job-list'); // Cập nhật danh sách công việc
+            updatePagination('.all-job-pagination', data.page, data.totalPages); // Cập nhật phân trang
+        }
     }
 
     async function handlerRenderAllJobRecommend(page, size, totalPages, candidateId) {
-        if (page < 0 || page >= totalPages) return;
-        const response = await fetch(`http://localhost:8082/api/jobs/recommend?page=${page}&size=${size}&candidateId=${candidateId}`);
-        const data = await response.json();
-        renderJobs(data.values, '.all-job-recommend');
-        updatePagination('.all-job-recommend-pagination', data.page, data.totalPages, candidateId);
-        randomColor();
+        if (page < 0 || page >= totalPages) return; // Kiểm tra giới hạn trang
+        const data = await fetchData(`http://localhost:8082/api/jobs/recommend?page=${page}&size=${size}&candidateId=${candidateId}`);
+        if (data) {
+            renderJobs(data.values, '.all-job-recommend'); // Cập nhật danh sách gợi ý
+            updatePagination('.all-job-recommend-pagination', data.page, data.totalPages, candidateId); // Cập nhật phân trang
+        }
     }
 
     function renderJobs(jobs, selector) {
-        document.querySelector(selector).innerHTML = `
-            <div class="row g-4">
+        const container = document.querySelector(selector);
+        container.innerHTML = `
+            <div class="row row-cols-1 row-cols-md-3 g-4">
                 ${jobs.map(job => `
-                    <div class="col-md-4">
-                        <div class="card fixed-card">
-                            <div class="card-body">
-                                <h5 class="card-title">${job.jobName}</h5>
-                                <h6 class="card-subtitle mb-3 text-muted">${job.company.compName}</h6>
-                                <div class="d-flex flex-wrap">
-                                    ${job.jobSkills.map(skill => `
-                                        <span class="badge me-2 mb-2 random-badge">${skill.skill.skillName}</span>
-                                    `).join('')}
+                    <div class="col">
+                        <a href="/jobs/detail/${job.id}" style="text-decoration: none;">
+                            <div class="card fixed-card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">${job.jobName}</h5>
+                                    <h6 class="card-subtitle mb-3 text-muted">${job.company.compName}</h6>
+                                    <div class="d-flex flex-wrap">
+                                        ${job.jobSkills.map(skill => `
+                                            <span class="badge me-2 mb-2 random-badge">${skill.skill.skillName}</span>
+                                        `).join('')}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 `).join('')}
             </div>
         `;
+        randomColor(); // Áp dụng màu ngẫu nhiên sau khi render
     }
 
     function updatePagination(selector, page, totalPages, candidateId = null) {
-        document.querySelector(selector).innerHTML = `
-            <ul class="pagination justify-content-center">
-                <li class="page-item ${page === 0 ? 'disabled' : ''}">
-                    <button class="page-link" onclick="${candidateId ? `handlerRenderAllJobRecommend(${page - 1}, 12, ${totalPages}, ${candidateId})` : `handlerRenderAllJob(${page - 1}, 12, ${totalPages})`}"><</button>
+        const container = document.querySelector(selector);
+        container.innerHTML = `
+            <ul class="pagination justify-content-center" style="flex-wrap: wrap">
+                <!-- Previous Page -->
+                <li class="page-item ${page === 0 ? 'disabled' : ''}"  style="margin-top: 20px">
+                    <button class="page-link" onclick="${candidateId ? `handlerRenderAllJobRecommend(${page - 1}, 12, ${totalPages}, ${candidateId})` : `handlerRenderAllJob(${page - 1}, 12, ${totalPages})`}">&laquo;</button>
                 </li>
-                ${Array.from({length: Math.min(10, totalPages - page)}).map((_, i) => `
-                    <li class="page-item ${page + i === page ? 'active' : ''}">
-                        <button class="page-link" onclick="${candidateId ? `handlerRenderAllJobRecommend(${page + i}, 12, ${totalPages}, ${candidateId})` : `handlerRenderAllJob(${page + i}, 12, ${totalPages})`}">${page + i + 1}</button>
+                <!-- Page Numbers -->
+                ${Array.from({ length: totalPages }, (_, i) => `
+                    <li class="page-item ${i === page ? 'active' : ''}"  style="margin-top: 20px">
+                        <button class="page-link" onclick="${candidateId ? `handlerRenderAllJobRecommend(${i}, 12, ${totalPages}, ${candidateId})` : `handlerRenderAllJob(${i}, 12, ${totalPages})`}">${i + 1}</button>
                     </li>
                 `).join('')}
-                <li class="page-item ${page === totalPages - 1 ? 'disabled' : ''}">
-                    <button class="page-link" onclick="${candidateId ? `handlerRenderAllJobRecommend(${page + 1}, 12, ${totalPages}, ${candidateId})` : `handlerRenderAllJob(${page + 1}, 12, ${totalPages})`}">></button>
+                <!-- Next Page -->
+                <li class="page-item ${page === totalPages - 1 ? 'disabled' : ''}"  style="margin-top: 20px">
+                    <button class="page-link" onclick="${candidateId ? `handlerRenderAllJobRecommend(${page + 1}, 12, ${totalPages}, ${candidateId})` : `handlerRenderAllJob(${page + 1}, 12, ${totalPages})`}">&raquo;</button>
                 </li>
             </ul>
         `;
     }
 </script>
-</body>
 
+</body>
 </html>

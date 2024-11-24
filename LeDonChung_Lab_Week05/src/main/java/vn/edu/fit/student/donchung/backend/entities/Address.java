@@ -29,7 +29,7 @@ public class Address {
     @Column(name = "number", length = 20)
     private String number;
 
-    @Column(name = "zipcode", length = 7)
+    @Column(name = "zipcode")
     private String zipcode;
 
     public Address(String street, String city, CountryCode country, String number, String zipcode) {

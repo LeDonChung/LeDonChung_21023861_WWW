@@ -67,7 +67,7 @@ public class RandomDataTest {
 
     @Test
     public void randomITSkills() {
-        Faker faker = new Faker(new Locale("en"));
+        Faker faker = new Faker(new Locale("vi"));
 
         // List of IT-related skills
         String[] itSkills = {
@@ -114,11 +114,13 @@ public class RandomDataTest {
 
         List<Role> roles = new ArrayList<>();
         roles.add(role.get());
-        Faker faker = new Faker(new Locale("en"));
+        Faker faker = new Faker(new Locale("vi"));
+        Faker faker2 = new Faker(new Locale("en"));
+
         for (int i = 1; i <= 50; i++) {
             Company c = Company.builder()
                     .roles(roles)
-                    .about(faker.company().bs())
+                    .about(faker.lorem().sentence())
                     .phone(faker.phoneNumber().phoneNumber())
                     .email(faker.siliconValley().email())
                     .address(Address.builder()
@@ -130,7 +132,7 @@ public class RandomDataTest {
                             .build())
                     .webUrl(faker.internet().url())
                     .compName(faker.company().name())
-                    .username(faker.internet().username())
+                    .username(faker2.internet().username())
                     .password(passwordEncoder.encode("123456"))
                     .build();
 
@@ -144,10 +146,181 @@ public class RandomDataTest {
     @Autowired
     private JobSkillRepository jobSkillRepository;
 
+    @Test
+    public void randomJobForCompanyVI() {
+        Faker faker = new Faker(new Locale("vi"));
+        List<Company> companies = companyRepository.findAll();
+        List<Skill> skills = skillRepository.findAll();
+
+        for (Company company : companies) {
+            for (int i = 1; i <= 10; i++) {
+                // Randomly choose number of skills (between 3 and 7)
+                int skillCount = new Random().nextInt(5) + 3; // Random number between 3 and 7
+
+                List<Skill> selectedSkills = new ArrayList<>();
+                Set<Long> selectedSkillIds = new HashSet<>(); // Set to store unique skill IDs
+
+                while (selectedSkillIds.size() < skillCount) {
+                    Skill skill = skills.get(new Random().nextInt(skills.size()));
+                    if (!selectedSkillIds.contains(skill.getId())) { // Ensure skill is unique
+                        selectedSkillIds.add(skill.getId());
+                        selectedSkills.add(skill);
+                    }
+                }
+
+                // Generate job description based on selected skills
+                StringBuilder jobDescBuilder = new StringBuilder();
+                jobDescBuilder.append("<p><strong>Công việc yêu cầu kỹ năng: ");
+                for (Skill skill : selectedSkills) {
+                    jobDescBuilder.append(skill.getSkillName()).append(", ");
+                }
+                jobDescBuilder.delete(jobDescBuilder.length() - 2, jobDescBuilder.length()); // Remove trailing comma and space
+                jobDescBuilder.append(".</strong></p>\n");
+
+                // Add detailed job responsibilities based on selected skills
+                jobDescBuilder.append("<p>Chi tiết công việc bao gồm:</p>\n");
+                for (Skill skill : selectedSkills) {
+                    jobDescBuilder.append("<p>- ");
+                    switch (skill.getSkillName()) {
+                        case "HTML":
+                        case "CSS":
+                            jobDescBuilder.append("Phát triển và định dạng các giao diện web với ")
+                                    .append(skill.getSkillName())
+                                    .append(" để đảm bảo tính trực quan và đáp ứng.");
+                            break;
+                        case "JavaScript":
+                            jobDescBuilder.append("Tạo và tối ưu hóa chức năng động cho trang web bằng ")
+                                    .append(skill.getSkillName())
+                                    .append(".");
+                            break;
+                        case "React":
+                        case "Angular":
+                        case "Vue.js":
+                            jobDescBuilder.append("Xây dựng và cải tiến giao diện người dùng với ")
+                                    .append(skill.getSkillName())
+                                    .append(", đảm bảo hiệu suất cao và trải nghiệm người dùng tốt nhất.");
+                            break;
+                        case "Node.js":
+                            jobDescBuilder.append("Phát triển backend sử dụng Node.js để xử lý logic nghiệp vụ và kết nối với cơ sở dữ liệu.");
+                            break;
+                        case "Spring Framework":
+                        case "Django":
+                        case "Flask":
+                        case "Laravel":
+                            jobDescBuilder.append("Xây dựng và bảo trì các ứng dụng web với framework ")
+                                    .append(skill.getSkillName())
+                                    .append(" nhằm đảm bảo tính bảo mật và khả năng mở rộng của hệ thống.");
+                            break;
+                        case "Git":
+                            jobDescBuilder.append("Quản lý phiên bản mã nguồn và làm việc nhóm hiệu quả bằng Git.");
+                            break;
+                        case "Docker":
+                        case "Kubernetes":
+                            jobDescBuilder.append("Sử dụng ")
+                                    .append(skill.getSkillName())
+                                    .append(" để tạo và quản lý container, đảm bảo việc triển khai ứng dụng nhất quán và đáng tin cậy.");
+                            break;
+                        case "AWS":
+                        case "Azure":
+                        case "Google Cloud":
+                            jobDescBuilder.append("Triển khai và quản lý các thành phần ứng dụng trên nền tảng đám mây của ")
+                                    .append(skill.getSkillName())
+                                    .append(".");
+                            break;
+                        case "Machine Learning":
+                        case "Data Science":
+                            jobDescBuilder.append("Phân tích dữ liệu và phát triển các mô hình ")
+                                    .append(skill.getSkillName())
+                                    .append(" để đưa ra dự đoán và tối ưu hóa quyết định.");
+                            break;
+                        case "Cybersecurity":
+                        case "Penetration Testing":
+                            jobDescBuilder.append("Đảm bảo an ninh cho hệ thống bằng cách thực hiện các biện pháp ")
+                                    .append(skill.getSkillName())
+                                    .append(".");
+                            break;
+                        case "DevOps":
+                        case "CI/CD":
+                            jobDescBuilder.append("Thiết lập quy trình ")
+                                    .append(skill.getSkillName())
+                                    .append(" để tự động hóa việc triển khai và nâng cao hiệu suất phát triển phần mềm.");
+                            break;
+                        case "Microservices":
+                            jobDescBuilder.append("Thiết kế và triển khai hệ thống ứng dụng bằng kiến trúc Microservices để tối ưu khả năng mở rộng.");
+                            break;
+                        case "REST APIs":
+                        case "GraphQL":
+                            jobDescBuilder.append("Tích hợp và phát triển API ")
+                                    .append(skill.getSkillName())
+                                    .append(" để kết nối các dịch vụ và luồng dữ liệu trong hệ thống.");
+                            break;
+                        case "Blockchain":
+                        case "Artificial Intelligence":
+                            jobDescBuilder.append("Xây dựng ứng dụng sử dụng công nghệ ")
+                                    .append(skill.getSkillName())
+                                    .append(" để cải thiện tính bảo mật và tự động hóa thông minh.");
+                            break;
+                        case "Big Data":
+                        case "NoSQL":
+                        case "MongoDB":
+                        case "PostgreSQL":
+                        case "MySQL":
+                            jobDescBuilder.append("Quản lý và phân tích dữ liệu lớn với công cụ cơ sở dữ liệu như ")
+                                    .append(skill.getSkillName())
+                                    .append(" để đưa ra quyết định kinh doanh hiệu quả.");
+                            break;
+                        case "Redis":
+                            jobDescBuilder.append("Triển khai bộ nhớ tạm thời bằng Redis để cải thiện hiệu suất và giảm thời gian truy xuất dữ liệu.");
+                            break;
+                        case "Linux":
+                            jobDescBuilder.append("Quản lý và cấu hình hệ thống sử dụng Linux, đảm bảo tính ổn định và bảo mật cho môi trường máy chủ.");
+                            break;
+                        case "Networking":
+                            jobDescBuilder.append("Quản lý và bảo trì các kết nối mạng, đảm bảo tính thông suốt và an toàn.");
+                            break;
+                        default:
+                            jobDescBuilder.append("Sử dụng kỹ năng ")
+                                    .append(skill.getSkillName())
+                                    .append(" để đóng góp vào dự án và giải quyết các vấn đề phát sinh.");
+                            break;
+                    }
+                    jobDescBuilder.append("</p>\n");
+                }
+
+                // Create a job
+                Job job = Job.builder()
+                        .jobName(faker.job().title())
+                        .jobDesc(jobDescBuilder.toString())
+                        .company(company)
+                        .build();
+                job = jobRepository.saveAndFlush(job);
+
+                List<JobSkill> jobSkills = new ArrayList<>();
+
+                for (Skill skill : selectedSkills) {
+                    JobSkill jobSkill = JobSkill.builder()
+                            .id(JobSkillId.builder()
+                                    .jobId(job.getId())  // Now jobId is available
+                                    .skillId(skill.getId())
+                                    .build())
+                            .job(job)
+                            .skill(skill)
+                            .skillLevel(SkillLevel.values()[new Random().nextInt(SkillLevel.values().length)])
+                            .moreInfos(faker.job().position())
+                            .build();
+
+                    jobSkills.add(jobSkill);
+                }
+
+                jobSkillRepository.saveAllAndFlush(jobSkills);
+            }
+        }
+    }
+
 
     @Test
     public void randomJobForCompany() {
-        Faker faker = new Faker(new Locale("en"));
+        Faker faker = new Faker(new Locale("vi"));
         List<Company> companies = companyRepository.findAll();
         List<Skill> skills = skillRepository.findAll();
 
@@ -207,7 +380,9 @@ public class RandomDataTest {
 
     @Test
     public void randomCandidate() {
-        Faker faker = new Faker(new Locale("en"));
+        Faker faker = new Faker(new Locale("vi"));
+        Faker faker2 = new Faker(new Locale("en"));
+
         Optional<Role> role = roleRepository.findByCode("CANDIDATE");
         if (role.isEmpty()) {
             return;
@@ -232,7 +407,7 @@ public class RandomDataTest {
                             .number(faker.address().streetAddressNumber())
                             .build())
                     .fullName(faker.name().fullName())
-                    .username(faker.internet().username())
+                    .username(faker2.internet().username())
                     .password(passwordEncoder.encode("123456"))
                     .candidateSkills(new ArrayList<>())
                     .build();
