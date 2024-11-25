@@ -2,8 +2,8 @@ package vn.edu.fit.student.donchung.frontend.config;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import vn.edu.fit.student.donchung.backend.dtos.RoleDto;
-import vn.edu.fit.student.donchung.backend.dtos.UserDto;
+import vn.edu.fit.student.donchung.frontend.dto.RoleDto;
+import vn.edu.fit.student.donchung.frontend.dto.UserDto;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -6,11 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import vn.edu.fit.student.donchung.backend.dtos.CandidateDto;
-import vn.edu.fit.student.donchung.backend.dtos.JobDto;
-import vn.edu.fit.student.donchung.backend.dtos.PageDto;
-import vn.edu.fit.student.donchung.backend.dtos.UserDto;
 import vn.edu.fit.student.donchung.frontend.config.UserDetails;
+import vn.edu.fit.student.donchung.frontend.dto.JobDto;
+import vn.edu.fit.student.donchung.frontend.dto.PageDto;
 import vn.edu.fit.student.donchung.frontend.models.JobModel;
 import vn.edu.fit.student.donchung.frontend.utils.RoleUtils;
 

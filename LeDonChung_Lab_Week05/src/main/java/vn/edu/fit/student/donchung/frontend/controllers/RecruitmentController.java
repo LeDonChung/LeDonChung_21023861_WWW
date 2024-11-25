@@ -7,9 +7,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import vn.edu.fit.student.donchung.backend.dtos.*;
 import vn.edu.fit.student.donchung.backend.enums.SkillLevel;
 import vn.edu.fit.student.donchung.frontend.config.UserDetails;
+import vn.edu.fit.student.donchung.frontend.dto.*;
 import vn.edu.fit.student.donchung.frontend.models.JobModel;
 import vn.edu.fit.student.donchung.frontend.models.SkillModel;
 

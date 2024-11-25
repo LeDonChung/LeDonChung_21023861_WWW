@@ -6,9 +6,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import vn.edu.fit.student.donchung.backend.dtos.CandidateSkillDto;
-import vn.edu.fit.student.donchung.backend.dtos.SkillDto;
-import vn.edu.fit.student.donchung.backend.entities.Company;
+import vn.edu.fit.student.donchung.frontend.dto.CandidateSkillDto;
 import vn.edu.fit.student.donchung.frontend.models.CandidateModel;
 import vn.edu.fit.student.donchung.frontend.utils.AppUtils;
 

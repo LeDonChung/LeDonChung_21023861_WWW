@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import vn.edu.fit.student.donchung.backend.dtos.UserDto;
+import vn.edu.fit.student.donchung.frontend.dto.UserDto;
 import vn.edu.fit.student.donchung.frontend.models.UserModel;
 
 public class UserDetailService implements UserDetailsService {

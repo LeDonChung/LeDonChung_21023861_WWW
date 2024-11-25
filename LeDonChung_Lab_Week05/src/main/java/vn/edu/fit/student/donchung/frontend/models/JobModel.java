@@ -1,9 +1,9 @@
 package vn.edu.fit.student.donchung.frontend.models;
 
-import org.springframework.data.domain.Page;
-import vn.edu.fit.student.donchung.backend.dtos.CandidateDto;
-import vn.edu.fit.student.donchung.backend.dtos.JobDto;
-import vn.edu.fit.student.donchung.backend.dtos.PageDto;
+
+import vn.edu.fit.student.donchung.frontend.dto.CandidateDto;
+import vn.edu.fit.student.donchung.frontend.dto.JobDto;
+import vn.edu.fit.student.donchung.frontend.dto.PageDto;
 
 public interface JobModel {
     PageDto<JobDto> getJobs(int page, int size);

@@ -8,7 +8,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import vn.edu.fit.student.donchung.backend.dtos.*;
+import vn.edu.fit.student.donchung.frontend.dto.*;
 import vn.edu.fit.student.donchung.frontend.models.JobModel;
 import vn.edu.fit.student.donchung.frontend.utils.AppUtils;
 
