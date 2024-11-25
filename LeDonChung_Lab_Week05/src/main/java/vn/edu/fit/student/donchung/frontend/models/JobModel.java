@@ -19,4 +19,6 @@ public interface JobModel {
     JobDto updateJob(JobDto jobDto);
 
     PageDto<CandidateDto> getCandidatesForJobWithLevel(Long jobId, int per, int page, int size);
+
+    PageDto<JobDto> searchJobs(String filter, String address, int page, int size);
 }

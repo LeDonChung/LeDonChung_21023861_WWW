@@ -118,4 +118,10 @@ public class JobModelImpl implements JobModel {
 
         return pageDto;
     }
+
+    @Override
+    public PageDto<JobDto> searchJobs(String filter, String address, int page, int size) {
+        return restTemplate.getForObject(AppUtils.API_URL + "/jobs/search?filter=" + filter + "&address=" + address + "&page=" + page + "&size=" + size,
+                PageDto.class);
+    }
 }

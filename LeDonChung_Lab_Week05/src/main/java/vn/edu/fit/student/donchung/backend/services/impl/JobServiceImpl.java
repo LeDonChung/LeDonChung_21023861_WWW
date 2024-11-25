@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import vn.edu.fit.student.donchung.backend.converters.CandidateMapper;
 import vn.edu.fit.student.donchung.backend.converters.JobMapper;
@@ -14,6 +15,7 @@ import vn.edu.fit.student.donchung.backend.dtos.PageDto;
 import vn.edu.fit.student.donchung.backend.entities.*;
 import vn.edu.fit.student.donchung.backend.repositories.*;
 import vn.edu.fit.student.donchung.backend.services.JobService;
+import vn.edu.fit.student.donchung.backend.specifications.JobSpecification;
 
 import java.awt.print.Pageable;
 import java.util.ArrayList;
@@ -165,6 +167,22 @@ public class JobServiceImpl implements JobService {
                 .total(pageCandidates.getNumberOfElements())
                 .totalPages(pageCandidates.getTotalPages())
                 .values(pageCandidates.stream().map(candidateMapper::toDto).toList())
+                .build();
+    }
+
+    @Override
+    public PageDto<JobDto> searchJobs(String filter, String address, int page, int size) {
+        Specification<Job> spec = Specification.where(JobSpecification.hasFilter(filter))
+                .and(JobSpecification.hasAddress(address));
+
+        Page<Job> pageJob = jobRepository.findAll(spec, PageRequest.of(page, size));
+
+        return PageDto.<JobDto>builder()
+                .page(page)
+                .size(size)
+                .total(pageJob.getNumberOfElements())
+                .totalPages(pageJob.getTotalPages())
+                .values(pageJob.stream().map(jobMapper::toDto).toList())
                 .build();
     }
 }

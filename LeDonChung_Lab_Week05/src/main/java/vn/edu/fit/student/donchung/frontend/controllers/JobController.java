@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import vn.edu.fit.student.donchung.frontend.config.UserDetails;
 import vn.edu.fit.student.donchung.frontend.dto.*;
 import vn.edu.fit.student.donchung.frontend.models.CandidateModel;
@@ -23,6 +24,24 @@ public class JobController {
     private JobModel jobModel;
     @Autowired
     private CandidateModel candidateModel;
+
+
+    @GetMapping("/search")
+    public String jobSearch(
+                            @RequestParam(value = "page", required = false, defaultValue = "0") int page,
+                            @RequestParam(value = "size", required = false, defaultValue = "12") int size,
+                            @RequestParam(value = "filter", required = false, defaultValue = "") String filter,
+                            @RequestParam(value = "address", required = false, defaultValue = "") String address,
+                            Model model) {
+        PageDto<JobDto> jobs = jobModel.searchJobs(filter, address, page, size);
+        model.addAttribute("filter", filter);
+        model.addAttribute("address", address);
+        model.addAttribute("pageJobs", jobs);
+        return "job-search";
+
+    }
+
+
     @GetMapping("/detail/{jobId}")
     public String jobDetail(@PathVariable String jobId, Principal principal, Model model) {
 

@@ -104,4 +104,15 @@ public class JobResource {
             return ResponseEntity.badRequest().build();
         }
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<PageDto<JobDto>> searchJobs(String filter, String address, int page, int size) {
+        try {
+            PageDto<JobDto> jobs = jobService.searchJobs(filter, address, page, size);
+            return ResponseEntity.ok(jobs);
+        } catch (Exception e) {
+            log.error("Error: " + e.getMessage());
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }

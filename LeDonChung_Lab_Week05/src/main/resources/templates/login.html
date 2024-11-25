@@ -30,8 +30,9 @@
 <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
     <div class="row justify-content-center" style="flex: 1;">
         <div class="col-md-6">
-            <p class="alert alert-warning" th:if="${param.error}"> Username or Password is not correct. </p>
+            <p class="alert alert-warning" th:if="${param.error}"> Tài khoản hoặc mật khẩu không chính xác. </p>
             <p class="alert alert-info" th:if="${param.logout}"> Logout successfully. </p>
+            <p class="alert alert-info" th:if="${message}"> Đăng ký thành công. </p>
             <div class="card login-card">
                 <div class="card-body login-card-body">
                     <h3 class="card-title text-center mb-4">Đăng nhập để tiếp tục</h3>
@@ -52,8 +53,8 @@
                     </form>
 
                     <div class="text-center mt-3">
-                        <a href="#" th:href="@{/forgot-password}" class="link-primary">Quên mật khẩu?</a><br>
-                        <a href="#" th:href="@{/register}" class="link-primary">Đăng nhập</a>
+                        <a href="#" th:href="@{/auth/forgot-password}" class="link-primary">Quên mật khẩu?</a><br>
+                        <a href="#" th:href="@{/auth/register}" class="link-primary">Đăng ký</a>
                     </div>
                 </div>
             </div>

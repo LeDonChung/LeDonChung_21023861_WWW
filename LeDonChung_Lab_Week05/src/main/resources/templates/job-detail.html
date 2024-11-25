@@ -14,38 +14,102 @@
             padding-left: 0;
         }
 
+        .job-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .job-card-body {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .job-company {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .badge {
+            font-size: 0.85em;
+        }
+
+        .card-footer {
+            background-color: #f8f9fa;
+            text-align: right;
+            border-top: 1px solid #e0e0e0;
+            padding: 10px;
+        }
+        .navbar {
+            background: linear-gradient(90deg, #0062E6 0%, #33AEFF 100%);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            color: #fff !important;
+            font-weight: bold;
+        }
+
+        .navbar-nav .nav-link {
+            color: #fff !important;
+            margin-right: 15px;
+            transition: color 0.3s;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #FFDD00 !important;
+        }
+
+        .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .navbar-toggler-icon {
+            background-image: url('data:image/svg+xml;charset=utf8,%3Csvg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath stroke="rgba%28255, 255, 255, 0.5%29" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"/%3E%3C/svg%3E');
+        }
+
     </style>
 </head>
 
 <body>
+
 <header class="container">
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">CLME</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item" sec:authorize="hasAnyAuthority('CANDIDATE')">
-                        <a class="nav-link active" aria-current="page" th:href="@{/}">Việc làm</a></li>
+                        <a class="nav-link active" th:href="@{/}">Việc làm</a>
+                    </li>
                     <li class="nav-item"><a class="nav-link" href="#">Cá nhân</a></li>
-                    <li class="nav-item" sec:authorize="hasAnyAuthority('COMPANY')"><a class="nav-link" href="#">Đăng tuyển</a>
+                    <li class="nav-item" sec:authorize="hasAnyAuthority('COMPANY')">
+                        <a class="nav-link" href="#">Đăng tuyển</a>
                     </li>
                 </ul>
                 <form class="d-flex" style="margin-right: 100px;">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <button class="btn btn-outline-light" type="submit">Search</button>
                 </form>
-                <div style="display: flex; align-items: center; justify-content: center;">
-                    <p sec:authorize="isAuthenticated()" style="margin: 0 20px 0;" th:text="${'Hello, ' + #authentication.name}"></p>
-                    <a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="btn btn-primary me-2">Đăng nhập</a>
-                    <a sec:authorize="!isAuthenticated()" href="register.html" class="btn btn-outline-success">Đăng ký</a>
-                    <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="btn btn-primary me-2">Đăng xuất</a>
+                <div class="d-flex align-items-center">
+                    <p sec:authorize="isAuthenticated()" class="mb-0 me-3" th:text="${'Hello, ' + #authentication.name}" style="color: #fff;"></p>
+                    <a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="btn btn-light me-2">Đăng nhập</a>
+                    <a sec:authorize="!isAuthenticated()" href="register.html" class="btn btn-outline-warning">Đăng ký</a>
+                    <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="btn btn-light me-2">Đăng xuất</a>
                 </div>
-
             </div>
         </div>
     </nav>
@@ -60,12 +124,12 @@
         <div class="col-md-4">
             <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0"><i class="fas fa-building"></i> Company Information</h5>
+                    <h5 class="mb-0"><i class="fas fa-building"></i> Thông tin công ty </h5>
                 </div>
                 <div class="card-body">
-                    <p><strong>Company Name:</strong> [[${job.company.compName}]] </p>
-                    <p><strong>Address:</strong> [[${job.company.getFullAddress()}]]</p>
-                    <p><strong>Phone Number:</strong> <a href="tel:+84123456789"><i class="fas fa-phone"></i> [[${job.company.phone}]]</a></p>
+                    <p><strong>Tên công ty:</strong> [[${job.company.compName}]] </p>
+                    <p><strong>Địa chỉ:</strong> [[${job.company.getFullAddress()}]]</p>
+                    <p><strong>Số điện thoại:</strong> <a href="tel:+84123456789"><i class="fas fa-phone"></i> [[${job.company.phone}]]</a></p>
                     <p><strong>Website:</strong> <a href="https://www.abc.com" target="_blank"><i class="fas fa-globe"></i> [[${job.company.webUrl}]]</a></p>
                 </div>
             </div>
@@ -75,17 +139,17 @@
             <!-- Candidate Information (Card) -->
             <div class="card shadow-sm" sec:authorize="hasAnyAuthority('CANDIDATE')">
                 <div class="card-header bg-info text-white">
-                    <h5 class="mb-0"><i class="fas fa-user"></i> Candidate Information</h5>
+                    <h5 class="mb-0"><i class="fas fa-user"></i> Thông tin ứng viên </h5>
                 </div>
                 <div class="card-body">
-                    <p><strong>Skills You Have:</strong></p>
+                    <p><strong>Kĩ năng bạn có:</strong></p>
                     <ul>
                         <li th:each="skill: ${skillHave}">
                             <p><i class="fas fa-check-circle"></i> [[${skill.skill.skillName}]]<strong>(Level: [[${skill.skillLevel}]])</strong></p>
                         </li>
                     </ul>
 
-                    <p><strong>Skills You Lack:</strong></p>
+                    <p><strong>Kỹ năng còn thiếu:</strong></p>
                     <ul>
                         <li th:each="skill: ${skillNotHave}">
                             <p><i class="fas fa-plug"></i> [[${skill.skill.skillName}]]<strong>(Level: [[${skill.skillLevel}]])</strong></p>
@@ -100,11 +164,11 @@
         <div class="col-md-8">
             <div class="card shadow-sm">
                 <div class="card-header bg-success text-white">
-                    <h5 class="mb-0"><i class="fas fa-info-circle"></i> Job Information</h5>
+                    <h5 class="mb-0"><i class="fas fa-info-circle"></i> Thông tin công việc</h5>
                 </div>
                 <div class="card-body">
-                    <p><strong>Job Description:</strong> <div th:utext="${job.jobDesc}"></div>  </p>
-                    <h6>Required Skills</h6>
+                    <p><strong></strong> <div th:utext="${job.jobDesc}"></div>  </p>
+                    <h6>Kĩ năng yêu cầu</h6>
                     <ul>
                         <li th:each="jobSkill: ${job.jobSkills}">
                             <i class="fas fa-plug"></i> [[${jobSkill.skill.skillName}]]<strong> (Level: [[${jobSkill.skillLevel}]])</strong>
@@ -112,7 +176,7 @@
                     </ul>
 
                     <div sec:authorize="hasAnyAuthority('CANDIDATE')" style="margin: 40px 0;">
-                        <p style="margin: 10px 0">Skill yours match</p>
+                        <p style="margin: 10px 0">Kĩ năng của bạn phù hợp</p>
                         <!-- Progress bar displaying % match -->
                         <div class="progress" style=" height: 30px; border-radius: 50px;">
                             <div class="progress-bar" role="progressbar"
