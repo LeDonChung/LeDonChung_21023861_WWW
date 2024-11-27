@@ -28,24 +28,24 @@
                             <i class="fas fa-tachometer-alt"></i> Dashboard
                         </a>
                     </li>
-                    <li class="nav-item ">
+                    <li class="nav-item">
                         <a class="nav-link active" th:href="@{/recruitments/active}">
-                            <i class="fas fa-briefcase"></i> Active Jobs
+                            <i class="fas fa-briefcase"></i> Việc đang tuyển
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/recruitments/job}">
-                            <i class="fas fa-tasks"></i> Job Management
+                            <i class="fas fa-tasks"></i> Quản lý việc làm
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/recruitments/profile}">
-                            <i class="fas fa-building"></i> Edit Company Profile
+                            <i class="fas fa-building"></i> Cá nhân
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/recruitments/send}">
-                            <i class="fas fa-envelope"></i> Send Request to Candidate
+                            <i class="fas fa-envelope"></i> Gửi mail ứng viên
                         </a>
                     </li>
                 </ul>
@@ -55,11 +55,11 @@
         <!-- Main content -->
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Website for Employers</h1>
+                <h1 class="h2">Trang web cho nhà tuyển dụng</h1>
 
                 <div style="display: flex; align-items: center; justify-content: center;">
                     <p style="font-size: 24px; margin-right: 20px; margin-bottom: 0" th:text="${#authentication.name}"></p>
-                    <a th:href="@{/logout}" class="btn btn-danger">Logout</a>
+                    <a th:href="@{/auth/logout}" class="btn btn-danger">Đăng xuất</a>
                 </div>
             </div>
 
@@ -72,12 +72,12 @@
                     <div class="col-md-4">
                         <div class="card shadow-sm">
                             <div class="card-header bg-primary text-white">
-                                <h5 class="mb-0"><i class="fas fa-building"></i> Company Information</h5>
+                                <h5 class="mb-0"><i class="fas fa-building"></i> Thông tin công ty</h5>
                             </div>
                             <div class="card-body">
-                                <p><strong>Company Name:</strong> [[${job.company.compName}]] </p>
-                                <p><strong>Address:</strong> [[${job.company.getFullAddress()}]]</p>
-                                <p><strong>Phone Number:</strong> <a href="tel:+84123456789"><i
+                                <p><strong>Tên công ty:</strong> [[${job.company.compName}]] </p>
+                                <p><strong>Địa chỉ:</strong> [[${job.company.getFullAddress()}]]</p>
+                                <p><strong>Số điện thoại:</strong> <a href="tel:+84123456789"><i
                                         class="fas fa-phone"></i> [[${job.company.phone}]]</a></p>
                                 <p><strong>Website:</strong> <a href="https://www.abc.com" target="_blank"><i
                                         class="fas fa-globe"></i> [[${job.company.webUrl}]]</a></p>
@@ -89,22 +89,15 @@
                         <!-- Job Information (Card) -->
                         <div class="card shadow-sm">
                             <div class="card-header bg-success text-white">
-                                <h5 class="mb-0"><i class="fas fa-info-circle"></i> Job Information</h5>
+                                <h5 class="mb-0"><i class="fas fa-info-circle"></i> Thông tin công việc</h5>
                             </div>
                             <div class="card-body">
-                                <p><strong>Job Description:</strong> [[${job.jobDesc}]] </p>
-                                <p><strong>Requirements:</strong></p>
-                                <ul>
-                                    <li><i class="fas fa-check-circle"></i> Strong knowledge of HTML, CSS, JavaScript
-                                    </li>
-                                    <li><i class="fas fa-check-circle"></i> Proficiency in React.js or Vue.js</li>
-                                    <li><i class="fas fa-check-circle"></i> Experience with version control systems
-                                        (Git)
-                                    </li>
-                                    <li><i class="fas fa-check-circle"></i> Experience with REST APIs</li>
-                                </ul>
+                                <p><strong>Mô tả công việc:</strong>
+                                    <div th:utext="${job.jobDesc}">
+                                    </div>
+                                </p>
 
-                                <h6>Required Skills</h6>
+                                <h6>Kỹ năng yêu cầu</h6>
                                 <ul>
                                     <li th:each="jobSkill: ${job.jobSkills}">
                                         <i class="fas fa-plug"></i> [[${jobSkill.skill.skillName}]]<strong> (Level:
@@ -136,13 +129,13 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-4" th:each="candidate: ${candidates.values}">
-                                    <div class="card shadow-sm border-0">
+                                    <div class="card shadow-sm border-0 fixed-card-height">
                                         <div class="card-header bg-info text-white d-flex align-items-center">
                                             <i class="fas fa-user me-2"></i>
                                             <h5 class="mb-0" th:text="${candidate.fullName}"></h5>
                                         </div>
                                         <div class="card-body">
-                                            <p><strong>Phone:</strong>
+                                            <p><strong>Số điện thoại:</strong>
                                                 <a href="tel: " class="text-decoration-none">
                                                     <span th:text="${candidate.phone}"></span>
                                                 </a>
@@ -153,17 +146,17 @@
                                                 </a>
                                             </p>
 
-                                            <h6>Skills:</h6>
+                                            <h6>Kỹ năng:</h6>
 
                                             <div class="d-flex flex-wrap">
-                                                <span class="badge me-2 mb-2 random-badge"
-                                                        th:text="${skill.skill.skillName}" th:each="skill: ${candidate.candidateSkills}"></span>
+                    <span class="badge bg-info text-dark me-2 mb-2"
+                          th:text="${skill.skill.skillName}" th:each="skill: ${candidate.candidateSkills}"></span>
                                             </div>
 
                                             <div style="margin: 20px 0;">
-                                                <p style="margin: 10px 0">Match</p>
+                                                <p style="margin: 10px 0">Độ phù hợp</p>
                                                 <!-- Progress bar displaying % match -->
-                                                <div class="progress" style=" height: 30px; border-radius: 50px;">
+                                                <div class="progress" style="height: 30px; border-radius: 50px;">
                                                     <div class="progress-bar" role="progressbar"
                                                          th:style="'width: ' + ${candidate.match} + '%'"
                                                          th:aria-valuenow="${candidate.match}"
@@ -173,16 +166,15 @@
                                                 </div>
                                             </div>
 
-                                            <a class="btn btn-primary w-100"
-                                            >
+                                            <a class="btn btn-primary w-100">
                                                 <i class="fas fa-envelope"></i>
                                             </a>
-
 
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                             <!-- Pagination for Recommended Jobs -->
                             <nav aria-label="Page navigation" class="mt-4 all-job-recommend-pagination" th:if="${candidates.totalPages > 0}">
                                 <ul class="pagination justify-content-center">

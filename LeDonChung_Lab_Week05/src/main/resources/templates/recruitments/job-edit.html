@@ -48,28 +48,28 @@
                 <!-- Sidebar Menu -->
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link " th:href="@{/recruitments/dashboard}">
+                        <a class="nav-link" th:href="@{/recruitments/dashboard}">
                             <i class="fas fa-tachometer-alt"></i> Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/recruitments/active}">
-                            <i class="fas fa-briefcase"></i> Active Jobs
+                            <i class="fas fa-briefcase"></i> Việc đang tuyển
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" th:href="@{/recruitments/job}">
-                            <i class="fas fa-tasks"></i> Job Management
+                            <i class="fas fa-tasks"></i> Quản lý việc làm
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/recruitments/profile}">
-                            <i class="fas fa-building"></i> Edit Company Profile
+                            <i class="fas fa-building"></i> Cá nhân
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/recruitments/send}">
-                            <i class="fas fa-envelope"></i> Send Request to Candidate
+                            <i class="fas fa-envelope"></i> Gửi mail ứng viên
                         </a>
                     </li>
                 </ul>
@@ -79,17 +79,19 @@
         <!-- Main content -->
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Website for Employers</h1>
+                <h1 class="h2">Trang web cho nhà tuyển dụng</h1>
 
                 <div style="display: flex; align-items: center; justify-content: center;">
                     <p style="font-size: 24px; margin-right: 20px; margin-bottom: 0" th:text="${#authentication.name}"></p>
-                    <a th:href="@{/logout}" class="btn btn-danger">Logout</a>
+                    <a th:href="@{/auth/logout}" class="btn btn-danger">Đăng xuất</a>
                 </div>
             </div>
 
             <div>
                 <div style="margin: 20px 0">
-                    <h2>Job Edit</h2>
+
+                    <h2 th:if="${job.id != null}" >Chỉnh sửa công việc</h2>
+                    <h2 th:if="${job.id == null}" >Thêm công việc</h2>
                 </div>
                 <form id="jobForm" th:object="${job}" th:action="@{/recruitments/job/edit}" method="post">
 
@@ -98,18 +100,20 @@
                             <div class="mb-3">
                                 <input th:if="${job.id != null}" type="hidden" th:field="*{id}">
                                 <input type="hidden" th:field="*{company.id}">
-                                <label for="jobName" class="form-label">Job Name</label>
+                                <label for="jobName" class="form-label">Tên công việc</label>
                                 <input type="text" class="form-control" id="jobName" placeholder=""
                                        th:field="*{jobName}">
                             </div>
 
                             <div class="mb-3">
-                                <label for="jobDesc0" class="form-label">Description</label>
+                                <label for="jobDesc0" class="form-label">Mô tả công việc</label>
                                 <textarea class="form-control" name="jobSkillDesc[]" th:field="*{jobDesc}" id="jobDesc0"
                                           rows="3" placeholder=""></textarea>
                             </div>
 
-                            <button type="submit" class="btn btn-primary mt-5" style="width: 100%;">Submit</button>
+                            <button type="submit" th:if="${job.id != null}" class="btn btn-primary mt-5" style="width: 100%;">Chỉnh sửa</button>
+                            <button type="submit" th:if="${job.id == null}" class="btn btn-primary mt-5" style="width: 100%;">Thêm mới</button>
+
                         </div>
 
                         <div class="col-md-5">
@@ -118,10 +122,10 @@
                                      th:each="jobSkill, stat: ${job.jobSkills}">
                                     <div th:if="${jobSkill != null}">
                                         <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; margin: 20px 0">
-                                            <label th:for="'jobSkills' + ${stat.index}" class="form-label">Skills
+                                            <label th:for="'jobSkills' + ${stat.index}" class="form-label">Kĩ năng [[${stat.index + 1}]]
                                             </label>
                                             <button type="button" class="btn btn-danger remove-skill"
-                                                    style="margin-left: auto" th:data-id="${stat.index}">Xóa Kỹ Năng
+                                                    style="margin-left: auto" th:data-id="${stat.index}">Xóa
                                             </button>
 
                                         </div>
@@ -141,7 +145,7 @@
                                                         th:text="${skillLevel}"></option>
                                             </select>
 
-                                            <label class="form-label mt-2">Description</label>
+                                            <label class="form-label mt-2">Mô tả kĩ năng</label>
                                             <textarea class="form-control" rows="3"
                                                       th:field="*{jobSkills[__${stat.index}__].moreInfos}"></textarea>
                                         </div>
@@ -151,11 +155,9 @@
                             </div>
                             <div style="display: flex; align-items: center; justify-content: center; margin-top: 50px;">
                                 <a type="button" class="btn btn-success" th:if="${jobId == null}"
-                                   th:href="@{|/recruitments/job/edit?action=${'newSkill'}&num=${num + 1}|}">New
-                                    Skill</a>
+                                   th:href="@{|/recruitments/job/edit?action=${'newSkill'}&num=${num + 1}|}">Thêm</a>
                                 <a type="button" class="btn btn-success" th:if="${jobId != null}"
-                                   th:href="@{|/recruitments/job/edit/${jobId}?action=${'newSkill'}&num=${num + 1}|}">New
-                                    Skill</a>
+                                   th:href="@{|/recruitments/job/edit/${jobId}?action=${'newSkill'}&num=${num + 1}|}">Thêm</a>
                             </div>
                         </div>
 

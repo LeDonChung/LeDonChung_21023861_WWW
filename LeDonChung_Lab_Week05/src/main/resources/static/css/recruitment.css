@@ -84,3 +84,23 @@ body {
     background-color: #0056b3; /* Đổi màu khi hover */
     transform: scale(1.1); /* Phóng to nút khi hover */
 }
+
+.fixed-card-height {
+    height: 450px; /* Set a fixed height that is comfortable for your content */
+    overflow: hidden; /* Hide any overflow content to keep all cards the same size */
+    display: flex;
+    flex-direction: column;
+}
+
+.card-body {
+    flex-grow: 1;
+    overflow: auto; /* Allow inner content to scroll if it overflows */
+}
+
+.progress {
+    height: 20px; /* Adjust the height of the progress bar if needed */
+}
+
+.btn-primary {
+    margin-top: auto; /* Push the button to the bottom of the card */
+}

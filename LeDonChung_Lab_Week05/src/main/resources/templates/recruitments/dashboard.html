@@ -30,22 +30,22 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/recruitments/active}">
-                            <i class="fas fa-briefcase"></i> Active Jobs
+                            <i class="fas fa-briefcase"></i> Việc đang tuyển
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/recruitments/job}">
-                            <i class="fas fa-tasks"></i> Job Management
+                            <i class="fas fa-tasks"></i> Quản lý việc làm
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/recruitments/profile}">
-                            <i class="fas fa-building"></i> Edit Company Profile
+                            <i class="fas fa-building"></i> Cá nhân
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/recruitments/send}">
-                            <i class="fas fa-envelope"></i> Send Request to Candidate
+                            <i class="fas fa-envelope"></i> Gửi mail ứng viên
                         </a>
                     </li>
                 </ul>
@@ -55,11 +55,11 @@
         <!-- Main content -->
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Website for Employers</h1>
+                <h1 class="h2">Trang web cho nhà tuyển dụng</h1>
 
                 <div style="display: flex; align-items: center; justify-content: center;">
                     <p style="font-size: 24px; margin-right: 20px; margin-bottom: 0" th:text="${#authentication.name}"></p>
-                    <a th:href="@{/logout}" class="btn btn-danger">Logout</a>
+                    <a th:href="@{/auth/logout}" class="btn btn-danger">Đăng xuất</a>
                 </div>
             </div>
 
@@ -79,7 +79,7 @@
                                 </div>
                                 <!-- Button -->
                                 <button class="btn btn-primary">
-                                    <i class="fas fa-eye"></i> View
+                                    <i class="fas fa-eye"></i> Xem
                                 </button>
                             </div>
                         </div>
