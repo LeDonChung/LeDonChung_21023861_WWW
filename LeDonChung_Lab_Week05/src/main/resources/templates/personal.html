@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>[[${title}]]</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"/>
+    <style>
+        .job-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .job-card-body {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .job-company {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .badge {
+            font-size: 0.85em;
+        }
+
+        .card-footer {
+            background-color: #f8f9fa;
+            text-align: right;
+            border-top: 1px solid #e0e0e0;
+            padding: 10px;
+        }
+        .navbar {
+            background: linear-gradient(90deg, #0062E6 0%, #33AEFF 100%);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            color: #fff !important;
+            font-weight: bold;
+        }
+
+        .navbar-nav .nav-link {
+            color: #fff !important;
+            margin-right: 15px;
+            transition: color 0.3s;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #FFDD00 !important;
+        }
+
+        .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .navbar-toggler-icon {
+            background-image: url('data:image/svg+xml;charset=utf8,%3Csvg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath stroke="rgba%28255, 255, 255, 0.5%29" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"/%3E%3C/svg%3E');
+        }
+
+    </style>
+</head>
+<body>
+
+<header class="container">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">CLME</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item" sec:authorize="hasAnyAuthority('CANDIDATE')">
+                        <a class="nav-link active" th:href="@{/}">Việc làm</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link" th:href="@{auth/personal}">Cá nhân</a></li>
+                    <li class="nav-item" sec:authorize="hasAnyAuthority('COMPANY')">
+                        <a class="nav-link" href="#">Đăng tuyển</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <p sec:authorize="isAuthenticated()" class="mb-0 me-3" th:text="${'Hello, ' + #authentication.name}" style="color: #fff;"></p>
+                    <a sec:authorize="!isAuthenticated()" th:href="@{/auth/login}" class="btn btn-light me-2">Đăng nhập</a>
+                    <a sec:authorize="!isAuthenticated()" th:href="@{/auth/register}" class="btn btn-outline-warning">Đăng ký</a>
+                    <a sec:authorize="isAuthenticated()" th:href="@{/auth/logout}" class="btn btn-light me-2">Đăng xuất</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main class="container my-5">
+    <form id="jobForm" th:object="${candidate}" th:action="@{/auth/personal}" method="post">
+
+        <div class="row">
+
+            <div class="col-md-7">
+                <p th:if="${message}" th:text="${message}" class="alert alert-info"></p>
+                <input th:if="${candidate.id != null}" type="hidden" th:field="*{id}">
+
+                <div class="mb-3">
+                    <label for="fullName" class="form-label">Họ và tên</label>
+                    <input type="text" class="form-control" id="fullName" placeholder=""
+                           th:field="*{fullName}">
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Số điện thoại</label>
+                    <input type="text" class="form-control" id="phone" placeholder=""
+                           th:field="*{phone}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="text" class="form-control" id="email" placeholder=""
+                           th:field="*{email}">
+                </div>
+                <div class="mb-3">
+                    <label for="dob" class="form-label">Ngày sinh</label>
+                    <input type="date" class="form-control" id="dob" placeholder="" th:value="*{dob}" name="dob">
+                </div>
+                <div class="mb-3">
+                    <label for="province" class="form-label">Tỉnh/Thành phố</label>
+                    <select class="form-select" id="province" th:field="*{address.city}">
+                        <option value="">Chọn tỉnh/thành phố</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="district" class="form-label">Quận/Huyện</label>
+                    <select class="form-select" id="district">
+                        <option value="">Chọn quận/huyện</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="ward" class="form-label">Phường/Xã</label>
+                    <select class="form-select" id="ward">
+                        <option value="">Chọn phường/xã</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="street" class="form-label">Đường</label>
+                    <input type="text" class="form-control" id="street" placeholder=""
+                           th:field="*{address.street}">
+                </div>
+                <div class="mb-3">
+                    <label for="number" class="form-label">Số nhà</label>
+                    <input type="text" class="form-control" id="number" placeholder=""
+                           th:field="*{address.number}">
+                </div>
+                <div class="mb-3">
+                    <label for="zipcode" class="form-label">Mã bưu điện</label>
+                    <input type="text" class="form-control" id="zipcode" placeholder=""
+                           th:field="*{address.zipcode}">
+                </div>
+                <button type="submit" class="btn btn-primary mt-5" style="width: 100%;">Sửa thông tin</button>
+            </div>
+
+            <div class="col-md-5">
+                <div class="skill-container" id="skillContainer">
+                    <div class="skill-entry" th:id="'skillEntry' + ${stat.index}"
+                         th:each="candidateSkill, stat: ${candidate.candidateSkills}">
+                        <div th:if="${candidateSkill != null}">
+                            <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; margin: 20px 0">
+                                <label th:for="'candidateSkills' + ${stat.index}" class="form-label">Kỹ năng
+                                </label>
+                                <button type="button" class="btn btn-danger remove-skill"
+                                        style="margin-left: auto" th:data-id="${stat.index}">Xóa Kỹ Năng
+                                </button>
+
+                            </div>
+                            <select class="form-select" th:id="'candidateSkills' + ${stat.index}"
+                                    th:field="*{candidateSkills[__${stat.index}__].skill.id}">
+                                <option th:selected="${ candidateSkill.skill.id == skill.id}"
+                                        th:value="${skill.id}" th:each="skill: ${skills}"
+                                        th:text="${skill.skillName}"></option>
+                            </select>
+
+                            <div class="mt-3">
+                                <label class="form-label">Trình độ</label>
+                                <select class="form-select" name="candidateSkillLevel[]"
+                                        th:field="*{candidateSkills[__${stat.index}__].skillLevel}">
+                                    <option th:selected="${candidateSkill.skillLevel == skillLevel}"
+                                            th:value="${skillLevel}" th:each="skillLevel: ${skillLevels}"
+                                            th:text="${skillLevel}"></option>
+                                </select>
+
+                                <label class="form-label mt-2">Mô tả</label>
+                                <textarea class="form-control" rows="3"
+                                          th:field="*{candidateSkills[__${stat.index}__].moreInfos}"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: center; margin-top: 50px;">
+                    <a type="button" class="btn btn-success"
+                       th:href="@{|/auth/personal?action=${'newSkill'}&num=${num + 1}|}">Thêm mới</a>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch("https://provinces.open-api.vn/api/p/")
+            .then(response => response.json())
+            .then(data => {
+                const provinceSelect = document.getElementById("province");
+                data.forEach(province => {
+                    const option = document.createElement("option");
+                    option.value = province.name;
+                    option.text = province.name;
+                    provinceSelect.appendChild(option);
+                });
+            });
+
+        document.getElementById("province").addEventListener("change", function () {
+            const provinceCode = this.value;
+            fetch(`https://provinces.open-api.vn/api/p/${provinceCode}?depth=2`)
+                .then(response => response.json())
+                .then(data => {
+                    const districtSelect = document.getElementById("district");
+                    districtSelect.innerHTML = '<option value="">Chọn quận/huyện</option>';
+                    data.districts.forEach(district => {
+                        const option = document.createElement("option");
+                        option.value = district.name;
+                        option.text = district.name;
+                        districtSelect.appendChild(option);
+                    });
+                });
+        });
+
+        document.getElementById("district").addEventListener("change", function () {
+            const districtCode = this.value;
+            fetch(`https://provinces.open-api.vn/api/d/${districtCode}?depth=2`)
+                .then(response => response.json())
+                .then(data => {
+                    const wardSelect = document.getElementById("ward");
+                    wardSelect.innerHTML = '<option value="">Chọn phường/xã</option>';
+                    data.wards.forEach(ward => {
+                        const option = document.createElement("option");
+                        option.value = ward.name;
+                        option.text = ward.name;
+                        wardSelect.appendChild(option);
+                    });
+                });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const dobInput = document.getElementById("dob");
+            if (dobInput && !dobInput.value) {
+                dobInput.value = new Date().toISOString().split('T')[0];
+            }
+        });
+    });
+</script>
+</body>
+</html>

@@ -11,5 +11,6 @@ public interface CandidateMapper {
     CandidateDto toDto(Candidate candidate);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "candidateSkills", ignore = true)
     Candidate partialUpdate(CandidateDto candidateDto, @MappingTarget Candidate candidate);
 }

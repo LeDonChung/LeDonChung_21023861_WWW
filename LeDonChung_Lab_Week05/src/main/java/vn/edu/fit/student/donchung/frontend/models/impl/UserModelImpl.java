@@ -24,4 +24,14 @@ public class UserModelImpl implements UserModel {
     public UserDto register(UserRegisterDto userRegisterDTO) {
         return restTemplate.postForObject(AppUtils.API_URL + "/users/register", userRegisterDTO, UserDto.class);
     }
+
+    @Override
+    public CandidateDto getByCandidateId(Long candidateId) {
+        return restTemplate.getForObject(AppUtils.API_URL + "/candidates/" + candidateId, CandidateDto.class);
+    }
+
+    @Override
+    public CandidateDto updateCandidate(CandidateDto candidate) {
+        return restTemplate.postForObject(AppUtils.API_URL + "/candidates/update", candidate, CandidateDto.class);
+    }
 }

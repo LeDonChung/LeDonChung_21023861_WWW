@@ -87,7 +87,7 @@
                     <li class="nav-item" sec:authorize="hasAnyAuthority('CANDIDATE')">
                         <a class="nav-link active" th:href="@{/}">Việc làm</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="#">Cá nhân</a></li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link" th:href="@{auth/personal}">Cá nhân</a></li>
                     <li class="nav-item" sec:authorize="hasAnyAuthority('COMPANY')">
                         <a class="nav-link" href="#">Đăng tuyển</a>
                     </li>

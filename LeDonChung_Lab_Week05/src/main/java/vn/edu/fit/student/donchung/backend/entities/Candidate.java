@@ -3,6 +3,7 @@ package vn.edu.fit.student.donchung.backend.entities;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.tensorflow.op.core.All;
 
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
@@ -34,7 +35,7 @@ public class Candidate extends User{
     @JoinColumn(name = "address")
     private Address address;
 
-    @OneToMany(mappedBy = "candidate", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "candidate", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.PERSIST})
     private List<CandidateSkill> candidateSkills;
 
     @OneToMany(mappedBy = "candidate", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
