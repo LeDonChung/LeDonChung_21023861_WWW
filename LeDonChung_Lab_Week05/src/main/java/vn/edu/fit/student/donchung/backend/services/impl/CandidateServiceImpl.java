@@ -57,37 +57,43 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public CandidateDto updateCandidate(CandidateDto candidate) {
+    public CandidateDto updateCandidate(CandidateDto candidateDto) {
 
-        Candidate e = candidateRepository.findById(candidate.getId()).orElse(null);
-        if (e == null) {
-            return null;
+        Candidate candidate = null;
+        if (candidateDto.getId() != null) {
+            candidate = candidateRepository.findById(candidateDto.getId()).orElse(null);
+            if (candidate == null) {
+                return null;
+            } else {
+                candidate = candidateMapper.partialUpdate(candidateDto, candidate);
+            }
+        } else {
+            candidate = candidateMapper.toEntity(candidateDto);
+
         }
 
-        e = candidateMapper.partialUpdate(candidate, e);
-
-        e = candidateRepository.saveAndFlush(e);
-
-        Candidate finalE = e;
+        Candidate finalCandidate = candidate;
         candidate.getCandidateSkills().forEach((candidateSkill) -> {
             Skill skill = skillRepository.findById(candidateSkill.getSkill().getId()).orElse(null);
 
+
             assert skill != null;
-            candidateSkillRepository.save(CandidateSkill.builder()
-                    .skillLevel(candidateSkill.getSkillLevel())
-                    .candidate(finalE)
-                    .moreInfos(candidateSkill.getMoreInfos())
-                    .skill(skill)
-                    .id(
-                            CandidateSkillId.builder()
-                                    .canId(finalE.getId())
-                                    .skillId(skill.getId())
-                                    .build()
-                    ).build());
+
+
+            candidateSkill.setSkillLevel(candidateSkill.getSkillLevel());
+            candidateSkill.setCandidate(finalCandidate);
+            candidateSkill.setMoreInfos(candidateSkill.getMoreInfos());
+            candidateSkill.setSkill(skill);
+            candidateSkill.setId(CandidateSkillId.builder()
+                    .canId(finalCandidate.getId())
+                    .skillId(skill.getId())
+                    .build());
         });
 
-        e = candidateRepository.findById(e.getId()).orElse(null);
 
-        return candidateMapper.toDto(e);
+        candidate = candidateRepository.save(candidate);
+
+        return candidateMapper.toDto(candidate);
+
     }
 }

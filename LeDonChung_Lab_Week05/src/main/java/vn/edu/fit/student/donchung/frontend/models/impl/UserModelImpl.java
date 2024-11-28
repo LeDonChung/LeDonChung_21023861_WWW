@@ -34,4 +34,9 @@ public class UserModelImpl implements UserModel {
     public CandidateDto updateCandidate(CandidateDto candidate) {
         return restTemplate.postForObject(AppUtils.API_URL + "/candidates/update", candidate, CandidateDto.class);
     }
+
+    @Override
+    public void removeSkill(Long candidateId, Long skillId) {
+        restTemplate.delete(AppUtils.API_URL + "/candidates/" + candidateId + "/skills/" + skillId);
+    }
 }

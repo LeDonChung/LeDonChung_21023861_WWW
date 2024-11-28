@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import vn.edu.fit.student.donchung.backend.dtos.CandidateDto;
 import vn.edu.fit.student.donchung.backend.dtos.CandidateSkillDto;
 import vn.edu.fit.student.donchung.backend.services.CandidateService;
+import vn.edu.fit.student.donchung.backend.services.CandidateSkillService;
 
 import java.util.List;
 
@@ -16,6 +17,9 @@ import java.util.List;
 public class CandidateResource {
     @Autowired
     private CandidateService candidateService;
+
+    @Autowired
+    private CandidateSkillService candidateSkillService;
 
     @GetMapping("/{candidateId}/skills")
     public ResponseEntity<List<CandidateSkillDto>> getSkillsByCandidateId(@PathVariable Long candidateId) {
@@ -44,6 +48,17 @@ public class CandidateResource {
         try {
             CandidateDto updatedCandidate = candidateService.updateCandidate(candidate);
             return ResponseEntity.ok(updatedCandidate);
+        } catch (Exception e) {
+            log.error("Error: " + e.getMessage());
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @DeleteMapping("/{candidateId}/skills/{skillId}")
+    public ResponseEntity<Void> removeSkill(@PathVariable Long candidateId, @PathVariable Long skillId) {
+        try {
+            candidateSkillService.removeSkill(candidateId, skillId);
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             log.error("Error: " + e.getMessage());
             return ResponseEntity.badRequest().build();

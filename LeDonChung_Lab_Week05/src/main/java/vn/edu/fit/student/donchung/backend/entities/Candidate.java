@@ -6,6 +6,7 @@ import lombok.experimental.SuperBuilder;
 import org.tensorflow.op.core.All;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,8 +36,8 @@ public class Candidate extends User{
     @JoinColumn(name = "address")
     private Address address;
 
-    @OneToMany(mappedBy = "candidate", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.PERSIST})
-    private List<CandidateSkill> candidateSkills;
+    @OneToMany(mappedBy = "candidate", fetch = FetchType.EAGER, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REMOVE}, orphanRemoval = true)
+    private List<CandidateSkill> candidateSkills = new ArrayList<>();
 
     @OneToMany(mappedBy = "candidate", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Experience> experiences;

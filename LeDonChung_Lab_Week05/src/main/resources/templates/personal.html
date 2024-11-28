@@ -87,7 +87,7 @@
                     <li class="nav-item" sec:authorize="hasAnyAuthority('CANDIDATE')">
                         <a class="nav-link active" th:href="@{/}">Việc làm</a>
                     </li>
-                    <li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link" th:href="@{auth/personal}">Cá nhân</a></li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link" th:href="@{/auth/personal}">Cá nhân</a></li>
                     <li class="nav-item" sec:authorize="hasAnyAuthority('COMPANY')">
                         <a class="nav-link" href="#">Đăng tuyển</a>
                     </li>
@@ -176,10 +176,9 @@
                             <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; margin: 20px 0">
                                 <label th:for="'candidateSkills' + ${stat.index}" class="form-label">Kỹ năng
                                 </label>
-                                <button type="button" class="btn btn-danger remove-skill"
-                                        style="margin-left: auto" th:data-id="${stat.index}">Xóa Kỹ Năng
-                                </button>
-
+                                <a type="button" th:if="${candidate.id != null && candidateSkill.id != null}" class="btn btn-danger remove-skill" th:href="@{|/auth/personal/removeSkill?skillId=${candidateSkill.id.getSkillId()}|}"
+                                   style="margin-left: auto" th:data-id="${stat.index}">Xóa
+                                </a>
                             </div>
                             <select class="form-select" th:id="'candidateSkills' + ${stat.index}"
                                     th:field="*{candidateSkills[__${stat.index}__].skill.id}">
@@ -207,7 +206,7 @@
                 </div>
                 <div style="display: flex; align-items: center; justify-content: center; margin-top: 50px;">
                     <a type="button" class="btn btn-success"
-                       th:href="@{|/auth/personal?action=${'newSkill'}&num=${num + 1}|}">Thêm mới</a>
+                       th:href="@{|/auth/personal?action=${'newSkill'}|}">Thêm mới</a>
                 </div>
             </div>
 

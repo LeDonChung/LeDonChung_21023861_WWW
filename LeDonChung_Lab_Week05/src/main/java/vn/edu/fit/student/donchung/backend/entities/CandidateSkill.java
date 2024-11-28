@@ -16,7 +16,7 @@ public class CandidateSkill {
     private CandidateSkillId id;
 
     @MapsId("canId")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "can_id", nullable = false)
     private Candidate candidate;
 

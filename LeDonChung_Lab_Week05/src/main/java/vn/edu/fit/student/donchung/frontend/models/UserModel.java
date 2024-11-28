@@ -13,4 +13,6 @@ public interface UserModel {
     CandidateDto getByCandidateId(Long candidateId);
 
     CandidateDto updateCandidate(CandidateDto candidate);
+
+    void removeSkill(Long candidateId, Long skillId);
 }
