@@ -26,6 +26,8 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 public class JobServiceImpl implements JobService {
+    @Autowired
+    private JobSkillRepository jobSkillRepository;
 
     @Autowired
     private JobRepository jobRepository;
@@ -126,32 +128,42 @@ public class JobServiceImpl implements JobService {
             return null;
         }
 
+        Job job = null;
+        if (jobDto.getId() != null) {
+            job = jobRepository.findById(jobDto.getId()).orElse(null);
+            if (job == null) {
+                return null;
+            } else {
+                job = jobMapper.partialUpdate(jobDto, job);
+            }
+        } else {
+            job = jobMapper.toEntity(jobDto);
 
-        Job job = jobMapper.toEntity(jobDto);
+        }
+
+
         job.setCompany(company);
 
         Job finalJob = job;
-        List<JobSkill> jobSkills = job.getJobSkills().stream().map((jobSkill) -> {
+        job.getJobSkills().forEach((jobSkill) -> {
             Skill skill = skillRepository.findById(jobSkill.getSkill().getId()).orElse(null);
 
-            if(skill == null) return null;
 
-            return JobSkill.builder()
-                    .skillLevel(jobSkill.getSkillLevel())
-                    .job(finalJob)
-                    .moreInfos(jobSkill.getMoreInfos())
-                    .skill(skill)
-                    .id(
-                            JobSkillId.builder()
-                                    .jobId(finalJob.getId())
-                                    .skillId(skill.getId())
-                                    .build()
-                    ).build();
-        }).filter(Objects::nonNull).collect(Collectors.toList());
+            assert skill != null;
 
-        job.setJobSkills(jobSkills);
-        job = jobRepository.saveAndFlush(job);
-        job = jobRepository.findById(job.getId()).orElse(null);
+
+            jobSkill.setSkillLevel(jobSkill.getSkillLevel());
+            jobSkill.setJob(finalJob);
+            jobSkill.setMoreInfos(jobSkill.getMoreInfos());
+            jobSkill.setSkill(skill);
+            jobSkill.setId(JobSkillId.builder()
+                    .jobId(finalJob.getId())
+                    .skillId(skill.getId())
+                    .build());
+        });
+
+
+        job = jobRepository.save(job);
 
         return jobMapper.toDto(job);
     }

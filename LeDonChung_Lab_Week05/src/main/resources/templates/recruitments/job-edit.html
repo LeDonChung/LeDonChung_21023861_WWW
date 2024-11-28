@@ -124,9 +124,12 @@
                                         <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; margin: 20px 0">
                                             <label th:for="'jobSkills' + ${stat.index}" class="form-label">Kĩ năng [[${stat.index + 1}]]
                                             </label>
-                                            <button type="button" class="btn btn-danger remove-skill"
+                                            <a type="button" th:if="${jobId == null && jobSkill.getSkill() != null}" class="btn btn-danger remove-skill" th:href="@{|/recruitments/job/edit?action=${'removeSkill'}&skillId=${jobSkill.getSkill().id}|}"
                                                     style="margin-left: auto" th:data-id="${stat.index}">Xóa
-                                            </button>
+                                            </a>
+                                            <a type="button" th:if="${jobId != null && jobSkill.getSkill() != null}" class="btn btn-danger remove-skill" th:href="@{|/recruitments/job/deleteSkill/${jobId}?skillId=${jobSkill.getSkill().id}|}"
+                                               style="margin-left: auto" th:data-id="${stat.index}">Xóa
+                                            </a>
 
                                         </div>
                                         <select class="form-select" th:id="'jobSkills' + ${stat.index}"

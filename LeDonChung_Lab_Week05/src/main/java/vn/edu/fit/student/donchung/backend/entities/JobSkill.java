@@ -16,12 +16,12 @@ public class JobSkill {
     private JobSkillId id;
 
     @MapsId("jobId")
-    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "job_id", nullable = false)
     private Job job;
 
     @MapsId("skillId")
-    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "skill_id", nullable = false)
     private Skill skill;
 

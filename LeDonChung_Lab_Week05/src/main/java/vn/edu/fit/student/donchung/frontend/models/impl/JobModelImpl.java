@@ -67,7 +67,7 @@ public class JobModelImpl implements JobModel {
         return response.getBody();
     }
 
-    @Override
+//    @Override
     public JobDto updateJob(JobDto jobDto) {
 //        try{
 //            ResponseEntity<JobDto> response = restTemplate.exchange(
@@ -123,5 +123,10 @@ public class JobModelImpl implements JobModel {
     public PageDto<JobDto> searchJobs(String filter, String address, int page, int size) {
         return restTemplate.getForObject(AppUtils.API_URL + "/jobs/search?filter=" + filter + "&address=" + address + "&page=" + page + "&size=" + size,
                 PageDto.class);
+    }
+
+    @Override
+    public void removeById(Long jobId, Long skillId) {
+        restTemplate.delete(AppUtils.API_URL + "/jobs/" + jobId + "/skills?skillId=" + skillId);
     }
 }

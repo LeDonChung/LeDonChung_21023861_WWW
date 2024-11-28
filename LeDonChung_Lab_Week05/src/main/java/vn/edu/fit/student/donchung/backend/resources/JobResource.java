@@ -8,6 +8,7 @@ import vn.edu.fit.student.donchung.backend.dtos.CandidateDto;
 import vn.edu.fit.student.donchung.backend.dtos.JobDto;
 import vn.edu.fit.student.donchung.backend.dtos.PageDto;
 import vn.edu.fit.student.donchung.backend.services.JobService;
+import vn.edu.fit.student.donchung.backend.services.JobSkillService;
 
 @RestController
 @RequestMapping("/api/jobs")
@@ -16,6 +17,8 @@ public class JobResource {
 
     @Autowired
     private JobService jobService;
+    @Autowired
+    private JobSkillService jobSkillService;
     @GetMapping
     public ResponseEntity<PageDto<JobDto>> getPaginationJobs(int page, int size) {
         try {
@@ -110,6 +113,17 @@ public class JobResource {
         try {
             PageDto<JobDto> jobs = jobService.searchJobs(filter, address, page, size);
             return ResponseEntity.ok(jobs);
+        } catch (Exception e) {
+            log.error("Error: " + e.getMessage());
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @DeleteMapping("/{jobId}/skills")
+    public ResponseEntity<JobDto> deleteJobSkill(@PathVariable Long jobId, @RequestParam Long skillId) {
+        try {
+            jobSkillService.removeCandidateSkill(jobId, skillId);
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             log.error("Error: " + e.getMessage());
             return ResponseEntity.badRequest().build();

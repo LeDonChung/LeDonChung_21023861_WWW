@@ -3,6 +3,7 @@ package vn.edu.fit.student.donchung.backend.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -29,7 +30,7 @@ public class Job {
     @JoinColumn(name = "com_id")
     private Company company;
 
-    @OneToMany(mappedBy = "job", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.PERSIST})
-    private List<JobSkill> jobSkills;
+    @OneToMany(mappedBy = "job", fetch = FetchType.EAGER, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REMOVE}, orphanRemoval = true)
+    private List<JobSkill> jobSkills = new ArrayList<>();
 
 }

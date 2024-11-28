@@ -138,6 +138,7 @@ public class RecruitmentController {
                           @PathVariable(required = false) Long jobId,
                           @ModelAttribute JobDto jobDto,
                           @RequestParam(required = false) String action,
+                          @RequestParam(required = false) String skillId,
                           @RequestParam(required = false, defaultValue = "0") Integer num) {
         if (principal == null) {
             return "redirect:/login";
@@ -166,6 +167,8 @@ public class RecruitmentController {
                 newJobSkill.getSkill().setId((long) -i);
                 jobDto.getJobSkills().add(newJobSkill);
             }
+        } else if("removeSkill".equals(action)) {
+            jobDto.getJobSkills().removeIf(jobSkill -> jobSkill.getSkill().getId().equals(Long.parseLong(skillId)));
         }
         List<SkillDto> skills = skillModel.getAll();
         List<SkillLevel> skillLevels = List.of(SkillLevel.values());
@@ -186,5 +189,17 @@ public class RecruitmentController {
         jobModel.createJob(jobDto);
         return "redirect:/recruitments/job";
 
+    }
+
+    @GetMapping("/job/deleteSkill/{jobId}")
+    public String deleteSkill(Model model, Principal principal,
+                              @PathVariable Long jobId,
+                              @RequestParam Long skillId) {
+        if (principal == null) {
+            return "redirect:/login";
+        }
+
+        jobModel.removeById(jobId, skillId);
+        return "redirect:/recruitments/job/edit/" + jobId;
     }
 }

@@ -57,4 +57,5 @@ public interface JobService {
     PageDto<CandidateDto> findCandidatesForJobWithLevel(Long jobId, int per, int page, int size);
 
     PageDto<JobDto> searchJobs(String filter, String address, int page, int size);
+
 }
