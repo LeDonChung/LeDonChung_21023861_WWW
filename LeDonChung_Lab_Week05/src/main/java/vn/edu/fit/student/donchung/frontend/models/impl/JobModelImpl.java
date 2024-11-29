@@ -132,20 +132,24 @@ public class JobModelImpl implements JobModel {
 
     @Override
     public boolean sendMailToCandidate(Long jobId, Long candidateId) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json");
-        HttpEntity<String> request = new HttpEntity<>(headers);
+
 
         String subject = "";
         String content = "";
         MailDto mailDto = MailDto.builder()
                 .jobId(jobId)
                 .candidateId(candidateId)
+                .content(content)
+                .subject(subject)
                 .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+
         ResponseEntity<Boolean> response = restTemplate.exchange(
                 AppUtils.API_URL + "/emails/sendForCandidate",
                 HttpMethod.POST,
-                request,
+                new HttpEntity<>(mailDto, headers),
                 Boolean.class);
 
         return Objects.requireNonNull(response.getBody());

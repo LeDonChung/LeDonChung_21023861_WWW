@@ -141,7 +141,7 @@
                                                 </a>
                                             </p>
                                             <p><strong>Email:</strong>
-                                                <a th:href="@{/recruitments/job/${job.id}/sendForCandidate/${candidate.id}}" class="text-decoration-none">
+                                                <a th:href="@{/recruitments/job/${job.id}/sendForCandidate/${candidate.id}?per=${per}&page=${candidates.page}&size=${candidates.size}}" class="text-decoration-none">
                                                     <span th:text="${candidate.email}"></span>
                                                 </a>
                                             </p>
@@ -166,7 +166,7 @@
                                                 </div>
                                             </div>
 
-                                            <a class="btn btn-primary w-100">
+                                            <a class="btn btn-primary w-100" th:href="@{|/recruitments/job/${job.id}/sendForCandidate/${candidate.id}?per=${per}&page=${candidates.page}&size=${candidates.size}|}">
                                                 <i class="fas fa-envelope"></i>
                                             </a>
 

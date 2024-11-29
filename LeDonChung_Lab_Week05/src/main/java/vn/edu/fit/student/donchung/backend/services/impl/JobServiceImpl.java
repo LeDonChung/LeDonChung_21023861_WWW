@@ -228,6 +228,9 @@ public class JobServiceImpl implements JobService {
         String subject = String.format("%s - Application for %s Position - %s", job.getCompany().getCompName(), job.getJobName(), candidate.getFullName());
 
         try {
+            if(mailDto.getTo() == null || mailDto.getTo().isEmpty()){
+                mailDto.setTo(candidate.getEmail());
+            }
             mailService.senderForCandidate(job.getCompany(), contentBuilder.toString(), mailDto.getTo(), subject);
 
             Mail mail = Mail.builder()

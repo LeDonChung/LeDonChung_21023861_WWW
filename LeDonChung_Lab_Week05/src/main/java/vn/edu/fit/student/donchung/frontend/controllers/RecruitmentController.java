@@ -205,12 +205,15 @@ public class RecruitmentController {
     @GetMapping("job/{jobId}/sendForCandidate/{candidateId}")
     public String sendForCandidate(Model model, Principal principal,
                                    @PathVariable Long jobId,
-                                   @PathVariable Long candidateId) {
+                                   @PathVariable Long candidateId,
+                                   @RequestParam(defaultValue = "0", required = false) Integer page,
+                                   @RequestParam(defaultValue = "6", required = false) Integer size,
+                                   @RequestParam(defaultValue = "80", required = false) Integer per) {
         if (principal == null) {
             return "redirect:/login";
         }
 
         boolean status = jobModel.sendMailToCandidate(jobId, candidateId);
-        return "redirect:/recruitments/job/" + jobId;
+        return "redirect:/recruitments/job/" + jobId+"?per="+per+"&page="+page+"&size="+size;
     }
 }
