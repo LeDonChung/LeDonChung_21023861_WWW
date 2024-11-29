@@ -41,4 +41,7 @@ public class Candidate extends User{
 
     @OneToMany(mappedBy = "candidate", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Experience> experiences;
+
+    @OneToMany(mappedBy = "candidate", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Mail> mails;
 }

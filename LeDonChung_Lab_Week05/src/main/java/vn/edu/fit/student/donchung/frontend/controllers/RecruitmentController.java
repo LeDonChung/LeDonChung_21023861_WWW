@@ -202,4 +202,15 @@ public class RecruitmentController {
         jobModel.removeById(jobId, skillId);
         return "redirect:/recruitments/job/edit/" + jobId;
     }
+    @GetMapping("job/{jobId}/sendForCandidate/{candidateId}")
+    public String sendForCandidate(Model model, Principal principal,
+                                   @PathVariable Long jobId,
+                                   @PathVariable Long candidateId) {
+        if (principal == null) {
+            return "redirect:/login";
+        }
+
+        boolean status = jobModel.sendMailToCandidate(jobId, candidateId);
+        return "redirect:/recruitments/job/" + jobId;
+    }
 }

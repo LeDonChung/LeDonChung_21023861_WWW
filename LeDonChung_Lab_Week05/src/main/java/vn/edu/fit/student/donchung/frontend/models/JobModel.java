@@ -21,4 +21,6 @@ public interface JobModel {
     PageDto<JobDto> searchJobs(String filter, String address, int page, int size);
 
     void removeById(Long jobId, Long skillId);
+
+    boolean sendMailToCandidate(Long jobId, Long candidateId);
 }

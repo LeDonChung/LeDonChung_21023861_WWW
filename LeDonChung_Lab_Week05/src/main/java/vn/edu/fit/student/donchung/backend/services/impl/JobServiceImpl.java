@@ -11,10 +11,12 @@ import vn.edu.fit.student.donchung.backend.converters.CandidateMapper;
 import vn.edu.fit.student.donchung.backend.converters.JobMapper;
 import vn.edu.fit.student.donchung.backend.dtos.CandidateDto;
 import vn.edu.fit.student.donchung.backend.dtos.JobDto;
+import vn.edu.fit.student.donchung.backend.dtos.MailDto;
 import vn.edu.fit.student.donchung.backend.dtos.PageDto;
 import vn.edu.fit.student.donchung.backend.entities.*;
 import vn.edu.fit.student.donchung.backend.repositories.*;
 import vn.edu.fit.student.donchung.backend.services.JobService;
+import vn.edu.fit.student.donchung.backend.services.MailService;
 import vn.edu.fit.student.donchung.backend.specifications.JobSpecification;
 
 import java.awt.print.Pageable;
@@ -41,6 +43,12 @@ public class JobServiceImpl implements JobService {
     private CandidateMapper candidateMapper;
     @Autowired
     private SkillRepository skillRepository;
+
+    @Autowired
+    private MailService mailService;
+
+    @Autowired
+    private MailRepository mailRepository;
 
     @Override
     public PageDto<JobDto> getJobs(int page, int size) {
@@ -196,5 +204,46 @@ public class JobServiceImpl implements JobService {
                 .totalPages(pageJob.getTotalPages())
                 .values(pageJob.stream().map(jobMapper::toDto).toList())
                 .build();
+    }
+
+    @Override
+    public boolean sendMailToCandidate(MailDto mailDto) {
+        Job job = jobRepository.findById(mailDto.getJobId()).orElse(null);
+        Candidate candidate = candidateRepository.findById(mailDto.getCandidateId()).orElse(null);
+
+
+        if (job == null || candidate == null) {
+            return false;
+        }
+
+        StringBuilder contentBuilder = new StringBuilder()
+                .append(String.format("<p>Kính gửi %s,</p>", candidate.getFullName()))
+                .append(String.format("<p>Chúng tôi rất vui mừng thông báo rằng sau khi xem xét hồ sơ và năng lực của bạn, bạn đã được đề cử cho vị trí <strong>%s</strong> tại <strong>%s</strong>.</p>", job.getJobName(), job.getCompany().getCompName()))
+                .append("<p>Đây là cơ hội tuyệt vời để bạn gia nhập một đội ngũ năng động và góp phần vào sự phát triển của công ty. Chúng tôi tin tưởng rằng kỹ năng và kinh nghiệm của bạn rất phù hợp với yêu cầu của vị trí này, và bạn sẽ là một thành viên tuyệt vời của đội ngũ.</p>")
+                .append(String.format("<p>Chúng tôi xin mời bạn tham gia một cuộc phỏng vấn để thảo luận chi tiết về công việc và các bước tiếp theo trong quy trình tuyển dụng. Vui lòng cho chúng tôi biết thời gian có thể tham gia phỏng vấn bằng cách trả lời email này hoặc liên hệ với chúng tôi qua số điện thoại/email: %s/%s.</p>", job.getCompany().getPhone(), job.getCompany().getEmail()))
+                .append(String.format("<p>Cảm ơn bạn đã quan tâm đến việc gia nhập %s. Chúng tôi rất mong sớm nhận được phản hồi từ bạn.</p>", job.getCompany().getCompName()))
+                .append("<p>Trân trọng,</p>")
+                .append(String.format("<p>HR Department<br>%s</p>", job.getCompany().getCompName()));
+
+        String subject = String.format("%s - Application for %s Position - %s", job.getCompany().getCompName(), job.getJobName(), candidate.getFullName());
+
+        try {
+            mailService.senderForCandidate(job.getCompany(), contentBuilder.toString(), mailDto.getTo(), subject);
+
+            Mail mail = Mail.builder()
+                    .content(contentBuilder.toString())
+                    .candidate(candidate)
+                    .to(mailDto.getTo())
+                    .subject(subject)
+                    .job(job)
+                    .build();
+
+            mailRepository.save(mail);
+            return true;
+
+        } catch (Exception e) {
+            log.error("Error when send mail to candidate", e);
+        }
+        return false;
     }
 }

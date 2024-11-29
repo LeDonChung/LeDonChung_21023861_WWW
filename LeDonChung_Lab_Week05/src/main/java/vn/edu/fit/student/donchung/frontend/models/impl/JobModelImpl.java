@@ -129,4 +129,25 @@ public class JobModelImpl implements JobModel {
     public void removeById(Long jobId, Long skillId) {
         restTemplate.delete(AppUtils.API_URL + "/jobs/" + jobId + "/skills?skillId=" + skillId);
     }
+
+    @Override
+    public boolean sendMailToCandidate(Long jobId, Long candidateId) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+        HttpEntity<String> request = new HttpEntity<>(headers);
+
+        String subject = "";
+        String content = "";
+        MailDto mailDto = MailDto.builder()
+                .jobId(jobId)
+                .candidateId(candidateId)
+                .build();
+        ResponseEntity<Boolean> response = restTemplate.exchange(
+                AppUtils.API_URL + "/emails/sendForCandidate",
+                HttpMethod.POST,
+                request,
+                Boolean.class);
+
+        return Objects.requireNonNull(response.getBody());
+    }
 }

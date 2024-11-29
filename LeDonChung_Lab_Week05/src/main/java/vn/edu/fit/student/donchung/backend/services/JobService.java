@@ -2,6 +2,7 @@ package vn.edu.fit.student.donchung.backend.services;
 
 import vn.edu.fit.student.donchung.backend.dtos.CandidateDto;
 import vn.edu.fit.student.donchung.backend.dtos.JobDto;
+import vn.edu.fit.student.donchung.backend.dtos.MailDto;
 import vn.edu.fit.student.donchung.backend.dtos.PageDto;
 
 import java.awt.print.Pageable;
@@ -56,6 +57,24 @@ public interface JobService {
 
     PageDto<CandidateDto> findCandidatesForJobWithLevel(Long jobId, int per, int page, int size);
 
+    /**
+     * Search job by filter, address with pagination
+     * @param filter is filter
+     * @param address is address
+     * @param page is page number
+     * @param size is size of page
+     * @return list of job
+     */
     PageDto<JobDto> searchJobs(String filter, String address, int page, int size);
 
+
+    /**
+     * Send mail to candidate
+     * @param jobId is id of job
+     * @param candidateId is id of candidate
+     * @param content is content of mail
+     * @param subject is subject of mail
+     * @return true if success, false if fail
+     */
+    boolean sendMailToCandidate(MailDto mailDto);
 }

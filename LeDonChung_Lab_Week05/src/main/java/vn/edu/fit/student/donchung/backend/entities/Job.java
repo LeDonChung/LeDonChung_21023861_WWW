@@ -33,4 +33,6 @@ public class Job {
     @OneToMany(mappedBy = "job", fetch = FetchType.EAGER, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REMOVE}, orphanRemoval = true)
     private List<JobSkill> jobSkills = new ArrayList<>();
 
+    @OneToMany(mappedBy = "job", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    private List<Mail> mails = new ArrayList<>();
 }
