@@ -7,11 +7,12 @@ import java.io.Serializable;
 /**
  * DTO for {@link vn.edu.fit.student.donchung.backend.entities.Mail}
  */
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
+@ToString
 public class MailDto implements Serializable {
     Long id;
     String content;

@@ -20,7 +20,7 @@ public class Mail {
     private String content;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "com_id")
+    @JoinColumn(name = "can_id")
     private Candidate candidate;
 
     @Column(name = "to_email")

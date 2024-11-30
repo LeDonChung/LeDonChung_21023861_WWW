@@ -1,5 +1,6 @@
 package vn.edu.fit.student.donchung.frontend.models.impl;
 
+import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -7,7 +8,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.UnknownContentTypeException;
 import vn.edu.fit.student.donchung.frontend.dto.*;
 import vn.edu.fit.student.donchung.frontend.models.JobModel;
 import vn.edu.fit.student.donchung.frontend.utils.AppUtils;
@@ -153,5 +156,23 @@ public class JobModelImpl implements JobModel {
                 Boolean.class);
 
         return Objects.requireNonNull(response.getBody());
+    }
+
+    @Override
+    public List<MailDto> getAllEmails(Long companyId) {
+        try {
+            String url = AppUtils.API_URL + "/companies/" + companyId + "/emails";
+            ResponseEntity<List<MailDto>> response = restTemplate.exchange(
+                    url,
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<>() {
+                    });
+            return response.getBody();
+            //TODO add new exceptions if necessary or simply use Exception
+        } catch (BeanCreationException | UnknownContentTypeException | HttpClientErrorException e) {
+            System.out.println("exception " + e.getMessage());
+        }
+        return null;
     }
 }

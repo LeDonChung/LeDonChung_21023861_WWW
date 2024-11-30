@@ -3,7 +3,10 @@ package vn.edu.fit.student.donchung.frontend.models;
 
 import vn.edu.fit.student.donchung.frontend.dto.CandidateDto;
 import vn.edu.fit.student.donchung.frontend.dto.JobDto;
+import vn.edu.fit.student.donchung.frontend.dto.MailDto;
 import vn.edu.fit.student.donchung.frontend.dto.PageDto;
+
+import java.util.List;
 
 public interface JobModel {
     PageDto<JobDto> getJobs(int page, int size);
@@ -23,4 +26,6 @@ public interface JobModel {
     void removeById(Long jobId, Long skillId);
 
     boolean sendMailToCandidate(Long jobId, Long candidateId);
+
+    List<MailDto> getAllEmails(Long companyId);
 }

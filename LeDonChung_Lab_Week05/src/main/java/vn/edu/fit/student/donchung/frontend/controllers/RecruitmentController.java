@@ -216,4 +216,18 @@ public class RecruitmentController {
         boolean status = jobModel.sendMailToCandidate(jobId, candidateId);
         return "redirect:/recruitments/job/" + jobId+"?per="+per+"&page="+page+"&size="+size;
     }
+
+    @GetMapping("/send")
+    public String showEmails(Model model, Principal principal) {
+        if (principal == null) {
+            return "redirect:/login";
+        }
+
+        Authentication authentication = (Authentication) principal;
+
+        Long companyId = ((UserDetails) authentication.getPrincipal()).getUser().getId();
+        List<MailDto> emails = jobModel.getAllEmails(companyId);
+        model.addAttribute("emails", emails);
+        return "recruitments/send-email";
+    }
 }

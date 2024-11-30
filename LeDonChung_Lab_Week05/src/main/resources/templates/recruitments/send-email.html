@@ -9,26 +9,7 @@
     <!-- Add Font Awesome CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link th:href="@{/css/recruitment.css}" rel="stylesheet">
-    <style>
-        .view-details-btn {
-            margin-top: 10px;
-            display: inline-flex;
-            align-items: center;
-            font-size: 1rem;
-            color: #007bff;
-            border: none;
-            background: none;
-            cursor: pointer;
-        }
 
-        .view-details-btn i {
-            margin-right: 5px;
-        }
-
-        .view-details-btn:hover {
-            color: #0056b3;
-        }
-    </style>
 </head>
 <body>
 <div class="container-fluid">
@@ -48,7 +29,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" th:href="@{/recruitments/active}">
+                        <a class="nav-link" th:href="@{/recruitments/active}">
                             <i class="fas fa-briefcase"></i> Việc đang tuyển
                         </a>
                     </li>
@@ -58,7 +39,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/recruitments/send}">
+                        <a class="nav-link active" th:href="@{/recruitments/send}">
                             <i class="fas fa-envelope"></i> Gửi mail ứng viên
                         </a>
                     </li>
@@ -72,48 +53,35 @@
                 <h1 class="h2">Trang web cho nhà tuyển dụng</h1>
 
                 <div style="display: flex; align-items: center; justify-content: center;">
-                    <p style="font-size: 24px; margin-right: 20px; margin-bottom: 0" th:text="${#authentication.name}"></p>
+                    <p style="font-size: 24px; margin-right: 20px; margin-bottom: 0"
+                       th:text="${#authentication.name}"></p>
                     <a th:href="@{/auth/logout}" class="btn btn-danger">Đăng xuất</a>
                 </div>
             </div>
 
-            <div sec:authorize="hasAnyAuthority('COMPANY')">
-                <h1 class="mb-4">Việc làm đang tuyển</h1>
-                <div class="all-job-recommend">
-                    <div class="row g-4">
-                        <div class="col-md-4 col-sm-auto" th:each="item: ${jobs.values}">
-                            <div class="card fixed-card">
-                                <div class="card-body" style="align-items: flex-start; height: 180px; ">
-                                    <!-- Job Title and Company -->
-                                    <h5 class="card-title" th:text="${item.jobName}"></h5>
-                                    <h6 class="card-subtitle mb-3 text-muted" th:text="${item.company.compName}"></h6>
-
-                                    <!-- Job Skills -->
-                                    <div class="d-flex flex-wrap">
-                                <span class="badge bg-info text-dark me-2 mb-2" th:each="skill: ${item.jobSkills}"
-                                      th:text="${skill.skill.skillName}"></span>
-                                    </div>
-
-                                    <!-- View Details Button with Icon -->
-                                    <a class="view-details-btn" th:href="@{/recruitments/job/{jobId}(jobId = ${item.id})}">
-                                        <i class="fas fa-eye"></i> Xem
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="row">
+                <!-- Email Table -->
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Tiêu đề</th>
+                            <th scope="col">Nội dung</th>
+                            <th scope="col">Gửi đến</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- Example 1 -->
+                        <tr th:each="email, star: ${emails}">
+                            <th scope="row" th:text="${star.count}"></th>
+                            <td th:text="${email.subject}"></td>
+                            <td th:utext="${email.content}"></td>
+                            <td th:text="${email.to}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
-
-                <!-- Pagination for Recommended Jobs -->
-                <nav aria-label="Page navigation" class="mt-4 all-job-recommend-pagination">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item" th:class="${page == jobs.page} ? 'active'" th:each="page : ${#numbers.sequence(0, jobs.totalPages - 1)}"
-                            >
-                            <a class="page-link" th:text="${page + 1}" th:href="@{|/recruitments/active?page=${page}&size=${jobs.size}|}"></a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
         </main>
     </div>
 </div>
@@ -127,7 +95,17 @@
 
 <!-- jQuery Script -->
 <script>
-    document.addEventListener('DOMContentLoaded', randomColor);
+    $(document).ready(function () {
+        // Update individual card content
+        $('.update-card').click(function () {
+            $(this).siblings('.card-text').text('Content has been updated!');
+        });
+
+        // Update all card contents
+        $('.update-all').click(function () {
+            $('.card-text').text('All cards have been updated!');
+        });
+    });
 </script>
 </body>
 </html>
