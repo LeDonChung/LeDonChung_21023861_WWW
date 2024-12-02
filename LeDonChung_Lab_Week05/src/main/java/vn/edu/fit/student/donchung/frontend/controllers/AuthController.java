@@ -71,7 +71,6 @@ public class AuthController {
     public String personal(
             Model model,
             Principal principal,
-            @RequestParam(required = false) String skillId,
             @RequestParam(required = false) String action,
             HttpSession session
 
@@ -82,7 +81,7 @@ public class AuthController {
         Long candidateId = ((UserDetails) authentication.getPrincipal()).getUser().getId();
 
         CandidateDto candidate = (CandidateDto) session.getAttribute("candidate");
-        if(model.getAttribute("message") != null) {
+        if(model.getAttribute("message") != null || candidateId != null) {
             candidate = userModel.getByCandidateId(candidateId);
         }
 
