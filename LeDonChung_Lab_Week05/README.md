@@ -269,16 +269,21 @@ public class AppConfiguration {
 
 ### Demo
 
-![Demo](https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week05/src/main/resources/evidences/active.gif)
+![Demo](https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week05/src/main/resources/evidences/recommend-candidate.gif)
    
 
-## 5. Công ty có thể đăng công việc cần tuyển.
+## 7. Công ty có thể đăng công việc cần tuyển.
    
-![Demo](https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week05/src/main/resources/evidences/new-job.gif)
+![Demo](https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week05/src/main/resources/evidences/post-job.gif)
 
-## 6. Công ty có thể quản lý các công việc cần tuyển.
+## 8. Công ty có thể gửi email cho ứng viên
 
-![Demo](https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week05/src/main/resources/evidences/update-job.gif)
+![Demo](https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week05/src/main/resources/evidences/send-email.gif)
+
+
+## 9. Công ty có thể quản lý các công việc cần tuyển.
+
+![Demo](https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week05/src/main/resources/evidences/manager-job.png)
 
 ## 📞 Liên Hệ với tôi nếu bạn có câu hỏi nào!
 <div align="left">
