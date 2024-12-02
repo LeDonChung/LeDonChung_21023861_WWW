@@ -16,6 +16,7 @@ Bài tập yêu cầu xây dựng một hệ thống quản lý tuyển dụng v
 5. **Gợi ý công việc cho ứng viên** dựa trên các kỹ năng của họ khi họ đăng nhập.
 6. **Giúp các công ty tìm ứng viên** có kỹ năng phù hợp và gửi email mời.
 7. **Đề xuất các kỹ năng** mà ứng viên chưa có để học thêm.
+8. **Gửi mail cho ứng viên**
 
 # II. Cách cài đặt
 
@@ -47,29 +48,41 @@ Bài tập yêu cầu xây dựng một hệ thống quản lý tuyển dụng v
 2. Thiết lập `resources/application.properties`
    
    ```
-    spring.application.name=LeDonCHung_Lab_Week05
-    spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
-    spring.datasource.url=jdbc:mariadb://localhost:3306/works
-    spring.datasource.username=<your_user>
-    spring.datasource.password=<your_password>
-    server.port=8082
-    spring.jpa.show-sql=true
-    spring.jpa.hibernate.ddl-auto=update
+   spring.application.name=LeDonCHung_Lab_Week05
+   spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
+   spring.datasource.url=jdbc:mariadb://localhost:3306/works
+   spring.datasource.username=root
+   spring.datasource.password=${YOUR_PASSWORD}
+   server.port=${YOUR_PORT}
+   spring.jpa.show-sql=true
+   spring.jpa.hibernate.ddl-auto=update
+      
+   spring.mail.default-encoding=UTF-8
+   spring.mail.host=smtp.gmail.com
+   spring.mail.password=${YOU_MAIL_PASSWORD}
+   spring.mail.port=587
+   spring.mail.properties.mail.debug=true
+   spring.mail.properties.mail.smtp.auth=true
+   spring.mail.properties.mail.smtp.starttls.enable=true
+   spring.mail.protocol=smtp
+   spring.mail.test-connection=false
+   spring.mail.username=${YOUR_EMAIL}
    ```
    
-# IV. Chức năng đặc biệt
+# IV. Chức năng
 
 ## Account
 ### Candidate: 
-- Username: palmer.bosco
+- Username: belkis.champlin
 - Password: 123456
 ### Company: 
-- Username: jarrett.schulist
+- Username: angel.kutch
 - Password: 123456
   
-## ERD
+## Diagram
 
-![image](https://github.com/user-attachments/assets/8fe7601b-fcdc-4b39-b676-dc4a44d3e95b)
+![exported_from_idea drawio](https://github.com/user-attachments/assets/3abfbef7-0ef4-44b5-8c23-afa1df8d8644)
+
 
 
 ## 1. Hệ thống đăng nhập phân quyền với Spring Security
