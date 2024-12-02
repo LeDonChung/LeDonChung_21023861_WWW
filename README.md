@@ -12,7 +12,6 @@ Xin chào, tôi là Chủng, một lập trình viên đam mê công nghệ và 
 - Mã số sinh viên: 21023861
 
 Dự án được xây dựng nhằm làm nơi lưu trữ các bài tập hàng tuần. Ngay bây giờ hãy click vào từng tuần một để xem tôi đang làm gì nhé!
-- [Session 01](https://github.com/LeDonChung/LeDonChung_21023861_WWW/tree/main/LeDonChung_21023861_Session01)
 - [Tuần 01](https://github.com/LeDonChung/LeDonChung_21023861_WWW/tree/main/LeDonChung_Lab_Week01)
 - [Tuần 02](https://github.com/LeDonChung/LeDonChung_21023861_WWW/tree/main/LeDonChung_Lab_Week02)
 - [Tuần 03](https://github.com/LeDonChung/LeDonChung_21023861_WWW/tree/main/LeDonChung_Lab_Week03)
