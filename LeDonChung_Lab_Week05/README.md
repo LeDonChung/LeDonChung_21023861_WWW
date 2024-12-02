@@ -229,7 +229,12 @@ public class AppConfiguration {
 
 ![image](https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week05/src/main/resources/evidences/tim-kiem.png)
 
-## 4. Công ty có thể tìm kiếm ứng viên phù hợp với vị trí công việc theo tỉ lệ match
+## 5. Chỉnh sửa thông tin cá nhân
+
+![Demo](https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week05/src/main/resources/evidences/update-profile.gif)
+
+
+## 6. Công ty có thể tìm kiếm ứng viên phù hợp với vị trí công việc theo tỉ lệ match
 
 ### `JobService`
 ```java
