@@ -145,9 +145,13 @@ public class AppConfiguration {
     }
 }
 ```
-### Demo
+### Demo Đăng nhập
 
 ![Demo](https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week05/src/main/resources/evidences/login.gif)
+
+### Demo Đăng ký 
+
+![Demo](https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week05/src/main/resources/evidences/register.gif)
 
 ## 2. Gợi ý công việc dựa trên kĩ năng của ứng viên.
 
@@ -190,7 +194,40 @@ public class AppConfiguration {
 
 ## 3. Gợi ý các kĩ năng mà ứng viên còn thiếu để phù hợp với vị trí công việc
 
-![image](https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week05/src/main/resources/evidences/goiy.jpg)
+![image](https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week05/src/main/resources/evidences/goi-y.png)
+
+## 4. Tìm kiếm theo nhiều tiêu chí
+
+### `JobSpecification`
+
+```java
+   public class JobSpecification {
+    public static Specification<Job> hasFilter(String filter) {
+        return (root, query, criteriaBuilder) -> {
+            if (filter == null || filter.isEmpty()) {
+                return criteriaBuilder.conjunction();
+            }
+            return criteriaBuilder.or(
+                    criteriaBuilder.like(criteriaBuilder.lower(root.get("jobName")), "%" + filter.toLowerCase() + "%"),
+                    criteriaBuilder.like(criteriaBuilder.lower(root.get("company").get("compName")), "%" + filter.toLowerCase() + "%")
+            );
+        };
+    }
+
+    public static Specification<Job> hasAddress(String address) {
+        return (root, query, criteriaBuilder) -> {
+            if (address == null || address.isEmpty()) {
+                return criteriaBuilder.conjunction();
+            }
+            return criteriaBuilder.like(criteriaBuilder.lower(root.get("company").get("address").get("city")), "%" + address.toLowerCase() + "%");
+        };
+    }
+}
+```
+
+### Demo
+
+![image](https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week05/src/main/resources/evidences/tim-kiem.png)
 
 ## 4. Công ty có thể tìm kiếm ứng viên phù hợp với vị trí công việc theo tỉ lệ match
 
