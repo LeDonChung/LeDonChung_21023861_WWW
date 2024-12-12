@@ -81,7 +81,7 @@ Bài tập yêu cầu xây dựng một hệ thống quản lý tuyển dụng v
   
 ## Diagram
 
-![exported_from_idea drawio](https://github.com/user-attachments/assets/3abfbef7-0ef4-44b5-8c23-afa1df8d8644)
+![](https://github.com/user-attachments/assets/3abfbef7-0ef4-44b5-8c23-afa1df8d8644)
 
 
 
