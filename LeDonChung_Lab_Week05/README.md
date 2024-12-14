@@ -1,9 +1,14 @@
 ## 📝Nội Dung Dựa Án Của Tôi
-- Tên dự án: LeDonChung_Lab_Week05
-- Công nghệ: Spring MVC, Springboot
-- Người hướng dẫn: Võ Văn Hải
-- Người thực hiện: Lê Đôn Chủng
-- Mã số sinh viên: 21023861
+- **Tên dự án**: LeDonChung_Lab_Week05
+- **Công nghệ**: Spring MVC, Spring Boot
+- **Người hướng dẫn**: Võ Văn Hải
+- **Người thực hiện**: Lê Đôn Chủng
+- **Mã số sinh viên**: 21023861
+- **File báo cáo**: [Báo cáo dự án][bao-cao]
+- **File trình bày**: [Presentation][presentation]
+
+[bao-cao]: https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week05/LeDonChung_21023861_BaoCao.docx
+[presentation]: https://github.com/LeDonChung/LeDonChung_21023861_WWW/blob/main/LeDonChung_Lab_Week05/LeDonChung_21023861_Presentation.pptx
 
 # I. Giới thiệu
 
